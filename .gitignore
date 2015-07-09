@@ -1,0 +1,31 @@
+# Ignore artifacts
+bin/
+build/
+
+# Ignore Eclipse
+.project
+.settings
+version.info
+.classpath
+
+### Ignore Jetbrains IDEA files
+# all *.iml files
+*.iml
+*s101*
+*.ipr
+*.iws
+# all folders with .idea
+.idea
+# all .pmd files
+*.pmd
+infinitest*
+/out
+
+### Ignore Gradle files
+.gradle
+.gradle/
+gradle-app.setting
+*.metadata*
+.java-version
+atlassian-ide-plugin.xml
+classes/
