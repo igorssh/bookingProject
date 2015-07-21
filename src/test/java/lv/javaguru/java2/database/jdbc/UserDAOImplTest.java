@@ -13,14 +13,14 @@ import lv.javaguru.java2.domain.User;
 
 public class UserDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
+  //  private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
-    private UserDAOImpl userDAO = new UserDAOImpl();
+  //  private UserDAOImpl userDAO = new UserDAOImpl();
 
-
+/*
     @Before
     public void init() throws DBException {
-        databaseCleaner.cleanDatabase();
+      //  databaseCleaner.cleanDatabase();
     }
 
     @Test
@@ -46,13 +46,13 @@ public class UserDAOImplTest {
         assertEquals(2, users.size());
     }
 
+*/
 
-
-    private User createUser(String firstName, String lastName) {
+  /*  private User createUser(String firstName, String lastName) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
         return user;
-    }
+    }*/
 
 }

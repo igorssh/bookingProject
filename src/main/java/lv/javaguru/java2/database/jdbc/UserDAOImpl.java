@@ -16,7 +16,7 @@ import java.util.List;
 public class UserDAOImpl extends DAOImpl implements UserDAO {
     
     public void create(User user) throws DBException {
-        if (user == null) {
+      /*  if (user == null) {
             return;
         }
 
@@ -40,12 +40,12 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
             throw new DBException(e);
         } finally {
             closeConnection(connection);
-        }
+        }*/
 
     }
     
     public User getById(Long id) throws DBException {
-        Connection connection = null;
+     /*   Connection connection = null;
 
         try {
             connection = getConnection();
@@ -67,11 +67,12 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
             throw new DBException(e);
         } finally {
             closeConnection(connection);
-        }
+        }*/
+        return null;
     }
 
     public List<User> getAll() throws DBException {
-        List<User> users = new ArrayList<User>();
+      /*  List<User> users = new ArrayList<User>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -92,11 +93,12 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
         } finally {
             closeConnection(connection);
         }
-        return users;
+        return users;*/
+        return null;
     }
     
     public void delete(Long id) throws DBException {
-        Connection connection = null;
+     /*   Connection connection = null;
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
@@ -109,11 +111,11 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
             throw new DBException(e);
         } finally {
             closeConnection(connection);
-        }
+        }*/
     }
     
     public void update(User user) throws DBException {
-        if (user == null) {
+      /*  if (user == null) {
             return;
         }
 
@@ -133,7 +135,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO {
             throw new DBException(e);
         } finally {
             closeConnection(connection);
-        }
+        }*/
     }
 
 }

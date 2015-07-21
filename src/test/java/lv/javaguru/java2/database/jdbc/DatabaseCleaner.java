@@ -14,11 +14,13 @@ public class DatabaseCleaner extends DAOImpl {
 
     private List<String> getTableNames() {
         List<String> tableNames = new ArrayList<String>();
-        tableNames.add("USERS");
+       // tableNames.add("USERS");
+        tableNames.add("apartaments");
         return tableNames;
     }
 
     public void cleanDatabase() throws DBException {
+       // System.out.println("cleanDB_vt");
         for(String tableName : getTableNames()) {
             Connection connection = getConnection();
             try {
