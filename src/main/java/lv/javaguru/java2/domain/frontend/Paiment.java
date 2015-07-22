@@ -15,20 +15,32 @@ public class Paiment {
     private short pay_type;
     private Date timestamp;
     private String referent;
-    private Klient klient;
+  //  private Klient klient;
 
    // private PaimentListiner listiner;
 
-    public Klient getKlient() {
+ /*   public Klient getKlient() {
         return klient;
     }
 
     public void setKlient(Klient klient) {
         this.klient = klient;
     }
-
+*/
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     public double getMoney() {

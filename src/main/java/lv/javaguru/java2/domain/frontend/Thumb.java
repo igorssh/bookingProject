@@ -40,6 +40,10 @@ package lv.javaguru.java2.domain.frontend;
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setDesc(String desc) {
         this.desc = desc;
     }

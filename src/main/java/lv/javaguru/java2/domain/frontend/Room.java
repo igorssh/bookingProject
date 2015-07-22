@@ -1,6 +1,6 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,10 +15,10 @@ public class Room {
    private double price_per_day;
    private String desc;
    private Date texn_repo;
-   private List<Thumb> thumbs;
+ /*  private List<Thumb> thumbs;
    private List<Rezervation> rezs;
    private ApClass aclass;
-   private Apartament apt;
+   private Apartament apt;*/
 
    public void Room(){
       this.num = 0;
@@ -26,30 +26,30 @@ public class Room {
       this.price_per_day = 0.0;
       this.desc = "";
       this.texn_repo = null;
-      this.thumbs =  new LinkedList<Thumb>();
+     /* this.thumbs =  new LinkedList<Thumb>();
       this.aclass = new ApClass();
       this.rezs = new LinkedList<Rezervation>();
-      this.apt = new Apartament();
+      this.apt = new Apartament();*/
    }
-   public void Room(int n, int p, String dsc, Date dt, ApClass ac, List<Thumb> thbs, List<Rezervation> rzs, double ppd, Apartament ap ){
+   public void Room(int n, int p, String dsc, Date dt,  double ppd/*, ApClass ac* List<Thumb> thbs, List<Rezervation> rzs, Apartament ap */){
       this.num = n;
       this.pcount = p;
       this.price_per_day = ppd;
       this.desc = dsc;
       this.texn_repo = dt;
-      this.aclass = ac;
+    /*  this.aclass = ac;
       this.thumbs = thbs;
       this.rezs = rzs;
-      this.apt = ap;
+      this.apt = ap;*/
    }
 
-   public Apartament getApt() {
+  /* public Apartament getApt() {
       return apt;
    }
 
    public void setApt(Apartament apt) {
       this.apt = apt;
-   }
+   }*/
 
    public double getPrice_per_day() {
       return price_per_day;
@@ -59,7 +59,7 @@ public class Room {
       this.price_per_day = price_per_day;
    }
 
-   public List<Thumb> getThumbs() {
+ /*  public List<Thumb> getThumbs() {
       return thumbs;
    }
 
@@ -73,10 +73,14 @@ public class Room {
 
    public void setRezs(List<Rezervation> rezs) {
       this.rezs = rezs;
-   }
+   }*/
 
    public long getId() {
       return id;
+   }
+
+   public void setId(long id) {
+      this.id = id;
    }
 
    public Date getTexn_repo() {
@@ -111,11 +115,11 @@ public class Room {
       this.desc = desc;
    }
 
-   public ApClass getAclass() {
+ /*  public ApClass getAclass() {
       return aclass;
    }
 
    public void setAclass(ApClass aclass) {
       this.aclass = aclass;
-   }
+   }*/
 }

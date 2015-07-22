@@ -1,6 +1,7 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,6 +56,18 @@ public class Rezervation {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public void setStatus(boolean status) {
