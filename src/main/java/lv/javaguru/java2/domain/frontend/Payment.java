@@ -1,32 +1,32 @@
 package lv.javaguru.java2.domain.frontend;
 
-//import edu.booking.core.backend.PaimentListiner;
+//import edu.booking.core.backend.PaymentListener;
 
 import java.util.Date;
 
 /**
  * Created by Aleksej_home on 2015.07.15..
  */
-public class Paiment {
+public class Payment {
 
     private long id;
     private double money;
     private String desc;
-    private short pay_type;
+    private short paymentType;
     private Date timestamp;
     private String referent;
-  //  private Klient klient;
+    private Client client;
 
-   // private PaimentListiner listiner;
+//    private PaymentListener listener;
 
- /*   public Klient getKlient() {
-        return klient;
+    public Client getClient() {
+        return client;
     }
 
-    public void setKlient(Klient klient) {
-        this.klient = klient;
+    public void setClient(Client client) {
+        this.client = client;
     }
-*/
+
     public long getId() {
         return id;
     }
@@ -59,12 +59,12 @@ public class Paiment {
         return desc;
     }
 
-    public short getPay_type() {
-        return pay_type;
+    public short getPaymentType() {
+        return paymentType;
     }
 
-    public void setPay_type(short pay_type) {
-        this.pay_type = pay_type;
+    public void setPaymentType(short paymentType) {
+        this.paymentType = paymentType;
     }
 
     public String getReferent() {
@@ -75,7 +75,7 @@ public class Paiment {
         this.referent = referent;
     }
 
-   /* public void setListiner(PaimentListiner listiner) {
-        this.listiner = listiner;
+/*    public void setListener(PaymentListener listener) {
+        this.listener = listener;
     }*/
 }

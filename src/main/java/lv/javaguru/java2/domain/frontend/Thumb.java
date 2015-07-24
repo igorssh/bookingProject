@@ -3,34 +3,36 @@ package lv.javaguru.java2.domain.frontend;
 /**
  * Created by Aleksej_home on 2015.07.14..
  */
-    public class Thumb {
+
+public class Thumb {
 
     private long id;
     private String label;
     private String desc;
     private String orig;
-  //  private Room room;
+    private Room room;
 
-    public void Thumb(){
+    public void Thumb() {
         this.label = "";
         this.desc = "";
         this.orig = "";
-     //   this.room = new Room();
-    }
-    public void Thumb(String la,String dsc,String or/*, Room rm*/){
-        this.label = la;
-        this.desc = dsc;
-        this.orig = or;
-     //   this.room = rm;
+        this.room = new Room();
     }
 
-  /*  public Room getRoom() {
+    public void Thumb(String label, String desc, String orig, Room room){
+        this.label = label;
+        this.desc = desc;
+        this.orig = orig;
+        this.room = room;
+    }
+
+    public Room getRoom() {
         return room;
     }
 
     public void setRoom(Room room) {
         this.room = room;
-    }*/
+    }
 
     public String getDesc() {
         return desc;

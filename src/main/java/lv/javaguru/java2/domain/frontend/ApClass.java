@@ -10,18 +10,18 @@ public class ApClass {
     private long id;
     private short classId;
     private String desc;
-  //  private List<Extra> extras;
+    private List<Extra> extras;
 
-    public void ApClass(){
+    public void ApClass() {
         this.classId = 0;
         this.desc = "";
-
+        this.extras = new LinkedList<Extra>();
     }
 
-    public void ApClass(short in, String dsc){
-        this.classId = in;
-        this.desc = dsc;
-
+    public void ApClass(short classId, String desc, List<Extra> extras) {
+        this.classId = classId;
+        this.desc = desc;
+        this.extras = extras;
     }
 
 

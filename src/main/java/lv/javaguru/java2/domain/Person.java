@@ -8,13 +8,12 @@ abstract public class Person {
     protected String name;
     protected String surname;
     protected String email;
-    protected String tele;
+    protected String phone;
 
-  /*  private boolean checkEmail(){
+    private boolean checkEmail() {
         return true;
     }
-    private boolean checkTele(){
+    private boolean checkPhone() {
         return true;
-    }*/
-   // abstract private boolean checkEmail()
+    }
 }

@@ -12,36 +12,38 @@ public class Mordor {
     private String desc;
     private String logo;
     private String office;
-    private String tele;
-    private String reg_num;
-   // private List<Apartament> apts;
+    private String phone;
+    private String registryNumber;
+    private List<Apartment> apartments;
 
-    public void Mordor(){
+    public void Mordor() {
         this.label = "";
         this.desc = "";
         this.logo = "";
         this.office = "";
-        this.tele = "";
-        this.reg_num = "";
-      //  this.apts = new LinkedList<Apartament>();
-    }
-    public void Mordor(String lb,String dsc,String lo,String of,String te,String reg, List<Apartament> apt){
-        this.label = lb;
-        this.desc = dsc;
-        this.logo = lo;
-        this.office = of;
-        this.tele = te;
-        this.reg_num = reg;
-    //    this.apts = apt;
+        this.phone = "";
+        this.registryNumber = "";
+        this.apartments = new LinkedList<Apartment>();
     }
 
-  /*  public List<Apartament> getApts() {
-        return apts;
+    public void Mordor(String label, String desc, String logo, String office, String phone,
+                       String registryNumber, List<Apartment> apartments) {
+        this.label = label;
+        this.desc = desc;
+        this.logo = logo;
+        this.office = office;
+        this.phone = phone;
+        this.registryNumber = registryNumber;
+        this.apartments = apartments;
     }
 
-    public void setApts(List<Apartament> apts) {
-        this.apts = apts;
-    }*/
+    public List<Apartment> getApartments() {
+        return apartments;
+    }
+
+    public void setApartments(List<Apartment> apartments) {
+        this.apartments = apartments;
+    }
 
     public String getDesc() {
         return desc;
@@ -67,12 +69,12 @@ public class Mordor {
         this.logo = logo;
     }
 
-    public void setTele(String tele) {
-        this.tele = tele;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getTele() {
-        return tele;
+    public String getPhone() {
+        return phone;
     }
 
     public String getOffice() {
@@ -83,12 +85,11 @@ public class Mordor {
         this.office = office;
     }
 
-    public String getReg_num() {
-        return reg_num;
+    public String getRegistryNumber() {
+        return registryNumber;
     }
 
-    public void setReg_num(String reg_num) {
-        this.reg_num = reg_num;
+    public void setRegistryNumber(String registryNumber) {
+        this.registryNumber = registryNumber;
     }
-
 }

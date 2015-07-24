@@ -10,17 +10,18 @@ public class Extra {
     private double cost;
     private String pic;
 
-    public void Extra(){
+    public void Extra() {
         this.label = "";
         this.desc = "";
         this.cost = 0.0;
         this.pic = "";
     }
-    public void Extra(String lb, String dsc,String pc, double ct){
-        this.label = lb;
-        this.desc = dsc;
-        this.cost = ct;
-        this.pic = pc;
+
+    public void Extra(String label, String desc, String pic, double cost) {
+        this.label = label;
+        this.desc = desc;
+        this.cost = cost;
+        this.pic = pic;
     }
 
     public long getId() {

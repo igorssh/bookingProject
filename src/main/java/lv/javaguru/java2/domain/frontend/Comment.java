@@ -3,38 +3,36 @@ package lv.javaguru.java2.domain.frontend;
 import java.util.Date;
 
 /**
- * Created by Aleksej_home on 2015.07.15..
+ * Created by Aleksej_home on 2015.07.15
  */
 public class Comment {
     private long id;
     private String head;
     private String desc;
     private Date timestamp;
-  //  private Klient klient;
+    private Client client;
 
-
-
-    public void Comment(){
+    public void Comment() {
         this.head = "";
         this.desc = "";
         this.timestamp = null;
-      //  this.klient = new Klient();
-    }
-    public void Comment(String he,String dsc, Date tm/*, Klient kl*/){
-        this.head = he;
-        this.desc = dsc;
-        this.timestamp = tm;
-      //  this.klient = kl;
+        this.client = new Client();
     }
 
+    public void Comment(String head, String desc, Date timestamp, Client client) {
+        this.head = head;
+        this.desc = desc;
+        this.timestamp = timestamp;
+        this.client = client;
+    }
 
- /*   public Klient getKlient() {
-        return klient;
-    }*/
+    public Client getClient() {
+        return client;
+    }
 
- /*   public void setKlient(Klient klient) {
-        this.klient = klient;
-    }*/
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;

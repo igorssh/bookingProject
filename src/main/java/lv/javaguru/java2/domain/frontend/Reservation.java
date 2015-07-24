@@ -8,47 +8,47 @@ import java.util.List;
 /**
  * Created by Aleksej_home on 2015.07.15..
  */
-public class Rezervation {
+public class Reservation {
 
     private long id;
     private Date from;
-    private Date to;
-    private int p_count;
+    private Date till;
+    private int placesCount;
     private Date timestamp;
     private boolean status;
-   /* private List<Extra> extras;
-    private Klient klient;
-    private Room room;*/
+    private List<Extra> extras;
+    private Client client;
+    private Room room;
 
-    public void Rezervation(){
+    public void Reservation() {
         this.from = null;
-        this.to = null;
-        this.p_count = 0;
+        this.till = null;
+        this.placesCount = 0;
         this.timestamp = null;
         this.status = false;
-      /*  this.extras = new LinkedList<Extra>();
-        this.klient = new Klient();
-        this.room = new Room();*/
-
+        this.extras = new LinkedList<Extra>();
+        this.client = new Client();
+        this.room = new Room();
     }
-    public void Rezervation(Date fr, Date t, int p, boolean st/*, List<Extra> ext, Klient kl, Room rm */){
-        this.from = fr;
-        this.to = t;
-        this.p_count = p;
+
+    public void Reservation(Date from, Date till, int placesCount, boolean status, List<Extra> extras, Client client, Room room) {
+        this.from = from;
+        this.till = till;
+        this.placesCount = placesCount;
         this.timestamp = null;
-        this.status = st;
-       /* this.extras = ext;
-        this.klient = kl;
-        this.room = rm;*/
+        this.status = status;
+        this.extras = extras;
+        this.client = client;
+        this.room = room;
     }
 
-  /*  public Room getRoom() {
+    public Room getRoom() {
         return room;
     }
 
     public void setRoom(Room room) {
         this.room = room;
-    }*/
+    }
 
     public boolean isStatus() {
         return status;
@@ -82,28 +82,28 @@ public class Rezervation {
         this.from = from;
     }
 
-    public Date getTo() {
-        return to;
+    public Date getTill() {
+        return till;
     }
 
-    public void setTo(Date to) {
-        this.to = to;
+    public void setTill(Date till) {
+        this.till = till;
     }
 
-    public int getP_count() {
-        return p_count;
+    public int getPlacesCount() {
+        return placesCount;
     }
 
-    public void setP_count(int p_count) {
-        this.p_count = p_count;
+    public void setPlacesCount(int placesCount) {
+        this.placesCount = placesCount;
     }
 
- /*   public Klient getKlient() {
-        return klient;
+    public Client getClient() {
+        return client;
     }
 
-    public void setKlient(Klient klient) {
-        this.klient = klient;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public List<Extra> getExtras() {
@@ -112,5 +112,5 @@ public class Rezervation {
 
     public void setExtras(List<Extra> extras) {
         this.extras = extras;
-    }*/
+    }
 }

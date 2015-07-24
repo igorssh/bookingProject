@@ -8,58 +8,59 @@ import java.util.List;
  * Created by Aleksej_home on 2015.07.14..
  */
 public class Room {
-
    private long id;
-   private int num;
-   private int pcount;
-   private double price_per_day;
+   private int number;
+   private int placesCount;
+   private double pricePerDay;
    private String desc;
    private Date texn_repo;
- /*  private List<Thumb> thumbs;
-   private List<Rezervation> rezs;
-   private ApClass aclass;
-   private Apartament apt;*/
+   private List<Thumb> thumbs;
+   private List<Reservation> reservations;
+   private ApClass apClass;
+   private Apartment apartment;
 
-   public void Room(){
-      this.num = 0;
-      this.pcount = 0;
-      this.price_per_day = 0.0;
+   public void Room() {
+      this.number = 0;
+      this.placesCount = 0;
+      this.pricePerDay = 0.0;
       this.desc = "";
       this.texn_repo = null;
-     /* this.thumbs =  new LinkedList<Thumb>();
-      this.aclass = new ApClass();
-      this.rezs = new LinkedList<Rezervation>();
-      this.apt = new Apartament();*/
-   }
-   public void Room(int n, int p, String dsc, Date dt,  double ppd/*, ApClass ac* List<Thumb> thbs, List<Rezervation> rzs, Apartament ap */){
-      this.num = n;
-      this.pcount = p;
-      this.price_per_day = ppd;
-      this.desc = dsc;
-      this.texn_repo = dt;
-    /*  this.aclass = ac;
-      this.thumbs = thbs;
-      this.rezs = rzs;
-      this.apt = ap;*/
+      this.thumbs =  new LinkedList<Thumb>();
+      this.apClass = new ApClass();
+      this.reservations = new LinkedList<Reservation>();
+      this.apartment = new Apartment();
    }
 
-  /* public Apartament getApt() {
-      return apt;
+   public void Room(int number, int placesCount, String desc, Date texn_repo, double pricePerDay,
+                    ApClass apClass, List<Thumb> thumbs, List<Reservation> reservations, Apartment apartment) {
+      this.number = number;
+      this.placesCount = placesCount;
+      this.pricePerDay = pricePerDay;
+      this.desc = desc;
+      this.texn_repo = texn_repo;
+      this.apClass = apClass;
+      this.thumbs = thumbs;
+      this.reservations = reservations;
+      this.apartment = apartment;
    }
 
-   public void setApt(Apartament apt) {
-      this.apt = apt;
-   }*/
-
-   public double getPrice_per_day() {
-      return price_per_day;
+   public Apartment getApartment() {
+      return apartment;
    }
 
-   public void setPrice_per_day(double price_per_day) {
-      this.price_per_day = price_per_day;
+   public void setApt(Apartment apartment) {
+      this.apartment = apartment;
    }
 
- /*  public List<Thumb> getThumbs() {
+   public double getPricePerDay() {
+      return pricePerDay;
+   }
+
+   public void setPricePerDay(double pricePerDay) {
+      this.pricePerDay = pricePerDay;
+   }
+
+   public List<Thumb> getThumbs() {
       return thumbs;
    }
 
@@ -67,13 +68,13 @@ public class Room {
       this.thumbs = thumbs;
    }
 
-   public List<Rezervation> getRezs() {
-      return rezs;
+   public List<Reservation> getReservations() {
+      return reservations;
    }
 
-   public void setRezs(List<Rezervation> rezs) {
-      this.rezs = rezs;
-   }*/
+   public void setReservations(List<Reservation> reservations) {
+      this.reservations = reservations;
+   }
 
    public long getId() {
       return id;
@@ -91,20 +92,20 @@ public class Room {
       this.texn_repo = texn_repo;
    }
 
-   public int getNum() {
-      return num;
+   public int getNumber() {
+      return number;
    }
 
-   public void setNum(int num) {
-      this.num = num;
+   public void setNumber(int number) {
+      this.number = number;
    }
 
-   public int getPcount() {
-      return pcount;
+   public int getPlacesCount() {
+      return placesCount;
    }
 
-   public void setPcount(int pcount) {
-      this.pcount = pcount;
+   public void setPlacesCount(int placesCount) {
+      this.placesCount = placesCount;
    }
 
    public String getDesc() {
@@ -115,11 +116,11 @@ public class Room {
       this.desc = desc;
    }
 
- /*  public ApClass getAclass() {
-      return aclass;
+   public ApClass getApClass() {
+      return apClass;
    }
 
-   public void setAclass(ApClass aclass) {
-      this.aclass = aclass;
-   }*/
+   public void setApClass(ApClass apClass) {
+      this.apClass = apClass;
+   }
 }
