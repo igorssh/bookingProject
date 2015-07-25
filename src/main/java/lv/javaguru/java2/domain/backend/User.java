@@ -6,8 +6,9 @@ import java.util.Date;
 import lv.javaguru.java2.domain.Person;
 
 /**
- * Created by Aleksej_home on 2015.07.15..
+ * Created by Aleksej_home on 2015.07.15
  */
+
 public class User extends Person{
     private String password;
     private Date pub_date;
@@ -18,7 +19,7 @@ public class User extends Person{
         this.name = "";
         this.surname = "";
         this.email = "";
-        this.tele = "";
+        this.phone = "";
         this.password = "";
         this.last_modify = null;
         this.pub_date = null; // need timestamp
@@ -30,7 +31,7 @@ public class User extends Person{
         this.name = nm;
         this.surname = snm;
         this.email = em;
-        this.tele = te;
+        this.phone = te;
         this.password = pas;
         this.last_modify = last;
         this.pub_date = null; // need timestamp
@@ -60,6 +61,7 @@ public class User extends Person{
     public String getName(){
         return name;
     }
+
     public void setName(String name){
         this.name = name;
     }
@@ -67,6 +69,7 @@ public class User extends Person{
     public String getSurname(){
         return surname;
     }
+
     public void setSurname(String surname){
         this.surname = surname;
     }
@@ -74,14 +77,17 @@ public class User extends Person{
     public String getEmail(){
         return email;
     }
+
     public void setEmail(String email){
         this.email = email;
     }
-    public String getTele(){
-        return tele;
+
+    public String getPhone(){
+        return phone;
     }
-    public void setTele(String tele){
-        this.tele = tele;
+
+    public void setPhone(String phone){
+        this.phone = phone;
     }
 
 

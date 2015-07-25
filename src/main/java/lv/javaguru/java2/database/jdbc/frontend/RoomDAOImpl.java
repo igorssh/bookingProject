@@ -29,7 +29,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into rooms values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, room.getNumber());
-            preparedStatement.setInt(2, room.getPlacesCount());
+            preparedStatement.setInt(2, room.getPersonsCount());
             preparedStatement.setDouble(3, room.getPricePerDay());
             preparedStatement.setString(4, room.getDesc());
             preparedStatement.setDate(5, room.getTexn_repo());
@@ -62,7 +62,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
                 room = new Room();
                 room.setId(resultSet.getLong("id"));
                 room.setNumber(resultSet.getInt("num"));
-                room.setPlacesCount(resultSet.getInt("p_count"));
+                room.setPersonsCount(resultSet.getInt("p_count"));
                 room.setPricePerDay(resultSet.getDouble("price_per_day"));
                 room.setDesc(resultSet.getString("desc_text"));
                 room.setTexn_repo(resultSet.getDate("texn_repo"));
@@ -107,7 +107,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
                     .prepareStatement("update rooms set num = ?, p_count = ?, price_per_day = ?, desc_text = ?, texn_repo = ? " +
                             "where id = ?");
             preparedStatement.setInt(1, room.getNumber());
-            preparedStatement.setInt(2, room.getPlacesCount());
+            preparedStatement.setInt(2, room.getPersonsCount());
             preparedStatement.setDouble(3, room.getPricePerDay());
             preparedStatement.setString(4, room.getDesc());
             preparedStatement.setDate(5, room.getTexn_repo());
@@ -136,7 +136,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
                 Room room = new Room();
                 room.setId(resultSet.getLong("id"));
                 room.setNumber(resultSet.getInt("num"));
-                room.setPlacesCount(resultSet.getInt("p_count"));
+                room.setPersonsCount(resultSet.getInt("p_count"));
                 room.setPricePerDay(resultSet.getDouble("price_per_day"));
                 room.setDesc(resultSet.getString("desc_text"));
                 room.setTexn_repo(resultSet.getDate("texn_repo"));

@@ -5,8 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Aleksej_home on 2015.07.14..
+ * Created by Aleksej_home on 2015.07.14
  */
+
 public class Room {
    private long id;
    private int number;
@@ -14,6 +15,7 @@ public class Room {
    private double pricePerDay;
    private String desc;
    private Date maintenance;
+   private Date texn_repo;
    private List<Thumb> thumbs;
    private List<Reservation> reservations;
    private ApClass apClass;
@@ -92,20 +94,20 @@ public class Room {
       this.texn_repo = texn_repo;
    }
 
+   public int getPersonsCount() {
+      return personsCount;
+   }
+
+   public void setPersonsCount(int personsCount) {
+       this.personsCount = personsCount;
+   }
+
    public int getNumber() {
       return number;
    }
 
    public void setNumber(int number) {
       this.number = number;
-   }
-
-   public int getPlacesCount() {
-      return placesCount;
-   }
-
-   public void setPlacesCount(int placesCount) {
-      this.placesCount = placesCount;
    }
 
    public String getDesc() {

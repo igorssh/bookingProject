@@ -31,7 +31,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
                     connection.prepareStatement("insert into reservations values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setDate(1, reservation.getFrom());
             preparedStatement.setDate(2, reservation.getTill());
-            preparedStatement.setInt(3, reservation.getPlacesCount());
+            preparedStatement.setInt(3, reservation.getPersonsCount());
             preparedStatement.setBoolean(4, reservation.isStatus());
 
             preparedStatement.executeUpdate();
@@ -63,7 +63,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
                 reservation.setId(resultSet.getLong("id"));
                 reservation.setFrom(resultSet.getDate("from_date"));
                 reservation.setTill(resultSet.getDate("to_date"));
-                reservation.setPlacesCount(resultSet.getInt("p_count"));
+                reservation.setPersonsCount(resultSet.getInt("p_count"));
                 reservation.setTimestamp(resultSet.getDate("time_stamp"));
                 reservation.setStatus(resultSet.getBoolean("status"));
 
@@ -109,7 +109,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
 
             preparedStatement.setDate(1, reservation.getFrom());
             preparedStatement.setDate(2, reservation.getTill());
-            preparedStatement.setInt(3, reservation.getPlacesCount());
+            preparedStatement.setInt(3, reservation.getPersonsCount());
             preparedStatement.setBoolean(4, reservation.isStatus());
             preparedStatement.setLong(5, reservation.getId());
             preparedStatement.executeUpdate();
@@ -136,7 +136,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
                 reservation.setId(resultSet.getLong("id"));
                 reservation.setFrom(resultSet.getDate("from_date"));
                 reservation.setTill(resultSet.getDate("to_date"));
-                reservation.setPlacesCount(resultSet.getInt("p_count"));
+                reservation.setPersonsCount(resultSet.getInt("p_count"));
                 reservation.setTimestamp(resultSet.getDate("time_stamp"));
                 reservation.setStatus(resultSet.getBoolean("status"));
 

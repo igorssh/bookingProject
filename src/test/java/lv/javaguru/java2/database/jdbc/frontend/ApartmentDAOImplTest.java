@@ -1,8 +1,9 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 /**
- * Created by Aleksej_home on 2015.07.25..
+ * Created by Aleksej_home on 2015.07.22
  */
+
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -17,10 +18,7 @@ import org.junit.Test;
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.domain.frontend.Apartment;
 
-
-
 public class ApartmentDAOImplTest {
-
 
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
@@ -34,22 +32,22 @@ public class ApartmentDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        Apartment ap = createApartment("label1", "Adress 1", "Description about");
+        Apartment apartment = createApartament("label1", "Adress 1", "Description about");
 
-        apDAO.create(ap);
+        apDAO.create(apartment);
 
-        Apartment apFromDB = apDAO.getById(ap.getId());
+        Apartment apFromDB = apDAO.getById(apartment.getId());
         assertNotNull(apFromDB);
-        assertEquals(ap.getId(), apFromDB.getId());
-        assertEquals(ap.getLabel(), apFromDB.getLabel());
-        assertEquals(ap.getAddress(), apFromDB.getAddress());
-        assertEquals(ap.getDesc(), apFromDB.getDesc());
+        assertEquals(apartment.getId(), apFromDB.getId());
+        assertEquals(apartment.getLabel(), apFromDB.getLabel());
+        assertEquals(apartment.getAddress(), apFromDB.getAddress());
+        assertEquals(apartment.getDesc(), apFromDB.getDesc());
     }
 
     @Test
     public void testMultipleApartamentCreation() throws DBException {
-        Apartment ap1 = createApartment("label 2", "Adress 2", "Description about 1");
-        Apartment ap2 = createApartment("label 3", "Adress 3", "Description about 2");
+        Apartment ap1 = createApartament("label 2", "Adress 2", "Description about 1");
+        Apartment ap2 = createApartament("label 3", "Adress 3", "Description about 2");
         apDAO.create(ap1);
         apDAO.create(ap2);
         List<Apartment> users = apDAO.getAll();
@@ -58,14 +56,13 @@ public class ApartmentDAOImplTest {
 
 
 
-    private Apartment createApartment(String label, String adress, String desc) {
-        Apartment ap = new Apartment();
-        ap.setLabel(label);
-        ap.setAddress(adress);
-        ap.setDesc(desc);
-        return ap;
+    private Apartment createApartament(String label, String adress, String desc) {
+        Apartment apartment = new Apartment();
+        apartment.setLabel(label);
+        apartment.setAddress(adress);
+        apartment.setDesc(desc);
+        return apartment;
     }
-
 
 
 }

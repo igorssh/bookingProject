@@ -1,13 +1,13 @@
 package lv.javaguru.java2.domain.frontend;
 
-//import java.util.Date;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Aleksej_home on 2015.07.15..
+ * Created by Aleksej_home on 2015.07.15
  */
+
 public class Reservation {
 
     private long id;

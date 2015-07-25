@@ -10,18 +10,19 @@ import java.util.List;
 /**
  * Created by Viktor on 01/07/2014.
  */
+
 public class DatabaseCleaner extends DAOImpl {
 
     private List<String> getTableNames() {
         List<String> tableNames = new ArrayList<String>();
        // tableNames.add("USERS");
-        tableNames.add("apartaments");
+        tableNames.add("apartments");
         tableNames.add("apclasses");
         tableNames.add("comments");
         tableNames.add("extras");
-        tableNames.add("klients");
-        tableNames.add("paiments");
-        tableNames.add("rezervations");
+        tableNames.add("clients");
+        tableNames.add("payments");
+        tableNames.add("reservations");
         tableNames.add("rooms");
         tableNames.add("thumbs");
         return tableNames;
