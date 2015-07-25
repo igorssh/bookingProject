@@ -120,7 +120,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartaments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from apclasses");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

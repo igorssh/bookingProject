@@ -1,9 +1,12 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
+/**
+ * Created by Aleksej_home on 2015.07.25..
+ */
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.ApartamentDAO;
+import lv.javaguru.java2.database.frontend.ApartmentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
-import lv.javaguru.java2.domain.frontend.Apartament;
+import lv.javaguru.java2.domain.frontend.Apartment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +14,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.21..
- */
-public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
 
-    public void create(Apartament ap) throws DBException {
+public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
+
+    public void create(Apartment ap) throws DBException {
         if (ap == null) {
             return;
         }
@@ -28,13 +29,13 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into apartaments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, ap.getLabel());
-            preparedStatement.setString(2, ap.getAdress());
+            preparedStatement.setString(2, ap.getAddress());
             preparedStatement.setString(3, ap.getDesc());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-              //  ap.setUserId(rs.getLong(1));
+                //  ap.setUserId(rs.getLong(1));
                 ap.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
@@ -47,7 +48,9 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
 
     }
 
-    public Apartament getById(Long id) throws DBException {
+
+
+    public Apartment getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -56,12 +59,12 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
                     .prepareStatement("select * from apartaments where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Apartament ap = null;
+            Apartment ap = null;
             if (resultSet.next()) {
-                ap = new Apartament();
+                ap = new Apartment();
                 ap.setId(resultSet.getLong("id"));
                 ap.setLabel(resultSet.getString("label"));
-                ap.setAdress(resultSet.getString("adress"));
+                ap.setAddress(resultSet.getString("adress"));
                 ap.setDesc(resultSet.getString("desc_text"));
             }
             return ap;
@@ -91,7 +94,8 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
         }
     }
 
-    public void update(Apartament ap) throws DBException {
+
+    public void update(Apartment ap) throws DBException {
         if (ap == null) {
             return;
         }
@@ -103,7 +107,7 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
                     .prepareStatement("update apartaments set label = ?, adress = ?, desc_text = ? " +
                             "where id = ?");
             preparedStatement.setString(1, ap.getLabel());
-            preparedStatement.setString(2, ap.getAdress());
+            preparedStatement.setString(2, ap.getAddress());
             preparedStatement.setString(3, ap.getDesc());
             preparedStatement.setLong(4, ap.getId());
             preparedStatement.executeUpdate();
@@ -116,8 +120,8 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
         }
     }
 
-    public List<Apartament> getAll() throws DBException {
-        List<Apartament> aps = new ArrayList<Apartament>();
+    public List<Apartment> getAll() throws DBException {
+        List<Apartment> aps = new ArrayList<Apartment>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -125,10 +129,10 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Apartament ap = new Apartament();
+                Apartment ap = new Apartment();
                 ap.setId(resultSet.getLong("id"));
                 ap.setLabel(resultSet.getString("label"));
-                ap.setAdress(resultSet.getString("adress"));
+                ap.setAddress(resultSet.getString("adress"));
                 ap.setDesc(resultSet.getString("desc_text"));
                 aps.add(ap);
             }
@@ -141,6 +145,7 @@ public class ApartamentDAOImpl extends DAOImpl implements ApartamentDAO {
         }
         return aps;
     }
+
 
 
 }

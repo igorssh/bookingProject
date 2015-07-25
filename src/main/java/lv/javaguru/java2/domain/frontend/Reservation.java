@@ -90,11 +90,11 @@ public class Reservation {
         this.till = till;
     }
 
-    public int getPlacesCount() {
+    public int getPersonsCount() {
         return placesCount;
     }
 
-    public void setPlacesCount(int placesCount) {
+    public void setPersonsCount(int placesCount) {
         this.placesCount = placesCount;
     }
 

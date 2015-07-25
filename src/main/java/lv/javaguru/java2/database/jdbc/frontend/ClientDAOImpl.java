@@ -1,21 +1,23 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
-
+/**
+ * Created by Aleksej_home on 2015.07.25..
+ */
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.KlientDAO;
+import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
-import lv.javaguru.java2.domain.frontend.Klient;
+import lv.javaguru.java2.domain.frontend.Client;
 
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-/**
- * Created by Aleksej_home on 2015.07.22..
- */
-public class KlientDAOImpl extends DAOImpl implements KlientDAO{
-    public void create(Klient kli) throws DBException {
+
+
+public class ClientDAOImpl extends DAOImpl implements ClientDAO{
+
+    public void create(Client kli) throws DBException {
         if (kli == null) {
             return;
         }
@@ -29,9 +31,9 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
             preparedStatement.setString(1, kli.getName());
             preparedStatement.setString(2, kli.getSurname());
             preparedStatement.setString(3, kli.getEmail());
-            preparedStatement.setString(4, kli.getTele());
-            preparedStatement.setString(5, kli.getReg_num());
-            preparedStatement.setString(6, kli.getPers_num());
+            preparedStatement.setString(4, kli.getPhone());
+            preparedStatement.setString(5, kli.getRegistryNumber());
+            preparedStatement.setString(6, kli.getPersonalNumber());
             preparedStatement.setString(7, kli.getCorp());
 
             preparedStatement.executeUpdate();
@@ -50,7 +52,9 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
 
     }
 
-    public Klient getById(Long id) throws DBException {
+
+
+    public Client getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -59,16 +63,16 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
                     .prepareStatement("select * from klients where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Klient kli = null;
+            Client kli = null;
             if (resultSet.next()) {
-                kli = new Klient();
+                kli = new Client();
                 kli.setId(resultSet.getLong("id"));
                 kli.setName(resultSet.getString("name"));
                 kli.setSurname(resultSet.getString("surname"));
                 kli.setEmail(resultSet.getString("email"));
-                kli.setTele(resultSet.getString("tele"));
-                kli.setReg_num(resultSet.getString("reg_num"));
-                kli.setPers_num(resultSet.getString("pers_num"));
+                kli.setPhone(resultSet.getString("tele"));
+                kli.setRegistryNumber(resultSet.getString("reg_num"));
+                kli.setPersonalNumber(resultSet.getString("pers_num"));
                 kli.setCorp(resultSet.getString("corp"));
             }
             return kli;
@@ -98,7 +102,9 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
         }
     }
 
-    public void update(Klient kli) throws DBException {
+
+
+    public void update(Client kli) throws DBException {
         if (kli == null) {
             return;
         }
@@ -113,9 +119,9 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
             preparedStatement.setString(1, kli.getName());
             preparedStatement.setString(2, kli.getSurname());
             preparedStatement.setString(3, kli.getEmail());
-            preparedStatement.setString(4, kli.getTele());
-            preparedStatement.setString(5, kli.getReg_num());
-            preparedStatement.setString(6, kli.getPers_num());
+            preparedStatement.setString(4, kli.getPhone());
+            preparedStatement.setString(5, kli.getRegistryNumber());
+            preparedStatement.setString(6, kli.getPersonalNumber());
             preparedStatement.setString(7, kli.getCorp());
             preparedStatement.setLong(8, kli.getId());
             preparedStatement.executeUpdate();
@@ -128,8 +134,8 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
         }
     }
 
-    public List<Klient> getAll() throws DBException {
-        List<Klient> aps = new ArrayList<Klient>();
+    public List<Client> getAll() throws DBException {
+        List<Client> aps = new ArrayList<Client>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -137,14 +143,14 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Klient kli = new Klient();
+                Client kli = new Client();
                 kli.setId(resultSet.getLong("id"));
                 kli.setName(resultSet.getString("name"));
                 kli.setSurname(resultSet.getString("surname"));
                 kli.setEmail(resultSet.getString("email"));
-                kli.setTele(resultSet.getString("tele"));
-                kli.setReg_num(resultSet.getString("reg_num"));
-                kli.setPers_num(resultSet.getString("pers_num"));
+                kli.setPhone(resultSet.getString("tele"));
+                kli.setRegistryNumber(resultSet.getString("reg_num"));
+                kli.setPersonalNumber(resultSet.getString("pers_num"));
                 kli.setCorp(resultSet.getString("corp"));
                 aps.add(kli);
             }
@@ -157,6 +163,7 @@ public class KlientDAOImpl extends DAOImpl implements KlientDAO{
         }
         return aps;
     }
+
 
 
 }

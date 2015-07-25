@@ -10,10 +10,10 @@ import java.util.List;
 public class Room {
    private long id;
    private int number;
-   private int placesCount;
+   private int personsCount;
    private double pricePerDay;
    private String desc;
-   private Date texn_repo;
+   private Date maintenance;
    private List<Thumb> thumbs;
    private List<Reservation> reservations;
    private ApClass apClass;
@@ -21,23 +21,23 @@ public class Room {
 
    public void Room() {
       this.number = 0;
-      this.placesCount = 0;
+      this.personsCount = 0;
       this.pricePerDay = 0.0;
       this.desc = "";
-      this.texn_repo = null;
+      this.maintenance = null;
       this.thumbs =  new LinkedList<Thumb>();
       this.apClass = new ApClass();
       this.reservations = new LinkedList<Reservation>();
       this.apartment = new Apartment();
    }
 
-   public void Room(int number, int placesCount, String desc, Date texn_repo, double pricePerDay,
+   public void Room(int number, int placesCount, String desc, Date maintenance, double pricePerDay,
                     ApClass apClass, List<Thumb> thumbs, List<Reservation> reservations, Apartment apartment) {
       this.number = number;
-      this.placesCount = placesCount;
+      this.personsCount = placesCount;
       this.pricePerDay = pricePerDay;
       this.desc = desc;
-      this.texn_repo = texn_repo;
+      this.maintenance = maintenance;
       this.apClass = apClass;
       this.thumbs = thumbs;
       this.reservations = reservations;
