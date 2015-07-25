@@ -1,8 +1,5 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
-/**
- * Created by Aleksej_home on 2015.07.25..
- */
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.ApartmentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
@@ -14,8 +11,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Aleksej_home on 2015.07.21
+ */
 
-public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
+public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
 
     public void create(Apartment ap) throws DBException {
         if (ap == null) {
@@ -27,7 +27,7 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into apartaments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into apartments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, ap.getLabel());
             preparedStatement.setString(2, ap.getAddress());
             preparedStatement.setString(3, ap.getDesc());
@@ -35,7 +35,7 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
+              //  ap.setUserId(rs.getLong(1));
                 ap.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
@@ -48,15 +48,13 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
 
     }
 
-
-
     public Apartment getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from apartaments where id = ?");
+                    .prepareStatement("select * from apartments where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             Apartment ap = null;
@@ -64,7 +62,7 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
                 ap = new Apartment();
                 ap.setId(resultSet.getLong("id"));
                 ap.setLabel(resultSet.getString("label"));
-                ap.setAddress(resultSet.getString("adress"));
+                ap.setAddress(resultSet.getString("address"));
                 ap.setDesc(resultSet.getString("desc_text"));
             }
             return ap;
@@ -82,7 +80,7 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from apartaments where id = ?");
+                    .prepareStatement("delete from apartments where id = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -94,7 +92,6 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
         }
     }
 
-
     public void update(Apartment ap) throws DBException {
         if (ap == null) {
             return;
@@ -104,7 +101,7 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update apartaments set label = ?, adress = ?, desc_text = ? " +
+                    .prepareStatement("update apartments set label = ?, address = ?, desc_text = ? " +
                             "where id = ?");
             preparedStatement.setString(1, ap.getLabel());
             preparedStatement.setString(2, ap.getAddress());
@@ -121,20 +118,20 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
     }
 
     public List<Apartment> getAll() throws DBException {
-        List<Apartment> aps = new ArrayList<Apartment>();
+        List<Apartment> apartments = new ArrayList<Apartment>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartaments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartments");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Apartment ap = new Apartment();
                 ap.setId(resultSet.getLong("id"));
                 ap.setLabel(resultSet.getString("label"));
-                ap.setAddress(resultSet.getString("adress"));
+                ap.setAddress(resultSet.getString("address"));
                 ap.setDesc(resultSet.getString("desc_text"));
-                aps.add(ap);
+                apartments.add(ap);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
@@ -143,9 +140,8 @@ public class ApartmentDAOImpl  extends DAOImpl implements ApartmentDAO {
         } finally {
             closeConnection(connection);
         }
-        return aps;
+        return apartments;
     }
-
 
 
 }

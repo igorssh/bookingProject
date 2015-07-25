@@ -1,8 +1,5 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
-/**
- * Created by Aleksej_home on 2015.07.25..
- */
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.PaymentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
@@ -14,10 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
+/**
+ * Created by Aleksej_home on 2015.07.22
+ */
 
-    public void create(Payment pa) throws DBException {
-        if (pa == null) {
+public class PaymentDAOImpl extends DAOImpl implements PaymentDAO {
+    
+    public void create(Payment payment) throws DBException {
+        if (payment == null) {
             return;
         }
 
@@ -26,17 +27,16 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into paiments values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setDouble(1, pa.getMoney());
-            preparedStatement.setString(2, pa.getDesc());
-            preparedStatement.setShort(3, pa.getPaymentType());
-            preparedStatement.setString(4, pa.getReferent());
+                    connection.prepareStatement("insert into payments values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setDouble(1, payment.getMoney());
+            preparedStatement.setString(2, payment.getDesc());
+            preparedStatement.setShort(3, payment.getPaymentType());
+            preparedStatement.setString(4, payment.getReferent());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
-                pa.setId(rs.getLong(1));
+            if (rs.next()) {
+                payment.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -53,7 +53,7 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from paiments where id = ?");
+                    .prepareStatement("select * from payments where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             Payment pa = null;
@@ -81,7 +81,7 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from paiments where id = ?");
+                    .prepareStatement("delete from payments where id = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -93,9 +93,8 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         }
     }
 
-
-    public void update(Payment pa) throws DBException {
-        if (pa == null) {
+    public void update(Payment payment) throws DBException {
+        if (payment == null) {
             return;
         }
 
@@ -103,13 +102,13 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update paiments set money = ?, desc_text = ?, pay_type = ?, referent = ? " +
+                    .prepareStatement("update payments set money = ?, desc_text = ?, pay_type = ?, referent = ? " +
                             "where id = ?");
-            preparedStatement.setDouble(1, pa.getMoney());
-            preparedStatement.setString(2, pa.getDesc());
-            preparedStatement.setShort(3, pa.getPaymentType());
-            preparedStatement.setString(4, pa.getReferent());
-            preparedStatement.setLong(5, pa.getId());
+            preparedStatement.setDouble(1, payment.getMoney());
+            preparedStatement.setString(2, payment.getDesc());
+            preparedStatement.setShort(3, payment.getPaymentType());
+            preparedStatement.setString(4, payment.getReferent());
+            preparedStatement.setLong(5, payment.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -121,11 +120,12 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
     }
 
     public List<Payment> getAll() throws DBException {
+
         List<Payment> aps = new ArrayList<Payment>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartaments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartments");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -147,6 +147,7 @@ public class PaymentDAOImpl extends DAOImpl implements PaymentDAO{
         }
         return aps;
     }
+
 
 
 }

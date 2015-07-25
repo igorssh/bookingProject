@@ -32,7 +32,7 @@ USE `bookingproject` ;
 CREATE TABLE IF NOT EXISTS `apartments` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `label` varchar(255) NOT NULL,
-  `adress` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
   `desc_text` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_unicode_ci;

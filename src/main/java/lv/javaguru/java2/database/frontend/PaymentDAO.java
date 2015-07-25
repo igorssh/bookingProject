@@ -1,11 +1,13 @@
 package lv.javaguru.java2.database.frontend;
 
-/**
- * Created by Aleksej_home on 2015.07.25..
- */
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.domain.frontend.Payment;
+
 import java.util.List;
+
+/**
+ * Created by Aleksej_home on 2015.07.21
+ */
 
 public interface PaymentDAO {
 
@@ -18,5 +20,4 @@ public interface PaymentDAO {
     void update(Payment pa) throws DBException;
 
     List<Payment> getAll() throws DBException;
-
 }

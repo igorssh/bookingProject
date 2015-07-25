@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Aleksej_home on 2015.07.22..
+ * Created by Aleksej_home on 2015.07.22
  */
+
 public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
 
-    public void create(ApClass ap) throws DBException {
-        if (ap == null) {
+    public void create(ApClass apClass) throws DBException {
+        if (apClass == null) {
             return;
         }
 
@@ -28,15 +29,14 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into apclasses values (default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setShort(1, ap.getClassId());
-            preparedStatement.setString(2, ap.getDesc());
+                    connection.prepareStatement("insert into apclasses values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setShort(1, apClass.getClassId());
+            preparedStatement.setString(2, apClass.getDesc());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
-                ap.setId(rs.getLong(1));
+            if (rs.next()) {
+                apClass.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -116,7 +116,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
     }
 
     public List<ApClass> getAll() throws DBException {
-        List<ApClass> aps = new ArrayList<ApClass>();
+        List<ApClass> apClasses = new ArrayList<ApClass>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -128,7 +128,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
                 ap.setId(resultSet.getLong("id"));
                 ap.setClassId(resultSet.getShort("classId"));
                 ap.setDesc(resultSet.getString("desc_text"));
-                aps.add(ap);
+                apClasses.add(ap);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
@@ -137,6 +137,6 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         } finally {
             closeConnection(connection);
         }
-        return aps;
+        return apClasses;
     }
 }

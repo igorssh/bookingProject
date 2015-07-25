@@ -1,7 +1,7 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.ExrtraDAO;
+import lv.javaguru.java2.database.frontend.ExtraDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Extra;
 
@@ -12,13 +12,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Created by Aleksej_home on 2015.07.22..
+ * Created by Aleksej_home on 2015.07.22
  */
-public class ExtraDAOImpl extends DAOImpl implements ExrtraDAO{
 
-    public void create(Extra ext) throws DBException {
+public class ExtraDAOImpl extends DAOImpl implements ExtraDAO {
 
-        if (ext == null) {
+    public void create(Extra extra) throws DBException {
+
+        if (extra == null) {
             return;
         }
 
@@ -28,16 +29,15 @@ public class ExtraDAOImpl extends DAOImpl implements ExrtraDAO{
             connection = getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into extras values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, ext.getLabel());
-            preparedStatement.setString(2, ext.getDesc());
-            preparedStatement.setDouble(3, ext.getCost());
-            preparedStatement.setString(4, ext.getPic());
+            preparedStatement.setString(1, extra.getLabel());
+            preparedStatement.setString(2, extra.getDesc());
+            preparedStatement.setDouble(3, extra.getCost());
+            preparedStatement.setString(4, extra.getPic());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
-                ext.setId(rs.getLong(1));
+            if (rs.next()) {
+                extra.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -94,9 +94,9 @@ public class ExtraDAOImpl extends DAOImpl implements ExrtraDAO{
         }
     }
 
-    public void update(Extra ext) throws DBException {
+    public void update(Extra extra) throws DBException {
 
-        if (ext == null) {
+        if (extra == null) {
             return;
         }
 
@@ -106,11 +106,11 @@ public class ExtraDAOImpl extends DAOImpl implements ExrtraDAO{
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update extras set label = ?, desc_text = ?, cost = ?, pic = ?  " +
                             "where id = ?");
-            preparedStatement.setString(1, ext.getLabel());
-            preparedStatement.setString(2, ext.getDesc());
-            preparedStatement.setDouble(3, ext.getCost());
-            preparedStatement.setString(4, ext.getPic());
-            preparedStatement.setLong(5, ext.getId());
+            preparedStatement.setString(1, extra.getLabel());
+            preparedStatement.setString(2, extra.getDesc());
+            preparedStatement.setDouble(3, extra.getCost());
+            preparedStatement.setString(4, extra.getPic());
+            preparedStatement.setLong(5, extra.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -130,13 +130,13 @@ public class ExtraDAOImpl extends DAOImpl implements ExrtraDAO{
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Extra ext = new Extra();
-                ext.setId(resultSet.getLong("id"));
-                ext.setLabel(resultSet.getString("label"));
-                ext.setDesc(resultSet.getString("desc_text"));
-                ext.setCost(resultSet.getDouble("cost"));
-                ext.setPic(resultSet.getString("pic"));
-                aps.add(ext);
+                Extra extra = new Extra();
+                extra.setId(resultSet.getLong("id"));
+                extra.setLabel(resultSet.getString("label"));
+                extra.setDesc(resultSet.getString("desc_text"));
+                extra.setCost(resultSet.getDouble("cost"));
+                extra.setPic(resultSet.getString("pic"));
+                aps.add(extra);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");

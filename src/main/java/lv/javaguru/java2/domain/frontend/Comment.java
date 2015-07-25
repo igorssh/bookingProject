@@ -1,6 +1,6 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Aleksej_home on 2015.07.15
@@ -9,7 +9,7 @@ public class Comment {
     private long id;
     private String head;
     private String desc;
-    private Date timestamp;
+    private Timestamp timestamp;
     private Client client;
 
     public void Comment() {
@@ -19,7 +19,7 @@ public class Comment {
         this.client = new Client();
     }
 
-    public void Comment(String head, String desc, Date timestamp, Client client) {
+    public void Comment(String head, String desc, Timestamp timestamp, Client client) {
         this.head = head;
         this.desc = desc;
         this.timestamp = timestamp;
@@ -34,11 +34,11 @@ public class Comment {
         this.client = client;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
-    public Date getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 

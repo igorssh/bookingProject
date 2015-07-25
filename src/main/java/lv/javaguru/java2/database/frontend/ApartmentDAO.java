@@ -2,11 +2,13 @@ package lv.javaguru.java2.database.frontend;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.domain.frontend.Apartment;
+
 import java.util.List;
 
 /**
- * Created by Aleksej_home on 2015.07.25..
+ * Created by Aleksej_home on 2015.07.21
  */
+
 public interface ApartmentDAO {
 
     void create(Apartment ap) throws DBException;
