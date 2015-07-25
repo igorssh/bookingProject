@@ -12,12 +12,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- * Created by Aleksej_home on 2015.07.22..
+ * Created by Aleksej_home on 2015.07.22
  */
+
 public class CommentDAOImpl extends DAOImpl implements CommentDAO {
 
-    public void create(Comment com) throws DBException {
-        if (com == null) {
+    public void create(Comment comment) throws DBException {
+        if (comment == null) {
             return;
         }
 
@@ -27,15 +28,14 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
             connection = getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into comments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, com.getHead());
-            preparedStatement.setString(2, com.getDesc());
-           // preparedStatement.setString(3, ap.getDesc());
+            preparedStatement.setString(1, comment.getHead());
+            preparedStatement.setString(2, comment.getDesc());
+            preparedStatement.setTimestamp(3, comment.getTimestamp());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
-                com.setId(rs.getLong(1));
+            if (rs.next()) {
+                comment.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -61,7 +61,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
                 com = new Comment();
                 com.setId(resultSet.getLong("id"));
                 com.setHead(resultSet.getString("head"));
-                com.setTimestamp(resultSet.getDate("time_stamp"));
+                com.setTimestamp(resultSet.getTimestamp("time_stamp"));
                 com.setDesc(resultSet.getString("desc_text"));
             }
             return com;

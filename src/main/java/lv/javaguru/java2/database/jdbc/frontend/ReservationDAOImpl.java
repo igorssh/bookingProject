@@ -1,22 +1,24 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
-
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.PaimentDAO;
+import lv.javaguru.java2.database.frontend.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
-import lv.javaguru.java2.domain.frontend.Paiment;
+import lv.javaguru.java2.domain.frontend.Reservation;
 
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 /**
- * Created by Aleksej_home on 2015.07.22..
+ * Created by Aleksej_home on 2015.07.22
  */
-public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
-    public void create(Paiment pa) throws DBException {
-        if (pa == null) {
+
+public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
+
+    public void create(Reservation reservation) throws DBException {
+        if (reservation == null) {
             return;
         }
 
@@ -25,17 +27,16 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into paiments values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setDouble(1, pa.getMoney());
-            preparedStatement.setString(2, pa.getDesc());
-            preparedStatement.setShort(3, pa.getPay_type());
-            preparedStatement.setString(4, pa.getReferent());
+                    connection.prepareStatement("insert into reservations values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setDate(1, reservation.getFrom());
+            preparedStatement.setDate(2, reservation.getTill());
+            preparedStatement.setInt(3, reservation.getPlacesCount());
+            preparedStatement.setBoolean(4, reservation.isStatus());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-                //  ap.setUserId(rs.getLong(1));
-                pa.setId(rs.getLong(1));
+                reservation.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -46,26 +47,27 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         }
     }
 
-    public Paiment getById(Long id) throws DBException {
+    public Reservation getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from paiments where id = ?");
+                    .prepareStatement("select * from reservations where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Paiment pa = null;
+            Reservation reservation = null;
             if (resultSet.next()) {
-                pa = new Paiment();
-                pa.setId(resultSet.getLong("id"));
-                pa.setMoney(resultSet.getDouble("money"));
-                pa.setDesc(resultSet.getString("desc_text"));
-                pa.setPay_type(resultSet.getShort("pay_type"));
-                pa.setTimestamp(resultSet.getDate("time_stamp"));
-                pa.setReferent(resultSet.getString("referent"));
+                reservation = new Reservation();
+                reservation.setId(resultSet.getLong("id"));
+                reservation.setFrom(resultSet.getDate("from_date"));
+                reservation.setTill(resultSet.getDate("to_date"));
+                reservation.setPlacesCount(resultSet.getInt("p_count"));
+                reservation.setTimestamp(resultSet.getDate("time_stamp"));
+                reservation.setStatus(resultSet.getBoolean("status"));
+
             }
-            return pa;
+            return reservation;
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.getById()");
             e.printStackTrace();
@@ -80,7 +82,7 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from paiments where id = ?");
+                    .prepareStatement("delete from reservations where id = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -92,8 +94,8 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         }
     }
 
-    public void update(Paiment pa) throws DBException {
-        if (pa == null) {
+    public void update(Reservation reservation) throws DBException {
+        if (reservation == null) {
             return;
         }
 
@@ -101,13 +103,14 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update paiments set money = ?, desc_text = ?, pay_type = ?, referent = ? " +
+                    .prepareStatement("update reservations set from_date = ?, to_date = ?, p_count = ?, status = ? " +
                             "where id = ?");
-            preparedStatement.setDouble(1, pa.getMoney());
-            preparedStatement.setString(2, pa.getDesc());
-            preparedStatement.setShort(3, pa.getPay_type());
-            preparedStatement.setString(4, pa.getReferent());
-            preparedStatement.setLong(5, pa.getId());
+
+            preparedStatement.setDate(1, reservation.getFrom());
+            preparedStatement.setDate(2, reservation.getTill());
+            preparedStatement.setInt(3, reservation.getPlacesCount());
+            preparedStatement.setBoolean(4, reservation.isStatus());
+            preparedStatement.setLong(5, reservation.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -118,23 +121,25 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         }
     }
 
-    public List<Paiment> getAll() throws DBException {
-        List<Paiment> aps = new ArrayList<Paiment>();
+    public List<Reservation> getAll() throws DBException {
+
+        List<Reservation> reservations = new ArrayList<Reservation>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartaments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from reservations");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Paiment pa = new Paiment();
-                pa.setId(resultSet.getLong("id"));
-                pa.setMoney(resultSet.getDouble("money"));
-                pa.setDesc(resultSet.getString("desc_text"));
-                pa.setPay_type(resultSet.getShort("pay_type"));
-                pa.setTimestamp(resultSet.getDate("time_stamp"));
-                pa.setReferent(resultSet.getString("referent"));
-                aps.add(pa);
+                Reservation reservation = new Reservation();
+                reservation.setId(resultSet.getLong("id"));
+                reservation.setFrom(resultSet.getDate("from_date"));
+                reservation.setTill(resultSet.getDate("to_date"));
+                reservation.setPlacesCount(resultSet.getInt("p_count"));
+                reservation.setTimestamp(resultSet.getDate("time_stamp"));
+                reservation.setStatus(resultSet.getBoolean("status"));
+
+                reservations.add(reservation);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
@@ -143,8 +148,9 @@ public class PaimentDAOImpl extends DAOImpl implements PaimentDAO {
         } finally {
             closeConnection(connection);
         }
-        return aps;
+        return reservations;
     }
+
 
 
 
