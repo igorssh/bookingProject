@@ -18,7 +18,7 @@ public class User extends Person{
         this.name = "";
         this.surname = "";
         this.email = "";
-        this.tele = "";
+        this.phone = "";
         this.password = "";
         this.last_modify = null;
         this.pub_date = null; // need timestamp
@@ -30,7 +30,7 @@ public class User extends Person{
         this.name = nm;
         this.surname = snm;
         this.email = em;
-        this.tele = te;
+        this.phone = te;
         this.password = pas;
         this.last_modify = last;
         this.pub_date = null; // need timestamp
@@ -78,10 +78,10 @@ public class User extends Person{
         this.email = email;
     }
     public String getTele(){
-        return tele;
+        return phone;
     }
     public void setTele(String tele){
-        this.tele = tele;
+        this.phone = tele;
     }
 
 

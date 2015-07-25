@@ -85,11 +85,11 @@ public class Room {
    }
 
    public Date getTexn_repo() {
-      return texn_repo;
+      return maintenance;
    }
 
    public void setTexn_repo(Date texn_repo) {
-      this.texn_repo = texn_repo;
+      this.maintenance = texn_repo;
    }
 
    public int getNumber() {
@@ -100,12 +100,12 @@ public class Room {
       this.number = number;
    }
 
-   public int getPlacesCount() {
-      return placesCount;
+   public int getPersonsCount() {
+      return personsCount;
    }
 
-   public void setPlacesCount(int placesCount) {
-      this.placesCount = placesCount;
+   public void setPersonsCount(int placesCount) {
+      this.personsCount = placesCount;
    }
 
    public String getDesc() {

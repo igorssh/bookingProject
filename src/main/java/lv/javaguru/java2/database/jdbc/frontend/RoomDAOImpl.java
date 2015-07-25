@@ -27,9 +27,9 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO{
             connection = getConnection();
             PreparedStatement preparedStatement =
                     connection.prepareStatement("insert into rooms values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, room.getNum());
-            preparedStatement.setInt(2, room.getPcount());
-            preparedStatement.setDouble(3, room.getPrice_per_day());
+            preparedStatement.setInt(1, room.getNumber());
+            preparedStatement.setInt(2, room.getPersonsCount());
+            preparedStatement.setDouble(3, room.getPricePerDay());
             preparedStatement.setString(4, room.getDesc());
             preparedStatement.setDate(5, room.getTexn_repo());
 
@@ -61,9 +61,9 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO{
             if (resultSet.next()) {
                 room = new Room();
                 room.setId(resultSet.getLong("id"));
-                room.setNum(resultSet.getInt("num"));
-                room.setPcount(resultSet.getInt("p_count"));
-                room.setPrice_per_day(resultSet.getDouble("price_per_day"));
+                room.setNumber(resultSet.getInt("num"));
+                room.setPersonsCount(resultSet.getInt("p_count"));
+                room.setPricePerDay(resultSet.getDouble("price_per_day"));
                 room.setDesc(resultSet.getString("desc_text"));
                 room.setTexn_repo(resultSet.getDate("texn_repo"));
 
@@ -106,9 +106,9 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO{
             PreparedStatement preparedStatement = connection
                     .prepareStatement("update rooms set num = ?, p_count = ?, price_per_day = ?, desc_text = ?, texn_repo = ? " +
                             "where id = ?");
-            preparedStatement.setInt(1, room.getNum());
-            preparedStatement.setInt(2, room.getPcount());
-            preparedStatement.setDouble(3, room.getPrice_per_day());
+            preparedStatement.setInt(1, room.getNumber());
+            preparedStatement.setInt(2, room.getPersonsCount());
+            preparedStatement.setDouble(3, room.getPricePerDay());
             preparedStatement.setString(4, room.getDesc());
             preparedStatement.setDate(5, room.getTexn_repo());
 
@@ -134,9 +134,9 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO{
             while (resultSet.next()) {
                 Room room = new Room();
                 room.setId(resultSet.getLong("id"));
-                room.setNum(resultSet.getInt("num"));
-                room.setPcount(resultSet.getInt("p_count"));
-                room.setPrice_per_day(resultSet.getDouble("price_per_day"));
+                room.setNumber(resultSet.getInt("num"));
+                room.setPersonsCount(resultSet.getInt("p_count"));
+                room.setPricePerDay(resultSet.getDouble("price_per_day"));
                 room.setDesc(resultSet.getString("desc_text"));
                 room.setTexn_repo(resultSet.getDate("texn_repo"));
                 aps.add(room);
