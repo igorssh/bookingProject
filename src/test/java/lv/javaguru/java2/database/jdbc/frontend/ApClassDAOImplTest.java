@@ -43,7 +43,7 @@ public class ApClassDAOImplTest {
     }
 
     @Test
-    public void testMultipleApartamentCreation() throws DBException {
+    public void testMultipleApClasstCreation() throws DBException {
         Short cb;
         ApClass ap1 = createApClass(cb = 1, "Description about 1");
         ApClass ap2 = createApClass(cb = 2, "Description about 2");
