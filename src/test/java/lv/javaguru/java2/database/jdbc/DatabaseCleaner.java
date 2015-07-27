@@ -18,13 +18,13 @@ public class DatabaseCleaner extends DAOImpl {
        // tableNames.add("USERS");
         tableNames.add("apartments");
         tableNames.add("apclasses");
-        tableNames.add("comments");
+       /* tableNames.add("comments");
         tableNames.add("extras");
         tableNames.add("clients");
         tableNames.add("payments");
         tableNames.add("reservations");
         tableNames.add("rooms");
-        tableNames.add("thumbs");
+        tableNames.add("thumbs");*/
         return tableNames;
     }
 

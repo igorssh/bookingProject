@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: nina
-  Date: 23.07.15
-  Time: 20:33
+  User: Aleksej_home
+  Date: 2015.07.27.
+  Time: 19:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,20 +10,16 @@
 <html>
 <head>
   <!-- Bootstrap -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-  <link href="styles/bootstrap.min.css" rel="stylesheet">
-  <link href="styles/booking.css" rel="stylesheet">
-  <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
-  <link href="http://getbootstrap.com/examples/justified-nav/justified-nav.css" rel="stylesheet">
+  <jsp:include page="includes/header.jsp" />
 
+  <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-    <title>Booking home</title>
+  <title>Booking home</title>
 </head>
 <body>
 <div class="container">
@@ -84,9 +80,9 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-  <!--  <h1>Marketing stuff!</h1> -->
-  <!--  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p> -->
-   <!--  <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
+    <!--  <h1>Marketing stuff!</h1> -->
+    <!--  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p> -->
+    <!--  <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
   </div>
 
   <!-- Example row of columns -->
@@ -107,16 +103,14 @@
   </div>
 
   <!-- Site footer -->
-<%-- <footer class="footer">
-    <p>© Company 2014</p>
-  </footer> --%>
+  <%-- <footer class="footer">
+      <p>© Company 2014</p>
+    </footer> --%>
   <jsp:include page="includes/footer.jsp" />
 </div>
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<jsp:include page="includes/scripts.jsp" />
 </body>
 </html>

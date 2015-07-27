@@ -13,11 +13,11 @@
 
 <nav>
   <ul class="nav nav-justified">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#">Apartments</a></li>
-    <li><a href="#">Reservation</a></li>
-    <li><a href="#">Extras</a></li>
-    <li><a href="#">reviews</a></li>
-    <li><a href="#">Contact</a></li>
+    <li class="active"><a href="../java2/home.jsp">Home</a></li>
+    <li><a href="../java2/apartments.jsp">Apartments</a></li>
+    <li><a href="../java2/reservation.jsp">Reservation</a></li>
+    <li><a href="../java2/extras.jsp">Extras</a></li>
+    <li><a href="../java2/reviews.jsp">reviews</a></li>
+    <li><a href="../java2/contact.jsp">Contact</a></li>
   </ul>
 </nav>

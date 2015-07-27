@@ -29,7 +29,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into apclasses values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into apclasses values (default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setShort(1, apClass.getClassId());
             preparedStatement.setString(2, apClass.getDesc());
 
