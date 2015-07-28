@@ -5,14 +5,11 @@ import lv.javaguru.java2.domain.backend.Role;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.21..
- */
 public interface RoleDAO {
 
     void create(Role role) throws DBException;
 
-    Role getById(Long id) throws DBException;
+    Role getByRoleName(String roleName) throws DBException;
 
     void delete(Long id) throws DBException;
 

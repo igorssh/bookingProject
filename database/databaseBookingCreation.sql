@@ -164,13 +164,13 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `label` varchar(100) NOT NULL,
   `desc_text` text NOT NULL,
-  `func_id` int(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `func_id` (`func_id`),
-  CONSTRAINT `roles_ibfk_1`
-  FOREIGN KEY (`func_id`) REFERENCES `functions` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+#   `func_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+#   KEY `func_id` (`func_id`),
+#   CONSTRAINT `roles_ibfk_1`
+#   FOREIGN KEY (`func_id`) REFERENCES `functions` (`id`)
+#     ON UPDATE CASCADE
+#     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -260,10 +260,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `tele` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `last_modify` date NOT NULL,
-  `pub_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modify` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),

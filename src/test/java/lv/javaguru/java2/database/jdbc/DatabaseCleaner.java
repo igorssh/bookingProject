@@ -7,29 +7,25 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Viktor on 01/07/2014.
- */
-
 public class DatabaseCleaner extends DAOImpl {
 
     private List<String> getTableNames() {
         List<String> tableNames = new ArrayList<String>();
-       // tableNames.add("USERS");
         tableNames.add("apartments");
         tableNames.add("apclasses");
-       /* tableNames.add("comments");
+        tableNames.add("comments");
         tableNames.add("extras");
         tableNames.add("clients");
         tableNames.add("payments");
         tableNames.add("reservations");
         tableNames.add("rooms");
-        tableNames.add("thumbs");*/
+        tableNames.add("thumbs");
+        tableNames.add("users");
+        tableNames.add("roles");
         return tableNames;
     }
 
     public void cleanDatabase() throws DBException {
-       // System.out.println("cleanDB_vt");
         for(String tableName : getTableNames()) {
             Connection connection = getConnection();
             try {

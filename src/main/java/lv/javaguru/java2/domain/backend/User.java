@@ -1,53 +1,15 @@
 package lv.javaguru.java2.domain.backend;
 
-//import edu.booking.core.helpers.Person;
-
-import java.util.Date;
 import lv.javaguru.java2.domain.Person;
 
-/**
- * Created by Aleksej_home on 2015.07.15..
- */
-public class User extends Person{
+import java.util.Date;
+
+public class User extends Person {
+    private String username;
     private String password;
-    private Date pub_date;
-    private Date last_modify;
-  //  private Role role;
-
-    private void User(){
-        this.name = "";
-        this.surname = "";
-        this.email = "";
-        this.phone = "";
-        this.password = "";
-        this.last_modify = null;
-        this.pub_date = null; // need timestamp
-     //   this.role = new Role();
-
-    }
-
-    private void User(String nm,String snm,String em,String te,String pas, Date last/*, Role ro*/){
-        this.name = nm;
-        this.surname = snm;
-        this.email = em;
-        this.phone = te;
-        this.password = pas;
-        this.last_modify = last;
-        this.pub_date = null; // need timestamp
-      //  this.role = ro;
-    }
-
-    public Date getLast_modify() {
-        return last_modify;
-    }
-
-    public void setLast_modify(Date last_modify) {
-        this.last_modify = last_modify;
-    }
-
-    public Date getPub_date() {
-        return pub_date;
-    }
+    private Date lastModify;
+    private Date createDate;
+    private Role role;
 
     public String getPassword() {
         return password;
@@ -57,52 +19,40 @@ public class User extends Person{
         this.password = password;
     }
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
+    public Date getLastModify() {
+        return lastModify;
     }
 
-    public String getSurname(){
-        return surname;
-    }
-    public void setSurname(String surname){
-        this.surname = surname;
+    public void setLastModify(Date lastModify) {
+        this.lastModify = lastModify;
     }
 
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(String email){
-        this.email = email;
-    }
-    public String getTele(){
-        return phone;
-    }
-    public void setTele(String tele){
-        this.phone = tele;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-
-
-    /*  public void setPassword(String password) {
-        this.password = password;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public String getPassword() {
-        return password;
-    }*/
+    public String getUsername() {
+        return username;
+    }
 
- /*   private String toMd5(String pas){
-       // byte[] bytesOfMessage = pas.getBytes("UTF-8");
-        byte[] pas_byte = pas.getBytes();
-       // MessageDigest md = MessageDigest.getInstance("MD5");
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] thedigest = md.digest(pas_byte);
-        pas = thedigest.toString();
-        // byte[] thedigest = md.digest(bytesOfMessage);
-        return pas;
-    }*/
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+    
+    public long getRoleId() {
+        return role.getId();
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
 }

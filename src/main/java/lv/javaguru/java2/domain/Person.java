@@ -1,8 +1,5 @@
 package lv.javaguru.java2.domain;
 
-/**
- * Created by Aleksej_home on 2015.07.15..
- */
 abstract public class Person {
     protected long id;
     protected String name;
@@ -10,10 +7,43 @@ abstract public class Person {
     protected String email;
     protected String phone;
 
-    private boolean checkEmail() {
-        return true;
+    public long getId() {
+        return id;
     }
-    private boolean checkPhone() {
-        return true;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
