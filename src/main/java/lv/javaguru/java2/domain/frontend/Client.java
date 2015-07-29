@@ -5,8 +5,9 @@ import java.util.List;
 import lv.javaguru.java2.domain.Person;
 
 /**
- * Created by Aleksej_home on 2015.07.15..
+ * Created by Aleksej_home on 2015.07.15
  */
+
 public class Client extends Person {
     private String name;
     private String surname;
@@ -20,7 +21,7 @@ public class Client extends Person {
     private List<Comment> comments;
     private List<Reservation> reservations;
 
-    private void Client() {
+    public void Client() {
         this.name = "";
         this.surname = "";
         this.email = "";
@@ -33,7 +34,7 @@ public class Client extends Person {
         this.reservations = new LinkedList<Reservation>();
     }
 
-    private void Client(String name, String surname, String email, String phone, String corp,
+    public void Client(String name, String surname, String email, String phone, String corp,
                         String personalNumber, String registryNumber, List<Payment> payments,
                         List<Comment> comments, List<Reservation> reservations) {
         this.name = name;
@@ -80,7 +81,7 @@ public class Client extends Person {
         return id;
     }
 
-    public void setId(Long id){
+    public void setId(long id){
         this.id = id;
     }
 

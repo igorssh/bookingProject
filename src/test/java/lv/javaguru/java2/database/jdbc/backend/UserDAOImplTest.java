@@ -26,7 +26,7 @@ public class UserDAOImplTest {
     }
 
     @Test
-    public void testCreate() throws Exception {
+    public void testCreate() throws DBException {
         User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
         
         userDAO.create(user);
@@ -44,18 +44,18 @@ public class UserDAOImplTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() throws DBException {
         User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
         userDAO.create(user);
         
-        assertEquals(userDAO.getAll().size(), 1);
+        assertEquals(1, userDAO.getAll().size());
         
         userDAO.delete(user.getId());
-        assertEquals(userDAO.getAll().size(), 0);
+        assertEquals(0, userDAO.getAll().size());
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() throws DBException {
         User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
         userDAO.create(user);
         
@@ -70,7 +70,7 @@ public class UserDAOImplTest {
     }
 
     @Test
-    public void testMultipleUserCreation() throws Exception {
+    public void testMultipleUserCreation() throws DBException {
         User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
         User anotherUser = createUser("F", "B", "25878961", "test@javaguru.com", "ad", "123", roleDAO.getByRoleName("ADMIN"));
         

@@ -22,6 +22,7 @@ public class DatabaseCleaner extends DAOImpl {
         tableNames.add("thumbs");
         tableNames.add("users");
         tableNames.add("roles");
+        tableNames.add("permissions");
         return tableNames;
     }
 

@@ -9,8 +9,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Created by Viktor on 01/07/2014.
+ * Created by Viktor on 01/07/2014
  */
+
 public class DAOImpl {
 
     private static final String DB_CONFIG_FILE = "database.properties";

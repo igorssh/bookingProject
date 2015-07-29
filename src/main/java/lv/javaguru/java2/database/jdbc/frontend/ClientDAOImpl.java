@@ -39,7 +39,7 @@ public class ClientDAOImpl extends DAOImpl implements ClientDAO {
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
+            if (rs.next()) {
                 client.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
@@ -52,7 +52,7 @@ public class ClientDAOImpl extends DAOImpl implements ClientDAO {
 
     }
 
-    public Client getById(Long id) throws DBException {
+    public Client getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -69,7 +69,7 @@ public class ClientDAOImpl extends DAOImpl implements ClientDAO {
                 client.setName(resultSet.getString("name"));
                 client.setSurname(resultSet.getString("surname"));
                 client.setEmail(resultSet.getString("email"));
-                client.setPhone(resultSet.getString("phone"));
+                client.setPhone(resultSet.getString("tele"));
                 client.setRegistryNumber(resultSet.getString("reg_num"));
                 client.setPersonalNumber(resultSet.getString("pers_num"));
                 client.setCorp(resultSet.getString("corp"));
@@ -84,7 +84,7 @@ public class ClientDAOImpl extends DAOImpl implements ClientDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();

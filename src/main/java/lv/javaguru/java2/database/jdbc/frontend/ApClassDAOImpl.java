@@ -29,9 +29,10 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into apclasses values (default, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into apclasses values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setShort(1, apClass.getClassId());
             preparedStatement.setString(2, apClass.getDesc());
+            preparedStatement.setInt(3, apClass.getNumId());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -48,13 +49,13 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
 
     }
 
-    public ApClass getById(Long id) throws DBException {
+    public ApClass getById(long id) throws DBException {
         Connection connection = null;
 
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from apclasses where id = ?");
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("select * from apclasses where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             ApClass ap = null;
@@ -63,6 +64,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
                 ap.setId(resultSet.getLong("id"));
                 ap.setClassId(resultSet.getShort("classId"));
                 ap.setDesc(resultSet.getString("desc_text"));
+                ap.setNumId(resultSet.getInt("num_id"));
             }
             return ap;
         } catch (Throwable e) {
@@ -74,7 +76,7 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -100,11 +102,12 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update apclasses set classId = ?, desc_text = ? " +
+                    .prepareStatement("update apclasses set classId = ?, desc_text = ?, num_id = ? " +
                             "where id = ?");
             preparedStatement.setShort(1, ap.getClassId());
             preparedStatement.setString(2, ap.getDesc());
-            preparedStatement.setLong(3, ap.getId());
+            preparedStatement.setInt(3, ap.getNumId());
+            preparedStatement.setLong(4, ap.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -124,11 +127,12 @@ public class ApClassDAOImpl extends DAOImpl implements ApClassDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ApClass ap = new ApClass();
-                ap.setId(resultSet.getLong("id"));
-                ap.setClassId(resultSet.getShort("classId"));
-                ap.setDesc(resultSet.getString("desc_text"));
-                apClasses.add(ap);
+                ApClass apClass = new ApClass();
+                apClass.setId(resultSet.getLong("id"));
+                apClass.setClassId(resultSet.getShort("classId"));
+                apClass.setDesc(resultSet.getString("desc_text"));
+                apClass.setNumId(resultSet.getInt("num_id"));
+                apClasses.add(apClass);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
