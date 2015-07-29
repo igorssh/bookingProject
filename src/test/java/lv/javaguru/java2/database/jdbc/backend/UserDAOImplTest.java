@@ -1,6 +1,8 @@
 package lv.javaguru.java2.database.jdbc.backend;
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.backend.RoleDAO;
+import lv.javaguru.java2.database.backend.UserDAO;
 import lv.javaguru.java2.database.jdbc.*;
 import lv.javaguru.java2.domain.backend.Role;
 import lv.javaguru.java2.domain.backend.User;
@@ -13,9 +15,9 @@ public class UserDAOImplTest {
 
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
 
-    private UserDAOImpl userDAO = new UserDAOImpl();
+    private UserDAO userDAO = new UserDAOImpl();
     
-    private RoleDAOImpl roleDAO = new RoleDAOImpl();
+    private RoleDAO roleDAO = new RoleDAOImpl();
 
     @Before
     public void init() throws DBException {

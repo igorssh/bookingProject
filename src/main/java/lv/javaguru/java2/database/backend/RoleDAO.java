@@ -11,7 +11,9 @@ public interface RoleDAO {
 
     Role getByRoleName(String roleName) throws DBException;
 
-    void delete(Long id) throws DBException;
+    Role getById(long id) throws DBException;
+
+    void delete(long id) throws DBException;
 
     void update(Role role) throws DBException;
 

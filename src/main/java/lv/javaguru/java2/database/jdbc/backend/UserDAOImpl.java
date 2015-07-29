@@ -48,7 +48,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO{
         }
     }
 
-    public User getById(Long id) throws DBException {
+    public User getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -81,7 +81,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO{
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();

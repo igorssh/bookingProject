@@ -66,7 +66,7 @@ public class RoleDAOImpl extends DAOImpl implements RoleDAO {
         }
     }
 
-    public Role getById(Long id) throws DBException {
+    public Role getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -92,7 +92,7 @@ public class RoleDAOImpl extends DAOImpl implements RoleDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();

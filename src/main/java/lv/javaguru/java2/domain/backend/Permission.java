@@ -1,20 +1,20 @@
 package lv.javaguru.java2.domain.backend;
 
-import java.util.List;
-
-public class Role {
+public class Permission {
 
     private long id;
     private String label;
     private String desc;
-    private List<Permission> permissions;
+    private Role role;
 
-    public Role() {
+    public Permission() {
+
     }
 
-    public Role(String label, String desc) {
+    public Permission(String label, String desc, Role role) {
         this.label = label;
         this.desc = desc;
+        this.role = role;
     }
 
     public long getId() {
@@ -29,23 +29,23 @@ public class Role {
         return label;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
-    public List<Permission> getPermissions() {
-        return permissions;
+    
+    public long getRoleId() {
+        return role.getId();
     }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
