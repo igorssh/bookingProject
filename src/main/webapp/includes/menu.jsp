@@ -21,3 +21,17 @@
     <li><a href="../java2/contact.jsp">Contact</a></li>
   </ul>
 </nav>
+
+<div class="row">
+  <div class="col-lg-offset-9 col-lg-3">
+    <p><div class="input-group">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </span>
+      <input type="search" class="form-control" placeholder="Search query" id="search">
+      <span class="input-group-btn">
+         <button class="btn btn-primary" type="button">Search</button>
+      </span>
+    </div></p>
+  </div>
+</div>

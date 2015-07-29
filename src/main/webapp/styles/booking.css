@@ -17,4 +17,12 @@
 
 
 
+table#apartment-list th, td {
+   /* font-family: 'Adine Kirnberg';*/
+    color: #337ab7;
+
+}
+table#apartment-list {
+    font-family: 'America XIX' !important;
+}
 

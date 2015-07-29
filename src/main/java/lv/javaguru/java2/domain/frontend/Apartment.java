@@ -28,7 +28,15 @@ public class Apartment {
         this.desc = desc;
         this.apRooms = apRooms;
     }
-
+/*
+    public void Apartment(String label, String address, String desc) {
+        List<Room> list = new LinkedList<Room>();
+        this.label = label;
+        this.address = address;
+        this.desc = desc;
+        this.apRooms = null;
+    }
+*/
     public void setApRooms(List<Room> apRooms) {
         this.apRooms = apRooms;
     }

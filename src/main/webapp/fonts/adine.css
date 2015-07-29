@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Adine Kirnbergr';
+    src: url('adine_kirnberg.eot');
+    src: url('adine_kirnberg.eot?#iefix') format('embedded-opentype'),
+         url('adine_kirnberg.woff') format('woff'),
+         url('adine_kirnberg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'American TextC';
+    src: url('american_textc.eot');
+    src: url('american_textc.eot?#iefix') format('embedded-opentype'),
+         url('american_textc.woff') format('woff'),
+         url('american_textc.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
