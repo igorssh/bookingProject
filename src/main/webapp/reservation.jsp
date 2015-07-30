@@ -12,7 +12,8 @@
   <!-- Bootstrap -->
   <jsp:include page="includes/header.jsp" />
 
-  <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+  <link href="styles/bootstrap-datepicker3.min.css" rel="stylesheet">
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -31,77 +32,61 @@
   </div>
 
   <!-- Jumbotron -->
-  <div class="jumbotron">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item">
-          <img class="first-slide" src="images/sys/rentc2.png" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="second-slide" src="images/sys/vintg_app2.png" alt="Second slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="item active">
-          <img class="third-slide" src="images/sys/student_app.png" alt="Third slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-    <!--  <h1>Marketing stuff!</h1> -->
-    <!--  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p> -->
-    <!--  <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p> -->
-  </div>
-
-  <!-- Example row of columns -->
-  <div class="row">
-
-    <div class="col-lg-offset-1 col-lg-5">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn btn-primary" href="#" role="button">View details »</a></p>
-    </div>
-    <div class="col-lg-5">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-      <p><a class="btn btn-primary" href="#" role="button">View details »</a></p>
-    </div>
-    <div class="col-lg-1"> </div>
-
-  </div>
-
+ <div class="row">
+   <div class="col-xs-9">
+     <form class="form-horizontal" name="res" >
+       <div class="form-group">
+         <label class="control-label col-sm-2" for="aps">Apartment:</label>
+         <div class="col-sm-10">
+           <select class="form-control" id="aps" name="apartment">
+             <option selected value="1">none</option>
+             <option value="2">Dracula castle</option>
+             <option value="3">Buisness apartment</option>
+             <option value="4">Baracs</option>
+           </select>
+           </div>
+       </div>
+       <div class="form-group">
+         <label class="control-label col-sm-2" for="room">Room:</label>
+         <div class="col-sm-10">
+           <select class="form-control" id="room" name="rooms">
+             <option selected value="1">none</option>
+             <option value="2">Room 1</option>
+             <option value="3">Room 2</option>
+             <option value="4">Room 3</option>
+             <option value="5">Room 4</option>
+             <option value="6">Room 5</option>
+             <option value="7">Room 6</option>
+           </select>
+         </div>
+       </div>
+       <div class="form-group">
+         <label class="control-label col-sm-2" for="datepicker">From:</label>
+         <div class="col-sm-10">
+           <div class="input-daterange input-group" id="datepicker">
+             <input type="text" class="input-sm form-control" name="start" />
+             <span class="input-group-addon">to</span>
+             <input type="text" class="input-sm form-control" name="end" />
+           </div>
+         </div>
+       </div>
+       <div class="form-group">
+         <label class="control-label col-sm-2" for="til">Till:</label>
+         <div class="col-sm-10">
+           <input class="date-picker date-picker-popup" id="til" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+         </div>
+       </div>
+       <div class="form-group">
+         <div class="col-sm-offset-2 col-sm-10">
+           <button type="submit" class="btn btn-default">Next</button>
+         </div>
+       </div>
+     </form>
+   </div>
+   <div class="col-xs-3">
+     <p>ddff</p>
+   </div>
+ </div>
   <!-- Site footer -->
   <%-- <footer class="footer">
       <p>© Company 2014</p>
@@ -112,5 +97,6 @@
 
 
 <jsp:include page="includes/scripts.jsp" />
+<script src="js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>

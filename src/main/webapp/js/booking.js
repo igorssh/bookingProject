@@ -7,6 +7,9 @@ $( document ).ready(function() {
     $(".nav .active").attr("class","");
     $(".nav li a[href$=\""+$(location).attr('pathname')+"\"]").parent().attr("class", "active");
    // $("#slider").slider();
+    $('#sandbox-container .input-daterange').datepicker({
+        startDate: '-3d'
+    });
 });
 
 
