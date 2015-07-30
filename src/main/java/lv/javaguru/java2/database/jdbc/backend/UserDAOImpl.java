@@ -73,7 +73,7 @@ public class UserDAOImpl extends DAOImpl implements UserDAO{
             }
             return user;
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getByRoleName()");
+            System.out.println("Exception while execute UserDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -150,12 +150,45 @@ public class UserDAOImpl extends DAOImpl implements UserDAO{
                 users.add(user);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list UserDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
             closeConnection(connection);
         }
         return users;
+    }
+
+    public User getUserByLogin(String login) throws DBException {
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from users where name = ?");
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getLong("id"));
+                user.setName(resultSet.getString("name"));
+                user.setSurname(resultSet.getString("surname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPhone(resultSet.getString("phone"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                user.setLastModify(resultSet.getDate("last_modify"));
+                user.setCreateDate(resultSet.getDate("create_date"));
+                user.setRole(roleDAO.getById(resultSet.getLong("role_id")));
+            }
+            return user;
+        } catch (Throwable e) {
+            System.out.println("Exception while execute UserDAOImpl.getById()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
     }
 }

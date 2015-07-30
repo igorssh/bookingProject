@@ -1,39 +1,9 @@
 <%@ page import="java.io.*,java.util.*" %>
 <%@ page import="lv.javaguru.java2.domain.frontend.Apartment" %>
 
-
-<%--
-  Created by IntelliJ IDEA.
-  User: Aleksej_home
-  Date: 2015.07.27.
-  Time: 19:04
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-
-
-  HashSet<Apartment> apList = new HashSet<Apartment>();
-  Apartment ap = new Apartment();
-  ap.setId(1l);
-  ap.setLabel("images/apartments/thumbs/drak150x100.png");
-  ap.setAddress("Bullu street 45");
-  ap.setDesc("Good pay good day");
-  apList.add(ap);
-  Apartment ap2 = new Apartment();
-  ap2.setId(2l);
-  ap2.setLabel("images/apartments/thumbs/vanap150x100.png");
-  ap2.setAddress("Stabu street 6");
-  ap2.setDesc("For average person");
-  apList.add(ap2);
-  Apartment ap3 = new Apartment();
-  ap3.setId(3l);
-  ap3.setLabel("images/apartments/thumbs/stud150x100.png");
-  ap3.setAddress("Putina street 10");
-  ap3.setDesc("For poor person, .. students ant other");
-  apList.add(ap3);
-
-
+  List<Apartment> apartments = (List<Apartment>)request.getAttribute("model");
 %>
 <html>
 <head>
@@ -74,16 +44,17 @@
       </thead>
       <tbody>
       <%
-        Iterator<Apartment> itr = apList.iterator();
+        Apartment apartment;
+        Iterator<Apartment> itr = apartments.iterator();
         while (itr.hasNext()) {
-          ap =  itr.next();
+          apartment = itr.next();
       %>
-       <input id="hld" type="hidden" value="<%= ap.getLabel() %>">
+       <input id="hld" type="hidden" value="<%= apartment.getLabel() %>">
       <tr>
         <td><a data-toggle="modal" data-target="#myModal" href="#">
-          <img class="img-thumbnail" src="<%= ap.getLabel() %>"> </a></td>
+          <img class="img-thumbnail" src="<%= apartment.getLabel() %>"> </a></td>
         <td><ul class="list-unstyled">
-          <li><p>Adress: <%= ap.getAddress() %></p> </li>
+          <li><p>Adress: <%= apartment.getAddress() %></p> </li>
           <li><p>Rooms count: 50</p></li>
           <ul>
             <li><p>In use: 31</p></li>
@@ -91,7 +62,7 @@
           </ul>
           <li><p>Average room price: ~500 eu</p></li>
         </ul></td>
-        <td><%= ap.getDesc() %></td>
+        <td><%= apartment.getDesc() %></td>
       </tr>
 
       <% } %>

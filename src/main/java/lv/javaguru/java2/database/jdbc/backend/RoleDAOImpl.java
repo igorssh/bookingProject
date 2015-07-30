@@ -84,7 +84,7 @@ public class RoleDAOImpl extends DAOImpl implements RoleDAO {
             }
             return role;
         } catch (Throwable e) {
-            System.out.println("Exception while execute RoleDAOImpl.getByRoleName()");
+            System.out.println("Exception while execute RoleDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -149,7 +149,7 @@ public class RoleDAOImpl extends DAOImpl implements RoleDAO {
                 roles.add(role);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list RoleDAOImpl.getList()");
+            System.out.println("Exception while getting customer list RoleDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
