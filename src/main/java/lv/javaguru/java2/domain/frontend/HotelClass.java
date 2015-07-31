@@ -1,33 +1,26 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Aleksej_home on 2015.07.15
  */
 
-public class ApClass {
+public class HotelClass {
     private long id;
-    private short classId;
+    private int classId;
     private String desc;
     private int numId;
     private List<Extra> extras;
 
-    public void ApClass() {
-        this.classId = 0;
-        this.desc = "";
-        this.numId = 0;
-        this.extras = new LinkedList<Extra>();
+    public HotelClass() {
     }
 
-    public void ApClass(short classId, String desc, int numId, List<Extra> extras) {
+    public HotelClass(int classId, String desc) {
         this.classId = classId;
         this.desc = desc;
-        this.numId = numId;
-        this.extras = extras;
+        this.numId = 1;
     }
-
 
     public void setId(long id) {
         this.id = id;
@@ -37,11 +30,11 @@ public class ApClass {
         return id;
     }
 
-    public short getClassId() {
+    public int getClassId() {
         return classId;
     }
 
-    public void setClassId(short classId) {
+    public void setClassId(int classId) {
         this.classId = classId;
     }
 

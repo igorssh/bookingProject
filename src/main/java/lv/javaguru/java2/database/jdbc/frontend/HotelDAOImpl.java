@@ -1,9 +1,9 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.ApartmentDAO;
+import lv.javaguru.java2.database.frontend.HotelDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
-import lv.javaguru.java2.domain.frontend.Apartment;
+import lv.javaguru.java2.domain.frontend.Hotel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +15,10 @@ import java.util.List;
  * Created by Aleksej_home on 2015.07.21
  */
 
-public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
+public class HotelDAOImpl extends DAOImpl implements HotelDAO {
 
-    public void create(Apartment ap) throws DBException {
-        if (ap == null) {
+    public void create(Hotel hotel) throws DBException {
+        if (hotel == null) {
             return;
         }
 
@@ -27,16 +27,15 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into apartments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, ap.getLabel());
-            preparedStatement.setString(2, ap.getAddress());
-            preparedStatement.setString(3, ap.getDesc());
+                    connection.prepareStatement("insert into hotels values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, hotel.getLabel());
+            preparedStatement.setString(2, hotel.getAddress());
+            preparedStatement.setString(3, hotel.getDescription());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()){
-              //  ap.setUserId(rs.getLong(1));
-                ap.setId(rs.getLong(1));
+                hotel.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.create()");
@@ -48,24 +47,24 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
 
     }
 
-    public Apartment getById(Long id) throws DBException {
+    public Hotel getById(Long id) throws DBException {
         Connection connection = null;
 
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from apartments where id = ?");
+                    .prepareStatement("select * from hotels where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Apartment ap = null;
+            Hotel hotel = null;
             if (resultSet.next()) {
-                ap = new Apartment();
-                ap.setId(resultSet.getLong("id"));
-                ap.setLabel(resultSet.getString("label"));
-                ap.setAddress(resultSet.getString("address"));
-                ap.setDesc(resultSet.getString("desc_text"));
+                hotel = new Hotel();
+                hotel.setId(resultSet.getLong("id"));
+                hotel.setLabel(resultSet.getString("label"));
+                hotel.setAddress(resultSet.getString("address"));
+                hotel.setDescription(resultSet.getString("desc_text"));
             }
-            return ap;
+            return hotel;
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.getById()");
             e.printStackTrace();
@@ -80,7 +79,7 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from apartments where id = ?");
+                    .prepareStatement("delete from hotels where id = ?");
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
@@ -92,8 +91,8 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         }
     }
 
-    public void update(Apartment ap) throws DBException {
-        if (ap == null) {
+    public void update(Hotel hotel) throws DBException {
+        if (hotel == null) {
             return;
         }
 
@@ -101,12 +100,12 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update apartments set label = ?, address = ?, desc_text = ? " +
+                    .prepareStatement("update hotels set label = ?, address = ?, desc_text = ? " +
                             "where id = ?");
-            preparedStatement.setString(1, ap.getLabel());
-            preparedStatement.setString(2, ap.getAddress());
-            preparedStatement.setString(3, ap.getDesc());
-            preparedStatement.setLong(4, ap.getId());
+            preparedStatement.setString(1, hotel.getLabel());
+            preparedStatement.setString(2, hotel.getAddress());
+            preparedStatement.setString(3, hotel.getDescription());
+            preparedStatement.setLong(4, hotel.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -117,21 +116,21 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         }
     }
 
-    public List<Apartment> getAll() throws DBException {
-        List<Apartment> apartments = new ArrayList<Apartment>();
+    public List<Hotel> getAll() throws DBException {
+        List<Hotel> hotels = new ArrayList<Hotel>();
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from apartments");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from hotels");
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Apartment ap = new Apartment();
-                ap.setId(resultSet.getLong("id"));
-                ap.setLabel(resultSet.getString("label"));
-                ap.setAddress(resultSet.getString("address"));
-                ap.setDesc(resultSet.getString("desc_text"));
-                apartments.add(ap);
+                Hotel hotel = new Hotel();
+                hotel.setId(resultSet.getLong("id"));
+                hotel.setLabel(resultSet.getString("label"));
+                hotel.setAddress(resultSet.getString("address"));
+                hotel.setDescription(resultSet.getString("desc_text"));
+                hotels.add(hotel);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
@@ -140,7 +139,7 @@ public class ApartmentDAOImpl extends DAOImpl implements ApartmentDAO {
         } finally {
             closeConnection(connection);
         }
-        return apartments;
+        return hotels;
     }
 
 

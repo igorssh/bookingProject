@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PaymentDAO {
 
-    void create(Payment pa) throws DBException;
+    void create(Payment payment) throws DBException;
 
     Payment getById(Long id) throws DBException;
 

@@ -1,9 +1,9 @@
 <%@ page import="java.io.*,java.util.*" %>
-<%@ page import="lv.javaguru.java2.domain.frontend.Apartment" %>
+<%@ page import="lv.javaguru.java2.domain.frontend.Hotel" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  List<Apartment> apartments = (List<Apartment>)request.getAttribute("model");
+  List<Hotel> hotels = (List<Hotel>)request.getAttribute("model");
 %>
 <html>
 <head>
@@ -44,17 +44,17 @@
       </thead>
       <tbody>
       <%
-        Apartment apartment;
-        Iterator<Apartment> itr = apartments.iterator();
+        Hotel hotel;
+        Iterator<Hotel> itr = hotels.iterator();
         while (itr.hasNext()) {
-          apartment = itr.next();
+          hotel = itr.next();
       %>
-       <input id="hld" type="hidden" value="<%= apartment.getLabel() %>">
+       <input id="hld" type="hidden" value="<%= hotel.getLabel() %>">
       <tr>
         <td><a data-toggle="modal" data-target="#myModal" href="#">
-          <img class="img-thumbnail" src="<%= apartment.getLabel() %>"> </a></td>
+          <img class="img-thumbnail" src="<%= hotel.getLabel() %>"> </a></td>
         <td><ul class="list-unstyled">
-          <li><p>Adress: <%= apartment.getAddress() %></p> </li>
+          <li><p>Adress: <%= hotel.getAddress() %></p> </li>
           <li><p>Rooms count: 50</p></li>
           <ul>
             <li><p>In use: 31</p></li>
@@ -62,7 +62,7 @@
           </ul>
           <li><p>Average room price: ~500 eu</p></li>
         </ul></td>
-        <td><%= apartment.getDesc() %></td>
+        <td><%= hotel.getDescription() %></td>
       </tr>
 
       <% } %>

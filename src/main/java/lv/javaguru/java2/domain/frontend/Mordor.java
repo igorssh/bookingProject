@@ -14,7 +14,7 @@ public class Mordor {
     private String office;
     private String phone;
     private String registryNumber;
-    private List<Apartment> apartments;
+    private List<Hotel> hotels;
 
     public void Mordor() {
         this.label = "";
@@ -23,26 +23,26 @@ public class Mordor {
         this.office = "";
         this.phone = "";
         this.registryNumber = "";
-        this.apartments = new LinkedList<Apartment>();
+        this.hotels = new LinkedList<Hotel>();
     }
 
     public void Mordor(String label, String desc, String logo, String office, String phone,
-                       String registryNumber, List<Apartment> apartments) {
+                       String registryNumber, List<Hotel> hotels) {
         this.label = label;
         this.desc = desc;
         this.logo = logo;
         this.office = office;
         this.phone = phone;
         this.registryNumber = registryNumber;
-        this.apartments = apartments;
+        this.hotels = hotels;
     }
 
-    public List<Apartment> getApartments() {
-        return apartments;
+    public List<Hotel> getHotels() {
+        return hotels;
     }
 
-    public void setApartments(List<Apartment> apartments) {
-        this.apartments = apartments;
+    public void setHotels(List<Hotel> hotels) {
+        this.hotels = hotels;
     }
 
     public String getDesc() {

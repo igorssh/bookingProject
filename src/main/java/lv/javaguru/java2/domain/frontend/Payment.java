@@ -4,20 +4,28 @@ package lv.javaguru.java2.domain.frontend;
 
 import java.util.Date;
 
-/**
- * Created by Aleksej_home on 2015.07.15..
- */
 public class Payment {
 
     private long id;
-    private double money;
-    private String desc;
-    private short paymentType;
+    private double amount;
+    private String description;
+    private int paymentType;
     private Date timestamp;
     private String referent;
     private Client client;
 
-//    private PaymentListener listener;
+    public Payment() {
+    }
+
+    public Payment(double amount, String description, int paymentType, String referent, Client client) {
+        this.amount = amount;
+        this.description = description;
+        this.paymentType = paymentType;
+        this.referent = referent;
+        this.client = client;
+    }
+
+    //    private PaymentListener listener;
 
     public Client getClient() {
         return client;
@@ -43,27 +51,27 @@ public class Payment {
         return timestamp;
     }
 
-    public double getMoney() {
-        return money;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setMoney(double money) {
-        this.money = money;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public short getPaymentType() {
+    public int getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(short paymentType) {
+    public void setPaymentType(int paymentType) {
         this.paymentType = paymentType;
     }
 

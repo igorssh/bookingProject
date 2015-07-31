@@ -10,14 +10,10 @@ public class Extra {
     private double cost;
     private String pic;
 
-    public void Extra() {
-        this.label = "";
-        this.desc = "";
-        this.cost = 0.0;
-        this.pic = "";
+    public Extra() {
     }
 
-    public void Extra(String label, String desc, String pic, double cost) {
+    public Extra(String label, String desc, double cost, String pic) {
         this.label = label;
         this.desc = desc;
         this.cost = cost;

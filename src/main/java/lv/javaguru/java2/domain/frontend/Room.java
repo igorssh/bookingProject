@@ -1,126 +1,99 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.sql.Date;
-import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.14..
- */
 public class Room {
-   private long id;
-   private int number;
-   private int personsCount;
-   private double pricePerDay;
-   private String desc;
-   private Date maintenance;
-   private List<Thumb> thumbs;
-   private List<Reservation> reservations;
-   private ApClass apClass;
-   private Apartment apartment;
+    private long id;
+    private int roomNumber;
+    private int personCount;
+    private double pricePerDay;
+    private String description;
+    private List<Thumb> thumbs;
+    private List<Reservation> reservations;
+    private HotelClass hotelClass;
+    private Hotel hotel;
 
-   public void Room() {
-      this.number = 0;
-      this.personsCount = 0;
-      this.pricePerDay = 0.0;
-      this.desc = "";
-      this.maintenance = null;
-      this.thumbs =  new LinkedList<Thumb>();
-      this.apClass = new ApClass();
-      this.reservations = new LinkedList<Reservation>();
-      this.apartment = new Apartment();
-   }
+    public Room() {
+    }
 
-   public void Room(int number, int placesCount, String desc, Date maintenance, double pricePerDay,
-                    ApClass apClass, List<Thumb> thumbs, List<Reservation> reservations, Apartment apartment) {
-      this.number = number;
-      this.personsCount = placesCount;
-      this.pricePerDay = pricePerDay;
-      this.desc = desc;
-      this.maintenance = maintenance;
-      this.apClass = apClass;
-      this.thumbs = thumbs;
-      this.reservations = reservations;
-      this.apartment = apartment;
-   }
+    public Room(int roomNumber, int personCount, double pricePerDay, String description, HotelClass hotelClass, Hotel hotel) {
+        this.roomNumber = roomNumber;
+        this.personCount = personCount;
+        this.pricePerDay = pricePerDay;
+        this.description = description;
+        this.hotelClass = hotelClass;
+        this.hotel = hotel;
+    }
 
-   public Apartment getApartment() {
-      return apartment;
-   }
+    public long getId() {
+        return id;
+    }
 
-   public void setApt(Apartment apartment) {
-      this.apartment = apartment;
-   }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-   public double getPricePerDay() {
-      return pricePerDay;
-   }
+    public int getRoomNumber() {
+        return roomNumber;
+    }
 
-   public void setPricePerDay(double pricePerDay) {
-      this.pricePerDay = pricePerDay;
-   }
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
-   public List<Thumb> getThumbs() {
-      return thumbs;
-   }
+    public int getPersonCount() {
+        return personCount;
+    }
 
-   public void setThumbs(List<Thumb> thumbs) {
-      this.thumbs = thumbs;
-   }
+    public void setPersonCount(int personCount) {
+        this.personCount = personCount;
+    }
 
-   public List<Reservation> getReservations() {
-      return reservations;
-   }
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
 
-   public void setReservations(List<Reservation> reservations) {
-      this.reservations = reservations;
-   }
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
 
-   public long getId() {
-      return id;
-   }
+    public String getDescription() {
+        return description;
+    }
 
-   public void setId(long id) {
-      this.id = id;
-   }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-   public Date getTexn_repo() {
-      return maintenance;
-   }
+    public List<Thumb> getThumbs() {
+        return thumbs;
+    }
 
-   public void setTexn_repo(Date texn_repo) {
-      this.maintenance = texn_repo;
-   }
+    public void setThumbs(List<Thumb> thumbs) {
+        this.thumbs = thumbs;
+    }
 
-   public int getNumber() {
-      return number;
-   }
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
 
-   public void setNumber(int number) {
-      this.number = number;
-   }
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 
-   public int getPersonsCount() {
-      return personsCount;
-   }
+    public HotelClass getHotelClass() {
+        return hotelClass;
+    }
 
-   public void setPersonsCount(int placesCount) {
-      this.personsCount = placesCount;
-   }
+    public void setHotelClass(HotelClass hotelClass) {
+        this.hotelClass = hotelClass;
+    }
 
-   public String getDesc() {
-      return desc;
-   }
+    public Hotel getHotel() {
+        return hotel;
+    }
 
-   public void setDesc(String desc) {
-      this.desc = desc;
-   }
-
-   public ApClass getApClass() {
-      return apClass;
-   }
-
-   public void setApClass(ApClass apClass) {
-      this.apClass = apClass;
-   }
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 }

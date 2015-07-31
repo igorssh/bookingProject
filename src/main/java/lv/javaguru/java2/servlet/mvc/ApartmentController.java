@@ -1,9 +1,9 @@
 package lv.javaguru.java2.servlet.mvc;
 
 import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.database.frontend.ApartmentDAO;
-import lv.javaguru.java2.database.jdbc.frontend.ApartmentDAOImpl;
-import lv.javaguru.java2.domain.frontend.Apartment;
+import lv.javaguru.java2.database.frontend.HotelDAO;
+import lv.javaguru.java2.database.jdbc.frontend.HotelDAOImpl;
+import lv.javaguru.java2.domain.frontend.Hotel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -12,12 +12,12 @@ public class ApartmentController implements MVCController {
 
     @Override
     public MVCModel processRequest(HttpServletRequest req) {
-        ApartmentDAO apartmentDAO = new ApartmentDAOImpl();
+        HotelDAO hotelDAO = new HotelDAOImpl();
         try {
-            List<Apartment> apartments = apartmentDAO.getAll();
+            List<Hotel> hotels = hotelDAO.getAll();
 
-            if (apartments.size() != 0) {
-                return new MVCModel(apartments, "/apartments.jsp");
+            if (hotels.size() != 0) {
+                return new MVCModel(hotels, "/apartments.jsp");
             } else {
                 return new MVCModel(null, "/home.jsp");
             }

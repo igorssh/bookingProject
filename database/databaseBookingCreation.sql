@@ -28,10 +28,10 @@ CREATE SCHEMA IF NOT EXISTS `bookingproject`
 USE `bookingproject`;
 
 --
--- Table `apartments`
+-- Table `hotels`
 --
 
-CREATE TABLE IF NOT EXISTS `apartments` (
+CREATE TABLE IF NOT EXISTS `hotels` (
   `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `label`     VARCHAR(255)     NOT NULL,
   `address`   VARCHAR(255)     NOT NULL,
@@ -45,12 +45,12 @@ CREATE TABLE IF NOT EXISTS `apartments` (
 -- --------------------------------------------------------
 
 --
--- Table `apclasses`
+-- Table `hotelclasses`
 --
 
-CREATE TABLE IF NOT EXISTS `apclasses` (
+CREATE TABLE IF NOT EXISTS `hotelclasses` (
   `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `classId`   TINYINT(4)       NOT NULL DEFAULT '1',
+  `classRating`   INT(11)          NOT NULL DEFAULT '1',
   `desc_text` TEXT             NOT NULL,
   `num_id`    INT(11)          NOT NULL,
   PRIMARY KEY (`id`),
@@ -147,9 +147,9 @@ CREATE TABLE IF NOT EXISTS `extra_reservation_relations` (
 
 CREATE TABLE IF NOT EXISTS `payments` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `money`      DOUBLE           NOT NULL DEFAULT '0',
+  `amount`     DOUBLE           NOT NULL DEFAULT '0',
   `desc_text`  TEXT             NOT NULL,
-  `pay_type`   TINYINT(4)       NOT NULL DEFAULT '1',
+  `pay_type`   INT(11)          NOT NULL DEFAULT '1',
   `time_stamp` TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `referent`   VARCHAR(255)     NOT NULL,
   `client_id`  INT(11) UNSIGNED NOT NULL,
@@ -209,23 +209,22 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 --
 
 CREATE TABLE IF NOT EXISTS `rooms` (
-  `id`            INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `num`           INT(11)          NOT NULL,
-  `p_count`       INT(11)          NOT NULL,
-  `price_per_day` DOUBLE           NOT NULL,
-  `desc_text`     TEXT             NOT NULL,
-  `texn_repo`     DATE             NOT NULL,
-  `apclass_id`    INT(11) UNSIGNED NOT NULL,
-  `ap_id`         INT(11) UNSIGNED NOT NULL,
+  `id`               INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `room_number`      INT(11)          NOT NULL,
+  `person_count`     INT(11)          NOT NULL,
+  `price_per_day`    DOUBLE           NOT NULL,
+  `description_text` TEXT             NOT NULL,
+  `hotel_class_id`       INT(11) UNSIGNED NOT NULL,
+  `hotel_id`         INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `apclass_id` (`apclass_id`),
-  KEY `ap_id` (`ap_id`),
+  KEY `hotel_class_id` (`hotel_class_id`),
+  KEY `hotel_id` (`hotel_id`),
   CONSTRAINT `rooms_ibfk_1`
-  FOREIGN KEY (`ap_id`) REFERENCES `apartments` (`id`)
+  FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT `rooms_ibfk_2`
-  FOREIGN KEY (`apclass_id`) REFERENCES `apclasses` (`id`)
+  FOREIGN KEY (`hotel_class_id`) REFERENCES `hotelclasses` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 )

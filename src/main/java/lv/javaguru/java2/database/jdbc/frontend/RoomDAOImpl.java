@@ -1,6 +1,8 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.frontend.HotelClassDAO;
+import lv.javaguru.java2.database.frontend.HotelDAO;
 import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Room;
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 
 public class RoomDAOImpl extends DAOImpl implements RoomDAO {
 
+    private HotelDAO hotelDAO = new HotelDAOImpl();
+    private HotelClassDAO hotelClassDAO = new HotelClassDAOImpl();
+
     public void create(Room room) throws DBException {
         if (room == null) {
             return;
@@ -27,16 +32,18 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into rooms values (default, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, room.getNumber());
-            preparedStatement.setInt(2, room.getPersonsCount());
+                    connection.prepareStatement("insert into rooms values (default, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, room.getRoomNumber());
+            preparedStatement.setInt(2, room.getPersonCount());
             preparedStatement.setDouble(3, room.getPricePerDay());
-            preparedStatement.setString(4, room.getDesc());
-            preparedStatement.setDate(5, room.getTexn_repo());
+            preparedStatement.setString(4, room.getDescription());
+            preparedStatement.setLong(5, room.getHotelClass().getId());
+            preparedStatement.setLong(6, room.getHotel().getId());
+
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
+            if (rs.next()) {
                 room.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
@@ -61,12 +68,12 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             if (resultSet.next()) {
                 room = new Room();
                 room.setId(resultSet.getLong("id"));
-                room.setNumber(resultSet.getInt("num"));
-                room.setPersonsCount(resultSet.getInt("p_count"));
+                room.setRoomNumber(resultSet.getInt("room_number"));
+                room.setPersonCount(resultSet.getInt("person_count"));
                 room.setPricePerDay(resultSet.getDouble("price_per_day"));
-                room.setDesc(resultSet.getString("desc_text"));
-                room.setTexn_repo(resultSet.getDate("texn_repo"));
-
+                room.setDescription(resultSet.getString("description_text"));
+                room.setHotelClass(hotelClassDAO.getById(resultSet.getLong("hotel_class_id")));
+                room.setHotel(hotelDAO.getById(resultSet.getLong("hotel_id")));
             }
             return room;
         } catch (Throwable e) {
@@ -104,15 +111,15 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update rooms set num = ?, p_count = ?, price_per_day = ?, desc_text = ?, texn_repo = ? " +
-                            "where id = ?");
-            preparedStatement.setInt(1, room.getNumber());
-            preparedStatement.setInt(2, room.getPersonsCount());
+                    .prepareStatement("update rooms set room_number = ?, person_count = ?, price_per_day = ?, description_text = ?, hotel_class_id = ?, " +
+                            "hotel_id = ? where id = ?");
+            preparedStatement.setInt(1, room.getRoomNumber());
+            preparedStatement.setInt(2, room.getPersonCount());
             preparedStatement.setDouble(3, room.getPricePerDay());
-            preparedStatement.setString(4, room.getDesc());
-            preparedStatement.setDate(5, room.getTexn_repo());
-
-            preparedStatement.setLong(6, room.getId());
+            preparedStatement.setString(4, room.getDescription());
+            preparedStatement.setLong(5, room.getHotelClass().getId());
+            preparedStatement.setLong(6, room.getHotel().getId());
+            preparedStatement.setLong(7, room.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
             System.out.println("Exception while execute UserDAOImpl.update()");
@@ -125,7 +132,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
 
     public List<Room> getAll() throws DBException {
 
-        List<Room> aps = new ArrayList<Room>();
+        List<Room> hotels = new ArrayList<Room>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -135,12 +142,13 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             while (resultSet.next()) {
                 Room room = new Room();
                 room.setId(resultSet.getLong("id"));
-                room.setNumber(resultSet.getInt("num"));
-                room.setPersonsCount(resultSet.getInt("p_count"));
+                room.setRoomNumber(resultSet.getInt("room_number"));
+                room.setPersonCount(resultSet.getInt("person_count"));
                 room.setPricePerDay(resultSet.getDouble("price_per_day"));
-                room.setDesc(resultSet.getString("desc_text"));
-                room.setTexn_repo(resultSet.getDate("texn_repo"));
-                aps.add(room);
+                room.setDescription(resultSet.getString("description_text"));
+                room.setHotelClass(hotelClassDAO.getById(resultSet.getLong("hotel_class_id")));
+                room.setHotel(hotelDAO.getById(resultSet.getLong("hotel_id")));
+                hotels.add(room);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list UserDAOImpl.getList()");
@@ -149,9 +157,8 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
         } finally {
             closeConnection(connection);
         }
-        return aps;
+        return hotels;
     }
-
 
 
 }
