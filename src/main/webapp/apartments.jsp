@@ -11,6 +11,7 @@
   <jsp:include page="includes/header.jsp" />
 
   <link href="fonts/americantext.css" rel="stylesheet">
+  <link href="styles/bootstrap-slider.min.css" rel="stylesheet">
 
   <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -23,7 +24,7 @@
 </head>
 <body>
 <jsp:include page="includes/scripts.jsp" />
-
+<script src="js/bootstrap-slider.min.js"></script>
 
 <div class="container">
 
@@ -73,24 +74,30 @@
     <div class="panel panel-default">
       <div class="panel-heading">Optimizer</div>
       <div class="panel-body">
-        <form role="form">
+        <form id="optimizer" role="form">
           <fieldset>
             <legend>Range</legend>
             <div class="input-group">
-              <p><div id="slider"></div></p>
+              <p>Price interval: <b>€ 10</b> to <b>€ 1000</b></p>
+              <p><input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000"
+                        data-slider-step="5" data-slider-value="[10,1000]"/>
+              </p>
             </div>
-             <div class="input-group">
-               <p><div class="dropdown">
-                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Price
-                   <span class="caret"></span></button>
-                 <ul class="dropdown-menu">
-                   <li><a href="#">default <span class="glyphicon glyphicon-sort"></span></a></li>
-                   <li><a href="#">Minimum price<span class="glyphicon glyphicon-sort-by-order"></span> </a></li>
-                   <li><a href="#">Maximum price<span class="glyphicon glyphicon-sort-by-order-alt"></span></a></li>
-                 </ul>
-               </div></p>
-             </div>
+            <p> <div class="input-group">
+               <span id="sel_obj" class="input-group-addon">
+                         <span class="glyphicon glyphicon-sort"></span>
+                   </span>
+                 <select class="form-control" id="pdisc" name="hotel">
+                   <option selected value="1">default </option>
+                   <option value="2">Minimum price </option>
+                   <option value="3">Maximum price </option>
+                 </select>
+             </div></p>
+
             <div class="input-group">
+              <span class="input-group-addon">
+                         <span class="glyphicon glyphicon-user"></span>
+                   </span>
               <p><input type="text" class="form-control" placeholder="Person count"></p>
             </div>
           </fieldset>

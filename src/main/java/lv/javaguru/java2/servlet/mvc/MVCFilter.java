@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class MVCFilter implements Filter {
 
-    private Map<String, MVCController> controllers = new HashMap<>();
+    private Map<String, MVCController> controllers = new HashMap<String, MVCController>();
 
     public void init(FilterConfig filterConfig) throws ServletException {
         controllers.put("/apartments.jsp", new ApartmentController());
