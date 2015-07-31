@@ -4,19 +4,19 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'TRADITIONAL,ALLOW_INVALID_DATES';
 
 USE `bookingproject`;
 
-INSERT INTO `bookingproject`.`apartments`
+INSERT INTO `bookingproject`.`hotels`
 SET
   `label`     = "images/apartments/thumbs/drak150x100.png",
   `address`   = "Bullu street 45",
   `desc_text` = "Good pay good day";
 
-INSERT INTO `bookingproject`.`apartments`
+INSERT INTO `bookingproject`.`hotels`
 SET
   `label`     = "images/apartments/thumbs/vanap150x100.png",
   `address`   = "Stabu street 6",
   `desc_text` = "For average person";
 
-INSERT INTO `bookingproject`.`apartments`
+INSERT INTO `bookingproject`.`hotels`
 SET
   `label`     = "images/apartments/thumbs/stud150x100.png",
   `address`   = "Putina street 10",
