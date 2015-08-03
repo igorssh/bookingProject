@@ -12,10 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class PaymentDAOImpl extends DAOImpl implements PaymentDAO {
     
     private ClientDAO clientDAO = new ClientDAOImpl();

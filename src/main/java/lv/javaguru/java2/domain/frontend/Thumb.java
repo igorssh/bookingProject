@@ -1,25 +1,20 @@
 package lv.javaguru.java2.domain.frontend;
 
-/**
- * Created by Aleksej_home on 2015.07.14..
- */
-
 public class Thumb {
-
     private long id;
     private String label;
     private String desc;
     private String orig;
     private Room room;
 
-    public void Thumb() {
+    public Thumb() {
         this.label = "";
         this.desc = "";
         this.orig = "";
         this.room = new Room();
     }
 
-    public void Thumb(String label, String desc, String orig, Room room){
+    public Thumb(String label, String desc, String orig, Room room) {
         this.label = label;
         this.desc = desc;
         this.orig = orig;

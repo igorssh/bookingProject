@@ -13,10 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class RoomDAOImpl extends DAOImpl implements RoomDAO {
 
     private HotelDAO hotelDAO = new HotelDAOImpl();
@@ -40,14 +36,13 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             preparedStatement.setLong(5, room.getHotelClass().getId());
             preparedStatement.setLong(6, room.getHotel().getId());
 
-
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
                 room.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.create()");
+            System.out.println("Exception while execute RoomDAOImpl.create()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -55,7 +50,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
         }
     }
 
-    public Room getById(Long id) throws DBException {
+    public Room getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -77,7 +72,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             }
             return room;
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getById()");
+            System.out.println("Exception while execute RoomDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -85,7 +80,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -94,7 +89,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.delete()");
+            System.out.println("Exception while execute RoomDAOImpl.delete()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -122,7 +117,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
             preparedStatement.setLong(7, room.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.update()");
+            System.out.println("Exception while execute RoomDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -151,7 +146,7 @@ public class RoomDAOImpl extends DAOImpl implements RoomDAO {
                 hotels.add(room);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list RoomDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {

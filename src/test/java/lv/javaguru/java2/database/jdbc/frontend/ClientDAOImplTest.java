@@ -37,30 +37,29 @@ public class ClientDAOImplTest {
     }
 
     @Test
-    public void testDelete() throws DBException {
-        Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
-
-        clientDAO.create(client);
-
-        assertEquals(clientDAO.getAll().size(), 1);
-
-        clientDAO.delete(client.getId());
-        assertEquals(clientDAO.getAll().size(), 0);
-    }
-
-    @Test
     public void testUpdate() throws DBException {
         Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
-
         clientDAO.create(client);
+
         client.setName("Ivan");
         client.setSurname("Arturov");
-
         clientDAO.update(client);
+
         Client clientFromDb = clientDAO.getById(client.getId());
 
         assertEquals(client.getName(), clientFromDb.getName());
         assertEquals(client.getSurname(), clientFromDb.getSurname());
+    }
+
+    @Test
+    public void testDelete() throws DBException {
+        Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
+
+        clientDAO.create(client);
+        assertEquals(1, clientDAO.getAll().size());
+
+        clientDAO.delete(client.getId());
+        assertEquals(0, clientDAO.getAll().size());
     }
 
     @Test
@@ -70,7 +69,7 @@ public class ClientDAOImplTest {
 
         clientDAO.create(clientA);
         clientDAO.create(clientB);
-        assertEquals(clientDAO.getAll().size(), 2);
+        assertEquals(2, clientDAO.getAll().size());
     }
 
 

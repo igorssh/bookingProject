@@ -5,15 +5,12 @@ import lv.javaguru.java2.domain.frontend.Room;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.21..
- */
 public interface RoomDAO {
     void create(Room room) throws DBException;
 
-    Room getById(Long id) throws DBException;
+    Room getById(long id) throws DBException;
 
-    void delete(Long id) throws DBException;
+    void delete(long id) throws DBException;
 
     void update(Room room) throws DBException;
 

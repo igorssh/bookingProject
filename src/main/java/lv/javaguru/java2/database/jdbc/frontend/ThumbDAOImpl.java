@@ -1,6 +1,7 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.frontend.ThumbDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Thumb;
@@ -11,11 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
+
+    private RoomDAO roomDAO = new RoomDAOImpl();
 
     public void create(Thumb thumb) throws DBException {
         if (thumb == null) {
@@ -27,14 +26,15 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into thumbs values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into thumbs values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, thumb.getLabel());
             preparedStatement.setString(2, thumb.getDesc());
             preparedStatement.setString(3, thumb.getOrig());
+            preparedStatement.setLong(4, thumb.getRoom().getId());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()){
+            if (rs.next()) {
                 thumb.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
@@ -46,7 +46,7 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
         }
     }
 
-    public Thumb getById(Long id) throws DBException {
+    public Thumb getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -62,10 +62,11 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
                 thumb.setLabel(resultSet.getString("label"));
                 thumb.setDesc(resultSet.getString("desc_text"));
                 thumb.setOrig(resultSet.getString("orig"));
+                thumb.setRoom(roomDAO.getById(resultSet.getLong("room_id")));
             }
             return thumb;
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getById()");
+            System.out.println("Exception while execute ThumbDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -73,7 +74,7 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -82,7 +83,7 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.delete()");
+            System.out.println("Exception while execute ThumbDAOImpl.delete()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -108,7 +109,7 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
             preparedStatement.setLong(4, thumb.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.update()");
+            System.out.println("Exception while execute ThumbDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -134,7 +135,7 @@ public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
                 thumbs.add(thumb);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list ThumbDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {

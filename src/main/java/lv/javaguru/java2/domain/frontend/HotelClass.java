@@ -2,10 +2,6 @@ package lv.javaguru.java2.domain.frontend;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.15
- */
-
 public class HotelClass {
     private long id;
     private int classId;

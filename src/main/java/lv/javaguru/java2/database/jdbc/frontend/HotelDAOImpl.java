@@ -11,10 +11,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.21
- */
-
 public class HotelDAOImpl extends DAOImpl implements HotelDAO {
 
     public void create(Hotel hotel) throws DBException {

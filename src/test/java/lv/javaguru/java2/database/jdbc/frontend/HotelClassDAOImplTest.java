@@ -3,19 +3,15 @@ package lv.javaguru.java2.database.jdbc.frontend;
 import static org.junit.Assert.*;
 
 import java.util.List;
-
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
-
+import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.domain.frontend.HotelClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import lv.javaguru.java2.database.DBException;
-import lv.javaguru.java2.domain.frontend.HotelClass;
-
 public class HotelClassDAOImplTest {
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-
-    private HotelClassDAOImpl apDAO = new HotelClassDAOImpl();
+    private HotelClassDAOImpl hotelClassDAO = new HotelClassDAOImpl();
 
 
     @Before
@@ -27,22 +23,49 @@ public class HotelClassDAOImplTest {
     public void testCreate() throws DBException {
         HotelClass hotelClass = new HotelClass(1, "Description about");
 
-        apDAO.create(hotelClass);
+        hotelClassDAO.create(hotelClass);
 
-        HotelClass apFromDB = apDAO.getById(hotelClass.getId());
-        assertNotNull(apFromDB);
-        assertEquals(hotelClass.getId(), apFromDB.getId());
-        assertEquals(hotelClass.getClassId(), apFromDB.getClassId());
-        assertEquals(hotelClass.getDesc(), apFromDB.getDesc());
+        HotelClass hotelClassFromDB = hotelClassDAO.getById(hotelClass.getId());
+        assertNotNull(hotelClassFromDB);
+        assertEquals(hotelClass.getId(), hotelClassFromDB.getId());
+        assertEquals(hotelClass.getClassId(), hotelClassFromDB.getClassId());
+        assertEquals(hotelClass.getDesc(), hotelClassFromDB.getDesc());
     }
 
     @Test
-    public void testMultipleApartamentCreation() throws DBException {
+    public void testUpdate() throws DBException {
+        HotelClass hotelClass = new HotelClass(1, "Tourist village");
+
+        hotelClassDAO.create(hotelClass);
+
+        hotelClass.setClassId(3);
+        hotelClass.setDesc("Club hotel");
+        hotelClassDAO.update(hotelClass);
+
+        HotelClass hotelClassFromDb = hotelClassDAO.getById(hotelClass.getId());
+
+        assertEquals(hotelClass.getClassId(), hotelClassFromDb.getClassId());
+        assertEquals(hotelClass.getDesc(), hotelClassFromDb.getDesc());
+    }
+
+    @Test
+    public void testDelete() throws DBException {
+        HotelClass hotelClass = new HotelClass(1, "Tourist village");
+
+        hotelClassDAO.create(hotelClass);
+        assertEquals(1, hotelClassDAO.getAll().size());
+
+        hotelClassDAO.delete(hotelClass.getId());
+        assertEquals(0, hotelClassDAO.getAll().size());
+    }
+
+    @Test
+    public void testMultipleHotelCreation() throws DBException {
         HotelClass ap1 = new HotelClass(1, "Description about 1");
         HotelClass ap2 = new HotelClass(2, "Description about 2");
-        apDAO.create(ap1);
-        apDAO.create(ap2);
-        List<HotelClass> users = apDAO.getAll();
+        hotelClassDAO.create(ap1);
+        hotelClassDAO.create(ap2);
+        List<HotelClass> users = hotelClassDAO.getAll();
         assertEquals(2, users.size());
     }
 }

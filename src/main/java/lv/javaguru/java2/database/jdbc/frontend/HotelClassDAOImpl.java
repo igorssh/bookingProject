@@ -13,10 +13,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class HotelClassDAOImpl extends DAOImpl implements HotelClassDAO {
 
     public void create(HotelClass hotelClass) throws DBException {

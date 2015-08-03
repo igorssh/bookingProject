@@ -21,7 +21,7 @@ public class Client extends Person {
     private List<Comment> comments;
     private List<Reservation> reservations;
 
-    public void Client() {
+    public Client() {
         this.name = "";
         this.surname = "";
         this.email = "";
@@ -34,7 +34,7 @@ public class Client extends Person {
         this.reservations = new LinkedList<Reservation>();
     }
 
-    public void Client(String name, String surname, String email, String phone, String corp,
+    public Client(String name, String surname, String email, String phone, String corp,
                         String personalNumber, String registryNumber, List<Payment> payments,
                         List<Comment> comments, List<Reservation> reservations) {
         this.name = name;

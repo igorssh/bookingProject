@@ -12,14 +12,14 @@ public class Comment {
     private Timestamp timestamp;
     private Client client;
 
-    public void Comment() {
+    public Comment() {
         this.head = "";
         this.desc = "";
         this.timestamp = null;
         this.client = new Client();
     }
 
-    public void Comment(String head, String desc, Timestamp timestamp, Client client) {
+    public Comment(String head, String desc, Timestamp timestamp, Client client) {
         this.head = head;
         this.desc = desc;
         this.timestamp = timestamp;

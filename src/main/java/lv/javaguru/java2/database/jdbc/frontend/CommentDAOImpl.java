@@ -1,6 +1,7 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.frontend.CommentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Comment;
@@ -11,11 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class CommentDAOImpl extends DAOImpl implements CommentDAO {
+
+    ClientDAO clientDAO = new ClientDAOImpl();
 
     public void create(Comment comment) throws DBException {
         if (comment == null) {
@@ -27,10 +26,11 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into comments values (default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into comments values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, comment.getHead());
             preparedStatement.setString(2, comment.getDesc());
             preparedStatement.setTimestamp(3, comment.getTimestamp());
+            preparedStatement.setLong(4, comment.getClient().getId());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -38,7 +38,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
                 comment.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.create()");
+            System.out.println("Exception while execute CommentDAOImpl.create()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -47,7 +47,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
 
     }
 
-    public Comment getById(Long id) throws DBException {
+    public Comment getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -56,17 +56,18 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
                     .prepareStatement("select * from comments where id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Comment com = null;
+            Comment comment = null;
             if (resultSet.next()) {
-                com = new Comment();
-                com.setId(resultSet.getLong("id"));
-                com.setHead(resultSet.getString("head"));
-                com.setTimestamp(resultSet.getTimestamp("time_stamp"));
-                com.setDesc(resultSet.getString("desc_text"));
+                comment = new Comment();
+                comment.setId(resultSet.getLong("id"));
+                comment.setHead(resultSet.getString("head"));
+                comment.setTimestamp(resultSet.getTimestamp("time_stamp"));
+                comment.setDesc(resultSet.getString("desc_text"));
+                comment.setClient(clientDAO.getById(resultSet.getLong("client_id")));
             }
-            return com;
+            return comment;
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getById()");
+            System.out.println("Exception while execute CommentDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -74,7 +75,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
 
         Connection connection = null;
         try {
@@ -84,7 +85,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.delete()");
+            System.out.println("Exception while execute CommentDAOImpl.delete()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -92,9 +93,9 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         }
     }
 
-    public void update(Comment com) throws DBException {
+    public void update(Comment comment) throws DBException {
 
-        if (com == null) {
+        if (comment == null) {
             return;
         }
 
@@ -102,14 +103,15 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update comments set head = ?, desc_text = ? " +
+                    .prepareStatement("update comments set head = ?, desc_text = ?, client_id = ? " +
                             "where id = ?");
-            preparedStatement.setString(1, com.getHead());
-            preparedStatement.setString(2, com.getDesc());
-            preparedStatement.setLong(3, com.getId());
+            preparedStatement.setString(1, comment.getHead());
+            preparedStatement.setString(2, comment.getDesc());
+            preparedStatement.setLong(3, comment.getClient().getId());
+            preparedStatement.setLong(4, comment.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.update()");
+            System.out.println("Exception while execute CommentDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -118,7 +120,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
     }
 
     public List<Comment> getAll() throws DBException {
-        List<Comment> aps = new ArrayList<Comment>();
+        List<Comment> comments = new ArrayList<Comment>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -126,20 +128,21 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Comment com = new Comment();
-                com.setId(resultSet.getLong("id"));
-                com.setHead(resultSet.getString("head"));
-                com.setDesc(resultSet.getString("desc_text"));
-                aps.add(com);
+                Comment comment = new Comment();
+                comment.setId(resultSet.getLong("id"));
+                comment.setHead(resultSet.getString("head"));
+                comment.setDesc(resultSet.getString("desc_text"));
+                comment.setClient(clientDAO.getById(resultSet.getLong("client_id")));
+                comments.add(comment);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list CommentDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
             closeConnection(connection);
         }
-        return aps;
+        return comments;
     }
 
 

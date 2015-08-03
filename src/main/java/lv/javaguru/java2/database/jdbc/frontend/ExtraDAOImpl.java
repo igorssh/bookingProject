@@ -11,10 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
 public class ExtraDAOImpl extends DAOImpl implements ExtraDAO {
 
     public void create(Extra extra) throws DBException {

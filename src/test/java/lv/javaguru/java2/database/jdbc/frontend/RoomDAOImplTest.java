@@ -1,5 +1,6 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
+import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.HotelClassDAO;
 import lv.javaguru.java2.database.frontend.HotelDAO;
 import lv.javaguru.java2.database.frontend.RoomDAO;
@@ -18,22 +19,21 @@ public class RoomDAOImplTest {
     private HotelClassDAO hotelClassDAO = new HotelClassDAOImpl();
     private RoomDAO roomDAO = new RoomDAOImpl();
     private HotelDAO hotelDAO = new HotelDAOImpl();
-    private Hotel hotel = new Hotel("label1", "Adress 1", "Description about");
+    private Hotel hotel = new Hotel("label1", "Address 1", "Description about");
     private HotelClass hotelClass = new HotelClass(1, "Description about");
 
     private static final double DELTA = 1e-3;
-    
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws DBException {
         databaseCleaner.cleanDatabase();
         hotelDAO.create(hotel);
         hotelClassDAO.create(hotelClass);
     }
 
     @Test
-    public void testCreate() throws Exception {
-        Room room = new Room(1, 2, 30.00, "Standart room", hotelClass, hotel);
+    public void testCreate() throws DBException {
+        Room room = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);
         roomDAO.create(room);
         
         Room roomFromDb = roomDAO.getById(room.getId());
@@ -47,12 +47,38 @@ public class RoomDAOImplTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testUpdate() throws DBException {
+        Room room = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);
+        roomDAO.create(room);
 
+        room.setPricePerDay(45);
+        room.setDescription("Deluxe room");
+        roomDAO.update(room);
+
+        Room roomFromDb = roomDAO.getById(room.getId());
+
+        assertEquals(room.getPricePerDay(), roomFromDb.getPricePerDay(), DELTA);
+        assertEquals(room.getDescription(), roomFromDb.getDescription());
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testDelete() throws DBException {
+        Room room = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);
 
+        roomDAO.create(room);
+        assertEquals(1, roomDAO.getAll().size());
+
+        roomDAO.delete(room.getId());
+        assertEquals(0, roomDAO.getAll().size());
+    }
+
+    @Test
+    public void testMultipleRoomCreation() throws DBException {
+        Room room1 = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);
+        Room room2 = new Room(2, 2, 45.00, "Deluxe room", hotelClass, hotel);
+
+        roomDAO.create(room1);
+        roomDAO.create(room2);
+        assertEquals(2, roomDAO.getAll().size());
     }
 }
