@@ -1,12 +1,14 @@
 package lv.javaguru.java2.database.jdbc;
 
 import lv.javaguru.java2.database.DBException;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DatabaseCleaner extends DAOImpl {
 
     private List<String> getTableNames() {

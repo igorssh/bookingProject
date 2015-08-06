@@ -6,18 +6,29 @@ import lv.javaguru.java2.database.backend.UserDAO;
 import lv.javaguru.java2.database.jdbc.*;
 import lv.javaguru.java2.domain.backend.Role;
 import lv.javaguru.java2.domain.backend.User;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class UserDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
 
-    private UserDAO userDAO = new UserDAOImpl();
+    @Autowired
+    private UserDAO userDAO;
     
-    private RoleDAO roleDAO = new RoleDAOImpl();
+    @Autowired
+    private RoleDAO roleDAO;
 
     @Before
     public void init() throws DBException {

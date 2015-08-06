@@ -5,6 +5,8 @@ import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.frontend.PaymentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -12,9 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@Component
 public class PaymentDAOImpl extends DAOImpl implements PaymentDAO {
     
-    private ClientDAO clientDAO = new ClientDAOImpl();
+    @Autowired
+    private ClientDAO clientDAO;
     
     public void create(Payment payment) throws DBException {
         if (payment == null) {

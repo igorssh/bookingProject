@@ -6,6 +6,8 @@ import lv.javaguru.java2.database.frontend.HotelDAO;
 import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Room;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -13,10 +15,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@Component
 public class RoomDAOImpl extends DAOImpl implements RoomDAO {
 
-    private HotelDAO hotelDAO = new HotelDAOImpl();
-    private HotelClassDAO hotelClassDAO = new HotelClassDAOImpl();
+    @Autowired
+    private HotelDAO hotelDAO;
+    
+    @Autowired
+    private HotelClassDAO hotelClassDAO;
 
     public void create(Room room) throws DBException {
         if (room == null) {

@@ -5,16 +5,30 @@ import lv.javaguru.java2.database.frontend.PaymentDAO;
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Client;
 import lv.javaguru.java2.domain.frontend.Payment;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class PaymentDAOImplTest {
     
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private ClientDAO clientDAO = new ClientDAOImpl();
-    private PaymentDAO paymentDAO = new PaymentDAOImpl();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+    
+    @Autowired
+    private ClientDAO clientDAO;
+    
+    @Autowired
+    private PaymentDAO paymentDAO;
+    
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
     private static final double DELTA = 1e-3;

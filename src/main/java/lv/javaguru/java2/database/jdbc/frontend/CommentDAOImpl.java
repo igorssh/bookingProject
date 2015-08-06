@@ -5,6 +5,8 @@ import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.frontend.CommentDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -12,9 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@Component
 public class CommentDAOImpl extends DAOImpl implements CommentDAO {
 
-    ClientDAO clientDAO = new ClientDAOImpl();
+    @Autowired
+    ClientDAO clientDAO;
 
     public void create(Comment comment) throws DBException {
         if (comment == null) {

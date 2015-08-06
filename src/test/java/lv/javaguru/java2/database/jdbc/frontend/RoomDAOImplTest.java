@@ -8,17 +8,33 @@ import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Hotel;
 import lv.javaguru.java2.domain.frontend.HotelClass;
 import lv.javaguru.java2.domain.frontend.Room;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class RoomDAOImplTest {
+
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    private HotelClassDAO hotelClassDAO;
+
+    @Autowired
+    private RoomDAO roomDAO;
+
+    @Autowired
+    private HotelDAO hotelDAO;
     
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private HotelClassDAO hotelClassDAO = new HotelClassDAOImpl();
-    private RoomDAO roomDAO = new RoomDAOImpl();
-    private HotelDAO hotelDAO = new HotelDAOImpl();
     private Hotel hotel = new Hotel("label1", "Address 1", "Description about");
     private HotelClass hotelClass = new HotelClass(1, "Description about");
 
@@ -35,7 +51,7 @@ public class RoomDAOImplTest {
     public void testCreate() throws DBException {
         Room room = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);
         roomDAO.create(room);
-        
+
         Room roomFromDb = roomDAO.getById(room.getId());
 
         assertEquals(room.getRoomNumber(), roomFromDb.getRoomNumber());

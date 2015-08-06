@@ -4,15 +4,26 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Client;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class ClientDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private ClientDAO clientDAO = new ClientDAOImpl();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+    
+    @Autowired
+    private ClientDAO clientDAO;
 
     @Before
     public void setUp() throws Exception {

@@ -5,6 +5,7 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Client;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@Component
 public class ClientDAOImpl extends DAOImpl implements ClientDAO {
 
     public void create(Client client) throws DBException {

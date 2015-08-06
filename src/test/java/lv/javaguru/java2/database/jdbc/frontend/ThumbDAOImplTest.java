@@ -10,18 +10,36 @@ import lv.javaguru.java2.domain.frontend.Hotel;
 import lv.javaguru.java2.domain.frontend.HotelClass;
 import lv.javaguru.java2.domain.frontend.Room;
 import lv.javaguru.java2.domain.frontend.Thumb;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class ThumbDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private ThumbDAO thumbDAO = new ThumbDAOImpl();
-    private HotelClassDAO hotelClassDAO = new HotelClassDAOImpl();
-    private HotelDAO hotelDAO = new HotelDAOImpl();
-    private RoomDAO roomDAO = new RoomDAOImpl();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    private ThumbDAO thumbDAO;
+
+    @Autowired
+    private HotelClassDAO hotelClassDAO;
+
+    @Autowired
+    private HotelDAO hotelDAO;
+
+    @Autowired
+    private RoomDAO roomDAO;
+    
     private HotelClass hotelClass = new HotelClass(1, "Description about");
     private Hotel hotel = new Hotel("label1", "Address 1", "Description about");
     private Room room = new Room(1, 2, 30.00, "Standard room", hotelClass, hotel);

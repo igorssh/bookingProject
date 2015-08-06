@@ -5,6 +5,8 @@ import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.frontend.ThumbDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Thumb;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -12,9 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+@Component
 public class ThumbDAOImpl extends DAOImpl implements ThumbDAO {
 
-    private RoomDAO roomDAO = new RoomDAOImpl();
+    @Autowired
+    private RoomDAO roomDAO;
 
     public void create(Thumb thumb) throws DBException {
         if (thumb == null) {

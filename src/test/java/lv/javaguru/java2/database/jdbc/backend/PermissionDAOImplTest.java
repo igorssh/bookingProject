@@ -5,16 +5,29 @@ import lv.javaguru.java2.database.backend.RoleDAO;
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.backend.Permission;
 import lv.javaguru.java2.domain.backend.Role;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class PermissionDAOImplTest {
 
+    @Autowired
     private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private PermissionDAO permissionDAO = new PermissionDAOImpl();
-    private RoleDAO roleDAO = new RoleDAOImpl();
+    
+    @Autowired
+    private PermissionDAO permissionDAO;
+    
+    @Autowired
+    private RoleDAO roleDAO;
 
     @Before
     public void setUp() throws Exception {

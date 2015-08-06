@@ -5,16 +5,27 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.domain.frontend.Hotel;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
 
 public class HotelDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private HotelDAOImpl hotelDAO = new HotelDAOImpl();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+    
+    @Autowired
+    private HotelDAOImpl hotelDAO;
 
     @Before
     public void init() throws DBException {

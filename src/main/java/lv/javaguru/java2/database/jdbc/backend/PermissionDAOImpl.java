@@ -5,6 +5,8 @@ import lv.javaguru.java2.database.backend.PermissionDAO;
 import lv.javaguru.java2.database.backend.RoleDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.backend.Permission;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +14,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class PermissionDAOImpl extends DAOImpl implements PermissionDAO {
 
-    RoleDAO roleDAO = new RoleDAOImpl();
+    @Autowired
+    RoleDAO roleDAO;
 
     public void create(Permission permission) throws DBException {
         if (permission == null) {

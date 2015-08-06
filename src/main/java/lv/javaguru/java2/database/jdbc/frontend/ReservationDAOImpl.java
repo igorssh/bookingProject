@@ -5,6 +5,7 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.ReservationDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Reservation;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.sql.Connection;
@@ -12,10 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- * Created by Aleksej_home on 2015.07.22
- */
-
+@Component
 public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
 
     public void create(Reservation reservation) throws DBException {

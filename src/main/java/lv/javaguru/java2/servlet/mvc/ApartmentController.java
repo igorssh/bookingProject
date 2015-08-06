@@ -4,15 +4,20 @@ import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.HotelDAO;
 import lv.javaguru.java2.database.jdbc.frontend.HotelDAOImpl;
 import lv.javaguru.java2.domain.frontend.Hotel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Component
 public class ApartmentController implements MVCController {
+
+    @Autowired
+    HotelDAO hotelDAO;
 
     @Override
     public MVCModel processRequest(HttpServletRequest req) {
-        HotelDAO hotelDAO = new HotelDAOImpl();
         try {
             List<Hotel> hotels = hotelDAO.getAll();
 
