@@ -34,11 +34,11 @@ USE `bookingproject`;
 
 DROP TABLE IF EXISTS `bookingproject`.`users`;
 DROP TABLE IF EXISTS `bookingproject`.`thumbs`;
+DROP TABLE IF EXISTS `bookingproject`.`permissions`;
+DROP TABLE IF EXISTS `bookingproject`.`reservations`;
 DROP TABLE IF EXISTS `bookingproject`.`rooms`;
 DROP TABLE IF EXISTS `bookingproject`.`hotelclasses`;
 DROP TABLE IF EXISTS `bookingproject`.`hotels`;
-DROP TABLE IF EXISTS `bookingproject`.`permissions`;
-DROP TABLE IF EXISTS `bookingproject`.`reservations`;
 DROP TABLE IF EXISTS `bookingproject`.`roles`;
 DROP TABLE IF EXISTS `bookingproject`.`payments`;
 DROP TABLE IF EXISTS `bookingproject`.`extras`;
