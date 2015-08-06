@@ -27,6 +27,25 @@ CREATE SCHEMA IF NOT EXISTS `bookingproject`
   COLLATE utf8_unicode_ci;
 USE `bookingproject`;
 
+
+--
+-- DROP tables
+--
+
+DROP TABLE IF EXISTS `bookingproject`.`users`;
+DROP TABLE IF EXISTS `bookingproject`.`thumbs`;
+DROP TABLE IF EXISTS `bookingproject`.`rooms`;
+DROP TABLE IF EXISTS `bookingproject`.`hotelclasses`;
+DROP TABLE IF EXISTS `bookingproject`.`hotels`;
+DROP TABLE IF EXISTS `bookingproject`.`permissions`;
+DROP TABLE IF EXISTS `bookingproject`.`reservations`;
+DROP TABLE IF EXISTS `bookingproject`.`roles`;
+DROP TABLE IF EXISTS `bookingproject`.`payments`;
+DROP TABLE IF EXISTS `bookingproject`.`extras`;
+DROP TABLE IF EXISTS `bookingproject`.`extra_reservation_relations`;
+DROP TABLE IF EXISTS `bookingproject`.`comments`;
+DROP TABLE IF EXISTS `bookingproject`.`clients`;
+
 --
 -- Table `hotels`
 --
@@ -91,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `head`       VARCHAR(255)     NOT NULL,
   `desc_text`  TEXT             NOT NULL,
-  `time_stamp` TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_stamp` TIMESTAMP(3)     NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `client_id`  INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`),

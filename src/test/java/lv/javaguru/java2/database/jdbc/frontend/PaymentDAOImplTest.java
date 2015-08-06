@@ -77,7 +77,7 @@ public class PaymentDAOImplTest {
     @Test
     public void testMultipleCreate() throws Exception {
         Payment payment = new Payment(120.00, "Description", 1, "referent", client);    
-        Payment secondPayment = new Payment(125.00, "Description2", 2, "referent2", secondClient);
+        Payment secondPayment = new Payment(125.00, "Description 2", 2, "referent2", secondClient);
         
         paymentDAO.create(payment);
         paymentDAO.create(secondPayment);

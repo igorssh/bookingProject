@@ -120,7 +120,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
     }
 
     public List<Comment> getAll() throws DBException {
-        List<Comment> comments = new ArrayList<Comment>();
+        List<Comment> aps = new ArrayList<Comment>();
         Connection connection = null;
         try {
             connection = getConnection();
@@ -133,7 +133,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
                 comment.setHead(resultSet.getString("head"));
                 comment.setDesc(resultSet.getString("desc_text"));
                 comment.setClient(clientDAO.getById(resultSet.getLong("client_id")));
-                comments.add(comment);
+                aps.add(comment);
             }
         } catch (Throwable e) {
             System.out.println("Exception while getting customer list CommentDAOImpl.getAll()");
@@ -142,7 +142,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         } finally {
             closeConnection(connection);
         }
-        return comments;
+        return aps;
     }
 
 

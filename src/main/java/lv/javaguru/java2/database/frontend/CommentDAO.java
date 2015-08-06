@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface CommentDAO {
 
-    void create(Comment com) throws DBException;
+    void create(Comment comment) throws DBException;
 
     Comment getById(long id) throws DBException;
 
     void delete(long id) throws DBException;
 
-    void update(Comment com) throws DBException;
+    void update(Comment comment) throws DBException;
 
     List<Comment> getAll() throws DBException;
 }

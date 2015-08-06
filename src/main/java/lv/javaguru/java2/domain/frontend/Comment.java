@@ -2,9 +2,6 @@ package lv.javaguru.java2.domain.frontend;
 
 import java.sql.Timestamp;
 
-/**
- * Created by Aleksej_home on 2015.07.15
- */
 public class Comment {
     private long id;
     private String head;
