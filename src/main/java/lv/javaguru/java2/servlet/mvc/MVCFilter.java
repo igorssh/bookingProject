@@ -15,7 +15,7 @@ public class MVCFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         controllers.put("/apartments.jsp", new ApartmentController());
         controllers.put("/contact.jsp", new ContactController());
-        controllers.put("/extras.jsp", new ExtraController());
+        controllers.put("/extras.jsp", new ExtraTmpController());
     }
 
     public void doFilter(ServletRequest request,

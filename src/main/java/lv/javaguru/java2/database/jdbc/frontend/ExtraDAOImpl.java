@@ -145,6 +145,58 @@ public class ExtraDAOImpl extends DAOImpl implements ExtraDAO {
     }
 
 
+    public Extra getFirst() throws DBException{
+        Connection connection = null;
 
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select * from extras order by id limit 1");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Extra ext = null;
+            if (resultSet.next()) {
+                ext = new Extra();
+                ext.setId(resultSet.getLong("id"));
+                ext.setLabel(resultSet.getString("label"));
+                ext.setDesc(resultSet.getString("desc_text"));
+                ext.setCost(resultSet.getDouble("cost"));
+                ext.setPic(resultSet.getString("pic"));
 
+            }
+            return ext;
+        } catch (Throwable e) {
+            System.out.println("Exception while execute UserDAOImpl.getById()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<Extra> getAllThinExtras() throws DBException {
+        List<Extra> aps = new ArrayList<Extra>();
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select id,label from extras");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+
+                Extra extra = new Extra();
+                extra.setId(resultSet.getLong("id"));
+                extra.setLabel(resultSet.getString("label"));
+
+                aps.add(extra);
+            }
+        } catch (Throwable e) {
+            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            e.printStackTrace();
+            throw new DBException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return aps;
+    }
 }

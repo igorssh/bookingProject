@@ -19,4 +19,9 @@ public interface ExtraDAO {
     void update(Extra ext) throws DBException;
 
     List<Extra> getAll() throws DBException;
+
+    Extra getFirst() throws DBException;
+
+    List<Extra> getAllThinExtras() throws DBException;
+
 }
