@@ -1,5 +1,6 @@
 <%@ page import="lv.javaguru.java2.domain.frontend.Extra" %>
 <%@ page import="java.util.*" %>
+<%@ page import="lv.javaguru.java2.domain.frontend.ExtrasObject" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -11,8 +12,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-  List<Extra> objects = (List<Extra>)request.getAttribute("model");
-  Extra extra = objects.get(objects.size() - 1);
+  ExtrasObject extrasObject = (ExtrasObject)request.getAttribute("model");
+  Extra extra = extrasObject.getExtra();
+  List<Extra> extrasList = extrasObject.getExtras();
 %>
 
 <html>
@@ -66,7 +68,7 @@
          <div class="panel-body">
            <ul class="list-unstyled">
              <%
-               for (Extra extras : objects) {
+               for (Extra extras : extrasList) {
              %>
              <a  href="extras.jsp?id=<%= extras.getId() %>"><li> <%= extras.getLabel() %> </li></a>
              <%
