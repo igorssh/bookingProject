@@ -13,7 +13,6 @@
 <%
   List<Extra> objects = (List<Extra>)request.getAttribute("model");
   Extra extra = objects.get(objects.size() - 1);
-
 %>
 
 <html>
@@ -67,15 +66,9 @@
          <div class="panel-body">
            <ul class="list-unstyled">
              <%
-               int counter = 0;
-               Extra ext;
-               Iterator<Extra> itr = objects.iterator();
-               while (counter != (objects.size() - 1)) {
-                 ext = itr.next();
-                 counter++;
-
+               for (Extra extras : objects) {
              %>
-             <a  href="extras.jsp?id=<%= ext.getId() %>"><li> <%= ext.getLabel() %> </li></a>
+             <a  href="extras.jsp?id=<%= extras.getId() %>"><li> <%= extras.getLabel() %> </li></a>
              <%
              } %>
            </ul>

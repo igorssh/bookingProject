@@ -45,10 +45,7 @@
       </thead>
       <tbody>
       <%
-        Hotel hotel;
-        Iterator<Hotel> itr = hotels.iterator();
-        while (itr.hasNext()) {
-          hotel = itr.next();
+        for (Hotel hotel : hotels) {
       %>
        <input id="hld" type="hidden" value="<%= hotel.getLabel() %>">
       <tr>
@@ -65,7 +62,6 @@
         </ul></td>
         <td><%= hotel.getDescription() %></td>
       </tr>
-
       <% } %>
       </tbody>
     </table>
