@@ -19,17 +19,20 @@ public class ExtraController implements MVCController {
     @Override
     public MVCModel processRequest(HttpServletRequest req) {
         try {
-
             List<Extra> allExtras = extraDAO.getAll();
-            ExtrasObject extrasObject = new ExtrasObject(allExtras, allExtras.get(0));
+            ExtrasObject extrasObject = new ExtrasObject();
+            extrasObject.setExtras(allExtras);
 
             String idString = req.getParameter("id");
 
             if (idString != null) {
                 extrasObject.setExtra(extraDAO.getById(Long.parseLong(idString)));
                 return new MVCModel(extrasObject, "/extras.jsp");
-            } else {
+            } else if (allExtras.size() != 0) {
+                extrasObject.setExtra(allExtras.get(0));
                 return new MVCModel(extrasObject, "/extras.jsp");
+            } else {
+                return new MVCModel(null, "/home.jsp");
             }
         } catch (DBException e) {
             return new MVCModel(null, "/home.jsp");
