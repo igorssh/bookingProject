@@ -2,9 +2,12 @@ package lv.javaguru.java2.database.jdbc.frontend;
 
 
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.frontend.ClientDAO;
 import lv.javaguru.java2.database.frontend.ReservationDAO;
+import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Reservation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +19,12 @@ import java.util.ArrayList;
 @Component
 public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
 
+    @Autowired
+    private RoomDAO roomDAO;
+
+    @Autowired
+    private ClientDAO clientDAO;
+
     public void create(Reservation reservation) throws DBException {
         if (reservation == null) {
             return;
@@ -26,11 +35,13 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into reservations values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setDate(1, reservation.getFrom());
-            preparedStatement.setDate(2, reservation.getTill());
+                    connection.prepareStatement("insert into reservations values (default, ?, ?, ?, default, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setTimestamp(1, reservation.getFrom());
+            preparedStatement.setTimestamp(2, reservation.getTill());
             preparedStatement.setInt(3, reservation.getPersonsCount());
-            preparedStatement.setBoolean(4, reservation.isStatus());
+            preparedStatement.setBoolean(4, reservation.getStatus());
+            preparedStatement.setLong(5, reservation.getRoom().getId());
+            preparedStatement.setLong(6, reservation.getClient().getId());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -38,7 +49,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
                 reservation.setId(rs.getLong(1));
             }
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.create()");
+            System.out.println("Exception while execute ReservationDAOImpl.create()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -46,7 +57,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
         }
     }
 
-    public Reservation getById(Long id) throws DBException {
+    public Reservation getById(long id) throws DBException {
         Connection connection = null;
 
         try {
@@ -59,16 +70,17 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
             if (resultSet.next()) {
                 reservation = new Reservation();
                 reservation.setId(resultSet.getLong("id"));
-                reservation.setFrom(resultSet.getDate("from_date"));
-                reservation.setTill(resultSet.getDate("to_date"));
+                reservation.setFrom(resultSet.getTimestamp("from_date"));
+                reservation.setTill(resultSet.getTimestamp("to_date"));
                 reservation.setPersonsCount(resultSet.getInt("p_count"));
-                reservation.setTimestamp(resultSet.getDate("time_stamp"));
+                reservation.setTimestamp(resultSet.getTimestamp("time_stamp"));
                 reservation.setStatus(resultSet.getBoolean("status"));
-
+                reservation.setRoom(roomDAO.getById(resultSet.getLong("room_id")));
+                reservation.setClient(clientDAO.getById(resultSet.getLong("client_id")));
             }
             return reservation;
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.getById()");
+            System.out.println("Exception while execute ReservationDAOImpl.getById()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -76,7 +88,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
         }
     }
 
-    public void delete(Long id) throws DBException {
+    public void delete(long id) throws DBException {
         Connection connection = null;
         try {
             connection = getConnection();
@@ -85,7 +97,7 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.delete()");
+            System.out.println("Exception while execute ReservationDAOImpl.delete()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -102,17 +114,19 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update reservations set from_date = ?, to_date = ?, p_count = ?, status = ? " +
-                            "where id = ?");
+                    .prepareStatement("update reservations set from_date = ?, to_date = ?, p_count = ?, " +
+                            "status = ?, room_id = ?, client_id = ? " + "where id = ?");
 
-            preparedStatement.setDate(1, reservation.getFrom());
-            preparedStatement.setDate(2, reservation.getTill());
+            preparedStatement.setTimestamp(1, reservation.getFrom());
+            preparedStatement.setTimestamp(2, reservation.getTill());
             preparedStatement.setInt(3, reservation.getPersonsCount());
-            preparedStatement.setBoolean(4, reservation.isStatus());
-            preparedStatement.setLong(5, reservation.getId());
+            preparedStatement.setBoolean(4, reservation.getStatus());
+            preparedStatement.setLong(5, reservation.getRoom().getId());
+            preparedStatement.setLong(6, reservation.getClient().getId());
+            preparedStatement.setLong(7, reservation.getId());
             preparedStatement.executeUpdate();
         } catch (Throwable e) {
-            System.out.println("Exception while execute UserDAOImpl.update()");
+            System.out.println("Exception while execute ReservationDAOImpl.update()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {
@@ -132,16 +146,18 @@ public class ReservationDAOImpl extends DAOImpl implements ReservationDAO {
             while (resultSet.next()) {
                 Reservation reservation = new Reservation();
                 reservation.setId(resultSet.getLong("id"));
-                reservation.setFrom(resultSet.getDate("from_date"));
-                reservation.setTill(resultSet.getDate("to_date"));
+                reservation.setFrom(resultSet.getTimestamp("from_date"));
+                reservation.setTill(resultSet.getTimestamp("to_date"));
                 reservation.setPersonsCount(resultSet.getInt("p_count"));
-                reservation.setTimestamp(resultSet.getDate("time_stamp"));
+                reservation.setTimestamp(resultSet.getTimestamp("time_stamp"));
                 reservation.setStatus(resultSet.getBoolean("status"));
+                reservation.setRoom(roomDAO.getById(resultSet.getLong("room_id")));
+                reservation.setClient(clientDAO.getById(resultSet.getLong("client_id")));
 
                 reservations.add(reservation);
             }
         } catch (Throwable e) {
-            System.out.println("Exception while getting customer list UserDAOImpl.getList()");
+            System.out.println("Exception while getting customer list ReservationDAOImpl.getAll()");
             e.printStackTrace();
             throw new DBException(e);
         } finally {

@@ -1,29 +1,25 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
-
-/**
- * Created by Aleksej_home on 2015.07.15
- */
 
 public class Reservation {
 
     private long id;
-    private Date from;
-    private Date till;
-    private int placesCount;
-    private Date timestamp;
+    private Timestamp from;
+    private Timestamp till;
+    private int personsCount;
+    private Timestamp timestamp;
     private boolean status;
     private List<Extra> extras;
     private Client client;
     private Room room;
 
-    public void Reservation() {
+    public Reservation() {
         this.from = null;
         this.till = null;
-        this.placesCount = 0;
+        this.personsCount = 0;
         this.timestamp = null;
         this.status = false;
         this.extras = new LinkedList<Extra>();
@@ -31,11 +27,11 @@ public class Reservation {
         this.room = new Room();
     }
 
-    public void Reservation(Date from, Date till, int placesCount, boolean status, List<Extra> extras, Client client, Room room) {
+    public Reservation(Timestamp from, Timestamp till, int placesCount, Timestamp timestamp, boolean status, List<Extra> extras, Client client, Room room) {
         this.from = from;
         this.till = till;
-        this.placesCount = placesCount;
-        this.timestamp = null;
+        this.personsCount = placesCount;
+        this.timestamp = timestamp;
         this.status = status;
         this.extras = extras;
         this.client = client;
@@ -50,7 +46,7 @@ public class Reservation {
         this.room = room;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -62,11 +58,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -74,28 +70,28 @@ public class Reservation {
         this.status = status;
     }
 
-    public Date getFrom() {
+    public Timestamp getFrom() {
         return from;
     }
 
-    public void setFrom(Date from) {
+    public void setFrom(Timestamp from) {
         this.from = from;
     }
 
-    public Date getTill() {
+    public Timestamp getTill() {
         return till;
     }
 
-    public void setTill(Date till) {
+    public void setTill(Timestamp till) {
         this.till = till;
     }
 
     public int getPersonsCount() {
-        return placesCount;
+        return personsCount;
     }
 
     public void setPersonsCount(int placesCount) {
-        this.placesCount = placesCount;
+        this.personsCount = placesCount;
     }
 
     public Client getClient() {

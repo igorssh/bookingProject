@@ -6,22 +6,38 @@ import lv.javaguru.java2.database.frontend.CommentDAO;
 import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Client;
 import lv.javaguru.java2.domain.frontend.Comment;
+import lv.javaguru.java2.servlet.mvc.SpringConfig;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
+
 public class CommentDAOImplTest {
 
-    private DatabaseCleaner databaseCleaner = new DatabaseCleaner();
-    private CommentDAO commentDAO = new CommentDAOImpl();
-    private ClientDAO clientDAO = new ClientDAOImpl();
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    private CommentDAO commentDAO;
+
+    @Autowired
+    private ClientDAO clientDAO;
+
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-14578", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
-    long time = new Date().getTime();
+    DateTime dt1 = new DateTime(2015, 8, 10, 12, 0, 0);
+    Timestamp timestamp1 = new Timestamp(dt1.getMillis());
 
     @Before
     public void setUp() throws DBException {
@@ -32,7 +48,7 @@ public class CommentDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", new Timestamp(time), client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
 
         commentDAO.create(comment);
         Comment commentFromDb = commentDAO.getById(comment.getId());
@@ -45,7 +61,7 @@ public class CommentDAOImplTest {
 
     @Test
     public void testDelete() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", new Timestamp(time), client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
 
         commentDAO.create(comment);
         assertEquals(1, commentDAO.getAll().size());
@@ -56,7 +72,7 @@ public class CommentDAOImplTest {
 
     @Test
     public void testUpdate() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", new Timestamp(time), client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
         commentDAO.create(comment);
 
         comment.setHead("My second comment");
@@ -73,8 +89,8 @@ public class CommentDAOImplTest {
 
     @Test
     public void testMultipleCommentCreation() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", new Timestamp(time), client);
-        Comment secondComment = new Comment("My second comment", "Hi, I'm fine!", new Timestamp(time), secondClient);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
+        Comment secondComment = new Comment("My second comment", "Hi, I'm fine!", timestamp1, secondClient);
 
         commentDAO.create(comment);
         commentDAO.create(secondComment);

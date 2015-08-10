@@ -1,8 +1,5 @@
 package lv.javaguru.java2.domain.frontend;
 
-/**
- * Created by Aleksej_home on 2015.07.15..
- */
 public class Extra {
     private long id;
     private String label;

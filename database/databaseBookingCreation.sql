@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `head`       VARCHAR(255)     NOT NULL,
   `desc_text`  TEXT             NOT NULL,
-  `time_stamp` TIMESTAMP(3)     NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `time_stamp` TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `client_id`  INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`),
@@ -259,8 +259,8 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `from_date`  DATE             NOT NULL,
-  `to_date`    DATE             NOT NULL,
+  `from_date`  DATETIME         NOT NULL,
+  `to_date`    DATETIME         NOT NULL,
   `p_count`    INT(11)          NOT NULL,
   `time_stamp` TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status`     TINYINT(1)       NOT NULL DEFAULT '0',

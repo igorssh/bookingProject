@@ -4,9 +4,6 @@ package lv.javaguru.java2.domain.frontend;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.15..
- */
 public class Mordor {
     private String label;
     private String desc;
@@ -16,7 +13,7 @@ public class Mordor {
     private String registryNumber;
     private List<Hotel> hotels;
 
-    public void Mordor() {
+    public Mordor() {
         this.label = "";
         this.desc = "";
         this.logo = "";
@@ -26,7 +23,7 @@ public class Mordor {
         this.hotels = new LinkedList<Hotel>();
     }
 
-    public void Mordor(String label, String desc, String logo, String office, String phone,
+    public Mordor(String label, String desc, String logo, String office, String phone,
                        String registryNumber, List<Hotel> hotels) {
         this.label = label;
         this.desc = desc;

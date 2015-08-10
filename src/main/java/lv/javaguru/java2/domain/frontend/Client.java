@@ -4,10 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import lv.javaguru.java2.domain.Person;
 
-/**
- * Created by Aleksej_home on 2015.07.15
- */
-
 public class Client extends Person {
     private String name;
     private String surname;
