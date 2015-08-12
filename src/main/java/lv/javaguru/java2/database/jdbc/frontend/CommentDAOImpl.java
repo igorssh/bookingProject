@@ -30,11 +30,10 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
         try {
             connection = getConnection();
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("insert into comments values (default, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+                    connection.prepareStatement("insert into comments values (default, ?, ?, default, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, comment.getHead());
             preparedStatement.setString(2, comment.getDesc());
-            preparedStatement.setTimestamp(3, comment.getTimestamp());
-            preparedStatement.setLong(4, comment.getClient().getId());
+            preparedStatement.setLong(3, comment.getClient().getId());
 
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -135,6 +134,7 @@ public class CommentDAOImpl extends DAOImpl implements CommentDAO {
                 Comment comment = new Comment();
                 comment.setId(resultSet.getLong("id"));
                 comment.setHead(resultSet.getString("head"));
+                comment.setTimestamp(resultSet.getTimestamp("time_stamp"));
                 comment.setDesc(resultSet.getString("desc_text"));
                 comment.setClient(clientDAO.getById(resultSet.getLong("client_id")));
                 aps.add(comment);

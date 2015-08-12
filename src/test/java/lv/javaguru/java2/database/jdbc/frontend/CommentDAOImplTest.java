@@ -36,8 +36,6 @@ public class CommentDAOImplTest {
 
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-14578", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
-    DateTime dt1 = new DateTime(2015, 8, 10, 12, 0, 0);
-    Timestamp timestamp1 = new Timestamp(dt1.getMillis());
 
     @Before
     public void setUp() throws DBException {
@@ -48,20 +46,19 @@ public class CommentDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", client);
 
         commentDAO.create(comment);
         Comment commentFromDb = commentDAO.getById(comment.getId());
 
         assertEquals(comment.getHead(), commentFromDb.getHead());
         assertEquals(comment.getDesc(), commentFromDb.getDesc());
-        assertEquals(comment.getTimestamp(), commentFromDb.getTimestamp());
         assertEquals(comment.getClient().getId(), commentFromDb.getClient().getId());
     }
 
     @Test
     public void testDelete() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", client);
 
         commentDAO.create(comment);
         assertEquals(1, commentDAO.getAll().size());
@@ -72,7 +69,7 @@ public class CommentDAOImplTest {
 
     @Test
     public void testUpdate() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", client);
         commentDAO.create(comment);
 
         comment.setHead("My second comment");
@@ -89,8 +86,8 @@ public class CommentDAOImplTest {
 
     @Test
     public void testMultipleCommentCreation() throws DBException {
-        Comment comment = new Comment("My first comment", "Hi, how are you?", timestamp1, client);
-        Comment secondComment = new Comment("My second comment", "Hi, I'm fine!", timestamp1, secondClient);
+        Comment comment = new Comment("My first comment", "Hi, how are you?", client);
+        Comment secondComment = new Comment("My second comment", "Hi, I'm fine!", secondClient);
 
         commentDAO.create(comment);
         commentDAO.create(secondComment);
