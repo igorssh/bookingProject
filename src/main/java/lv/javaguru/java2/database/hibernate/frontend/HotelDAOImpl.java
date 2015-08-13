@@ -23,12 +23,12 @@ public class HotelDAOImpl implements HotelDAO {
 
     @Override
     public Hotel getById(Long id) throws DBException {
-        return null;
+        return (Hotel) sessionFactory.getCurrentSession().get(Hotel.class, id);
     }
 
     @Override
     public void delete(Long id) throws DBException {
-
+        sessionFactory.getCurrentSession().delete(getById(id));
     }
 
     @Override
