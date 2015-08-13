@@ -5,10 +5,6 @@ import lv.javaguru.java2.domain.frontend.Client;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.07.21
- */
-
 public interface ClientDAO {
 
     void create(Client client) throws DBException;
