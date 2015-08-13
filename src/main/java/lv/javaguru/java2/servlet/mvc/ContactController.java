@@ -9,6 +9,6 @@ public class ContactController implements MVCController {
 
     @Override
     public MVCModel processRequest(HttpServletRequest req) {
-        return new MVCModel(null, "/home.jsp");
+        return new MVCModel(null, "/contact.jsp");
     }
 }
