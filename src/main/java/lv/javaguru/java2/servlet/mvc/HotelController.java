@@ -2,18 +2,21 @@ package lv.javaguru.java2.servlet.mvc;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.HotelDAO;
-import lv.javaguru.java2.database.jdbc.frontend.HotelDAOImpl;
 import lv.javaguru.java2.domain.frontend.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Component
-public class ApartmentController implements MVCController {
+@Transactional
+public class HotelController implements MVCController {
 
     @Autowired
+    @Qualifier("HotelDAO")
     HotelDAO hotelDAO;
 
     @Override
@@ -26,7 +29,7 @@ public class ApartmentController implements MVCController {
             } else {
                 return new MVCModel(null, "/home.jsp");
             }
-        } catch(DBException e) {
+        } catch (DBException e) {
             return new MVCModel(null, "/home.jsp");
         }
     }

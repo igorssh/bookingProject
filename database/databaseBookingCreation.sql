@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `hotels` (
   `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `label`     VARCHAR(255)     NOT NULL,
   `address`   VARCHAR(255)     NOT NULL,
-  `desc_text` TEXT             NOT NULL,
+  `desc_text` TEXT     NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
@@ -68,10 +68,10 @@ CREATE TABLE IF NOT EXISTS `hotels` (
 --
 
 CREATE TABLE IF NOT EXISTS `hotelclasses` (
-  `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `classRating`   INT(11)          NOT NULL DEFAULT '1',
-  `desc_text` TEXT             NOT NULL,
-  `num_id`    INT(11)          NOT NULL,
+  `id`          INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `classRating` INT(11)          NOT NULL DEFAULT '1',
+  `desc_text`   TEXT             NOT NULL,
+  `num_id`      INT(11)          NOT NULL,
   PRIMARY KEY (`id`),
   KEY `num_id` (`num_id`)
 )
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `head`       VARCHAR(255)     NOT NULL,
   `desc_text`  TEXT             NOT NULL,
-  `time_stamp` TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_stamp` TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `client_id`  INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`),
@@ -130,11 +130,11 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 CREATE TABLE IF NOT EXISTS `extras` (
-  `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `label`     VARCHAR(255)     NOT NULL,
-  `desc_text` TEXT             NOT NULL,
-  `cost`      DOUBLE           NOT NULL DEFAULT '0',
-  `pic`       VARCHAR(255)     NOT NULL,
+  `id`        BIGINT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `label`     VARCHAR(255)        NOT NULL,
+  `desc_text` TEXT        NOT NULL,
+  `cost`      DOUBLE              NOT NULL DEFAULT '0',
+  `pic`       VARCHAR(255)        NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `person_count`     INT(11)          NOT NULL,
   `price_per_day`    DOUBLE           NOT NULL,
   `description_text` TEXT             NOT NULL,
-  `hotel_class_id`       INT(11) UNSIGNED NOT NULL,
+  `hotel_class_id`   INT(11) UNSIGNED NOT NULL,
   `hotel_id`         INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `hotel_class_id` (`hotel_class_id`),

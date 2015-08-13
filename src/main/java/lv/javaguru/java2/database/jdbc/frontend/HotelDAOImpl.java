@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Component("HotelDAO_JDBC")
 public class HotelDAOImpl extends DAOImpl implements HotelDAO {
 
     public void create(Hotel hotel) throws DBException {

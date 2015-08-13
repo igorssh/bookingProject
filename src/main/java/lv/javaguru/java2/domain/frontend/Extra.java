@@ -1,10 +1,27 @@
 package lv.javaguru.java2.domain.frontend;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "extras")
 public class Extra {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
+    
+    @Column(name = "label")
     private String label;
+    
+    @Column(name = "desc_text", columnDefinition = "TEXT")
     private String desc;
+    
+    @Column(name = "cost")
     private double cost;
+    
+    @Column(name = "pic")
     private String pic;
 
     public Extra() {
