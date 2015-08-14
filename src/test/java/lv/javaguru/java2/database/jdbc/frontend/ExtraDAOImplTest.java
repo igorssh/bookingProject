@@ -1,35 +1,27 @@
 package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.frontend.ExtraDAO;
-import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Extra;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 
+@Transactional
 public class ExtraDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
     
     @Autowired
     private ExtraDAO extraDAO;
 
     private static final double DELTA = 1e-3;
-
-    @Before
-    public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
-    }
 
     @Test
     public void testCreate() throws Exception {

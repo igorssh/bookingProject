@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component("HotelDAO")
+@Component
 public class HotelDAOImpl implements HotelDAO {
     
     @Autowired
@@ -33,11 +33,11 @@ public class HotelDAOImpl implements HotelDAO {
 
     @Override
     public void update(Hotel hotel) throws DBException {
-
+        sessionFactory.getCurrentSession().update(hotel);
     }
 
     @Override
     public List<Hotel> getAll() throws DBException {
-        return null;
+        return (List<Hotel>) sessionFactory.getCurrentSession().createCriteria(Hotel.class).list();
     }
 }

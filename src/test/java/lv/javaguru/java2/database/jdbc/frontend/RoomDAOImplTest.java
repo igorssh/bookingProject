@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -34,7 +33,6 @@ public class RoomDAOImplTest {
     private RoomDAO roomDAO;
 
     @Autowired
-    @Qualifier("HotelDAO")
     private HotelDAO hotelDAO;
     
     private Hotel hotel = new Hotel("label1", "Address 1", "Description about");

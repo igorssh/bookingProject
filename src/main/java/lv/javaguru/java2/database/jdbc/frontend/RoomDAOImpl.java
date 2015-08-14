@@ -7,7 +7,6 @@ import lv.javaguru.java2.database.frontend.RoomDAO;
 import lv.javaguru.java2.database.jdbc.DAOImpl;
 import lv.javaguru.java2.domain.frontend.Room;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 public class RoomDAOImpl extends DAOImpl implements RoomDAO {
 
     @Autowired
-    @Qualifier("HotelDAO")
     private HotelDAO hotelDAO;
     
     @Autowired

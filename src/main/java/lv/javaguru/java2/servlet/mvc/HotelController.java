@@ -16,7 +16,6 @@ import java.util.List;
 public class HotelController implements MVCController {
 
     @Autowired
-    @Qualifier("HotelDAO")
     HotelDAO hotelDAO;
 
     @Override
