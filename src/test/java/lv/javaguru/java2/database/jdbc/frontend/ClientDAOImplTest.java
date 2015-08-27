@@ -18,17 +18,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = SpringConfig.class)
 
 public class ClientDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
     
     @Autowired
     private ClientDAO clientDAO;
-
-    @Before
-    public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
-    }
 
     @Test
     public void testCreate() throws DBException {
@@ -67,10 +59,10 @@ public class ClientDAOImplTest {
         Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
 
         clientDAO.create(client);
-        assertEquals(1, clientDAO.getAll().size());
+        assertNotNull(clientDAO.getById(client.getId()));
 
         clientDAO.delete(client.getId());
-        assertEquals(0, clientDAO.getAll().size());
+        assertNull(clientDAO.getById(client.getId()));
     }
 
     @Test
@@ -80,7 +72,8 @@ public class ClientDAOImplTest {
 
         clientDAO.create(clientA);
         clientDAO.create(clientB);
-        assertEquals(2, clientDAO.getAll().size());
+        assertNotNull(clientDAO.getById(clientA.getId()));
+        assertNotNull(clientDAO.getById(clientB.getId()));
     }
 
 

@@ -1,17 +1,29 @@
 package lv.javaguru.java2.domain.frontend;
 
-//import edu.booking.core.backend.PaymentListener;
+import javax.persistence.*;
 
-import java.util.Date;
-
+@Entity
+@Table(name = "payments")
 public class Payment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+    
+    @Column(name = "amount")
     private double amount;
+    
+    @Column(name = "desc_text", columnDefinition = "TEXT")
     private String description;
+    
+    @Column(name = "pay_type")
     private int paymentType;
-    private Date timestamp;
+    
+    @Column(name = "referent")
     private String referent;
+    
+    @ManyToOne(cascade=CascadeType.ALL)
     private Client client;
 
     public Payment() {
@@ -24,8 +36,6 @@ public class Payment {
         this.referent = referent;
         this.client = client;
     }
-
-    //    private PaymentListener listener;
 
     public Client getClient() {
         return client;
@@ -41,14 +51,6 @@ public class Payment {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
     }
 
     public double getAmount() {
@@ -82,8 +84,4 @@ public class Payment {
     public void setReferent(String referent) {
         this.referent = referent;
     }
-
-/*    public void setListener(PaymentListener listener) {
-        this.listener = listener;
-    }*/
 }

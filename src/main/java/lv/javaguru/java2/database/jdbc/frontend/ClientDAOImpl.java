@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-@Component
 public class ClientDAOImpl extends DAOImpl implements ClientDAO {
 
     public void create(Client client) throws DBException {

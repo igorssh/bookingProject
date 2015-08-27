@@ -1,33 +1,50 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.util.LinkedList;
-import java.util.List;
 import lv.javaguru.java2.domain.Person;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "clients")
 public class Client extends Person {
-    private String name;
-    private String surname;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+    
+    @Column(name = "name")
+    private String name;
+    
+    @Column(name = "surname")
+    private String surname;
+    
+    @Column(name = "reg_num")
     private String registryNumber;
+    
+    @Column(name = "pers_num")
     private String personalNumber;
+    
+    @Column(name = "corp")
     private String corp;
+    
+    @Column(name = "email")
     private String email;
+    
+    @Column(name = "tele")
     private String phone;
+    
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "client")
     private List<Payment> payments;
+    
+    @Transient
     private List<Comment> comments;
+    
+    @Transient
     private List<Reservation> reservations;
 
     public Client() {
-        this.name = "";
-        this.surname = "";
-        this.email = "";
-        this.phone = "";
-        this.corp = "";
-        this.personalNumber = "";
-        this.registryNumber = "";
-        this.payments = new LinkedList<Payment>();
-        this.comments = new LinkedList<Comment>();
-        this.reservations = new LinkedList<Reservation>();
     }
 
     public Client(String name, String surname, String email, String phone, String corp,

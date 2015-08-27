@@ -21,9 +21,6 @@ import static org.junit.Assert.*;
 public class PaymentDAOImplTest {
     
     @Autowired
-    private DatabaseCleaner databaseCleaner;
-    
-    @Autowired
     private ClientDAO clientDAO;
     
     @Autowired
@@ -35,7 +32,6 @@ public class PaymentDAOImplTest {
 
     @Before
     public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
         clientDAO.create(client);
         clientDAO.create(secondClient);
     }
@@ -96,7 +92,8 @@ public class PaymentDAOImplTest {
         paymentDAO.create(payment);
         paymentDAO.create(secondPayment);
         
-        assertEquals(2, paymentDAO.getAll().size());
+        assertNotNull(paymentDAO.getById(payment.getId()));
+        assertNotNull(paymentDAO.getById(secondPayment.getId()));
     }
 
     private Client createClient(String name, String surname, String email, String phone, String corp,
