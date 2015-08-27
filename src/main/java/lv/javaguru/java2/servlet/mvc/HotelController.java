@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Component
-@Transactional
 public class HotelController implements MVCController {
 
     @Autowired
