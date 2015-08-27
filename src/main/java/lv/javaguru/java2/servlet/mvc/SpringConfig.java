@@ -56,8 +56,8 @@ public class SpringConfig {
     public DataSource dataSource(
             @Value("${driverClass}") String driver,
             @Value("${dbUrl}") String url,
-            @Value("${userName}") String user,
-            @Value("${password}") String password) throws PropertyVetoException {
+            @Value("${database.userName}") String user,
+            @Value("${database.password}") String password) throws PropertyVetoException {
 
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driver);
