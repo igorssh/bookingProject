@@ -7,26 +7,24 @@ import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Client;
 import lv.javaguru.java2.domain.frontend.Comment;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 
+@Transactional
 public class CommentDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private CommentDAO commentDAO;
@@ -39,7 +37,6 @@ public class CommentDAOImplTest {
 
     @Before
     public void setUp() throws DBException {
-        databaseCleaner.cleanDatabase();
         clientDAO.create(client);
         clientDAO.create(secondClient);
     }
@@ -52,7 +49,7 @@ public class CommentDAOImplTest {
         Comment commentFromDb = commentDAO.getById(comment.getId());
 
         assertEquals(comment.getHead(), commentFromDb.getHead());
-        assertEquals(comment.getDesc(), commentFromDb.getDesc());
+        assertEquals(comment.getDescription(), commentFromDb.getDescription());
         assertEquals(comment.getClient().getId(), commentFromDb.getClient().getId());
     }
 
@@ -61,10 +58,10 @@ public class CommentDAOImplTest {
         Comment comment = new Comment("My first comment", "Hi, how are you?", client);
 
         commentDAO.create(comment);
-        assertEquals(1, commentDAO.getAll().size());
+        assertNotNull(commentDAO.getById(comment.getId()));
 
         commentDAO.delete(comment.getId());
-        assertEquals(0, commentDAO.getAll().size());
+        assertNull(commentDAO.getById(comment.getId()));
     }
 
     @Test
@@ -73,14 +70,14 @@ public class CommentDAOImplTest {
         commentDAO.create(comment);
 
         comment.setHead("My second comment");
-        comment.setDesc("Hi, I'm fine!");
+        comment.setDescription("Hi, I'm fine!");
         comment.setClient(secondClient);
         commentDAO.update(comment);
 
         Comment commentFromDb = commentDAO.getById(comment.getId());
 
         assertEquals(comment.getHead(), commentFromDb.getHead());
-        assertEquals(comment.getDesc(), commentFromDb.getDesc());
+        assertEquals(comment.getDescription(), commentFromDb.getDescription());
         assertEquals(secondClient.getId(), commentFromDb.getClient().getId());
     }
 
@@ -92,7 +89,10 @@ public class CommentDAOImplTest {
         commentDAO.create(comment);
         commentDAO.create(secondComment);
 
-        assertEquals(2, commentDAO.getAll().size());
+        List<Comment> comments = commentDAO.getAll().stream()
+                .filter(c -> c.getId() == comment.getId() || c.getId() == secondComment.getId())
+                .collect(Collectors.toList());
+        assertEquals(2, comments.size());
     }
 
     private Client createClient(String name, String surname, String email, String phone, String corp,

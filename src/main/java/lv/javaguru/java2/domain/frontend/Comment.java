@@ -1,23 +1,31 @@
 package lv.javaguru.java2.domain.frontend;
 
-import java.sql.Timestamp;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "comments")
 public class Comment {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+    
+    @Column(name = "head")
     private String head;
-    private String desc;
-    private Timestamp timestamp;
+    
+    @Column(name = "desc_text", columnDefinition = "TEXT")
+    private String description;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client client;
 
     public Comment() {
-        this.head = "";
-        this.desc = "";
-        this.client = new Client();
     }
 
-    public Comment(String head, String desc, Client client) {
+    public Comment(String head, String description, Client client) {
         this.head = head;
-        this.desc = desc;
+        this.description = description;
         this.client = client;
     }
 
@@ -29,14 +37,6 @@ public class Comment {
         this.client = client;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -45,12 +45,12 @@ public class Comment {
         return id;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getHead() {

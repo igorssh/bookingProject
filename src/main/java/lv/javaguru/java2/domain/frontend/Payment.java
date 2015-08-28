@@ -23,7 +23,7 @@ public class Payment {
     @Column(name = "referent")
     private String referent;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client client;
 
     public Payment() {
