@@ -1,5 +1,6 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
+
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.ClientDAO;
 import lv.javaguru.java2.core.domain.frontend.Client;
