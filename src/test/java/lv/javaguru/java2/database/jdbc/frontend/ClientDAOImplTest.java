@@ -2,10 +2,8 @@ package lv.javaguru.java2.database.jdbc.frontend;
 
 import lv.javaguru.java2.database.DBException;
 import lv.javaguru.java2.database.frontend.ClientDAO;
-import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.domain.frontend.Client;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -41,11 +41,11 @@ public class ExtraDAOImplTest {
         Extra extra = new Extra("Limousine", "Rent a limousine", 150.00, "/image");
         extraDAO.create(extra);
 
-        assertEquals(extraDAO.getAll().size(), 1);
+        assertEquals(1, extraDAO.getAll().size());
 
         extraDAO.delete(extra.getId());
 
-        assertEquals(extraDAO.getAll().size(), 0);
+        assertEquals(0, extraDAO.getAll().size());
     }
 
     @Test
@@ -75,6 +75,6 @@ public class ExtraDAOImplTest {
         extraDAO.create(extra);
         extraDAO.create(extra2);
 
-        assertEquals(extraDAO.getAll().size(), 2);
+        assertEquals(2, extraDAO.getAll().size());
     }
 }

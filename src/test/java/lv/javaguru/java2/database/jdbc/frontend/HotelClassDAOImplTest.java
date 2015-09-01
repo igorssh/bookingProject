@@ -3,14 +3,14 @@ package lv.javaguru.java2.database.jdbc.frontend;
 import static org.junit.Assert.*;
 
 import java.util.List;
-import lv.javaguru.java2.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.database.DBException;
+import lv.javaguru.java2.database.frontend.HotelClassDAO;
 import lv.javaguru.java2.domain.frontend.HotelClass;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,16 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class HotelClassDAOImplTest {
     
     @Autowired
-    private DatabaseCleaner databaseCleaner;
-    
-    @Autowired
-    private HotelClassDAOImpl hotelClassDAO;
-
-
-    @Before
-    public void init() throws DBException {
-        databaseCleaner.cleanDatabase();
-    }
+    private HotelClassDAO hotelClassDAO;
 
     @Test
     public void testCreate() throws DBException {
@@ -65,19 +56,20 @@ public class HotelClassDAOImplTest {
         HotelClass hotelClass = new HotelClass(1, "Tourist village");
 
         hotelClassDAO.create(hotelClass);
-        assertEquals(1, hotelClassDAO.getAll().size());
+        assertNotNull(hotelClassDAO.getById(hotelClass.getId()));
 
         hotelClassDAO.delete(hotelClass.getId());
-        assertEquals(0, hotelClassDAO.getAll().size());
+        assertNull(hotelClassDAO.getById(hotelClass.getId()));
     }
 
     @Test
     public void testMultipleHotelCreation() throws DBException {
-        HotelClass ap1 = new HotelClass(1, "Description about 1");
-        HotelClass ap2 = new HotelClass(2, "Description about 2");
-        hotelClassDAO.create(ap1);
-        hotelClassDAO.create(ap2);
-        List<HotelClass> users = hotelClassDAO.getAll();
-        assertEquals(2, users.size());
+        HotelClass hotelClass1 = new HotelClass(1, "Description about 1");
+        HotelClass hotelClass2 = new HotelClass(2, "Description about 2");
+        hotelClassDAO.create(hotelClass1);
+        hotelClassDAO.create(hotelClass2);
+
+        assertNotNull(hotelClassDAO.getById(hotelClass1.getId()));
+        assertNotNull(hotelClassDAO.getById(hotelClass2.getId()));
     }
 }

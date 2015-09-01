@@ -1,12 +1,27 @@
 package lv.javaguru.java2.domain.frontend;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "hotelclasses")
 public class HotelClass {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+
+    @Column(name = "classRating")
     private int classId;
+
+    @Column(name = "desc_text", columnDefinition = "TEXT")
     private String desc;
+
+    @Column(name = "num_id")
     private int numId;
+
+    @Transient
     private List<Extra> extras;
 
     public HotelClass() {
