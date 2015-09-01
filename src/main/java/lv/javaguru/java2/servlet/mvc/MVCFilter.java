@@ -36,6 +36,7 @@ public class MVCFilter implements Filter {
         controllers.put("/apartments.jsp", getBean(HotelController.class));
         controllers.put("/contact.jsp", getBean(ContactController.class));
         controllers.put("/extras.jsp", getBean(ExtraController.class));
+        controllers.put("/rooms.jsp", getBean(RoomController.class));
     }
 
     private MVCController getBean(Class clazz){

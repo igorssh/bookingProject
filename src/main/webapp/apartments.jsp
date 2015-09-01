@@ -1,5 +1,5 @@
 <%@ page import="java.io.*,java.util.*" %>
-<%@ page import="lv.javaguru.java2.domain.frontend.Hotel" %>
+<%@ page import="lv.javaguru.java2.core.domain.frontend.Hotel" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -60,7 +60,18 @@
           </ul>
           <li><p>Average room price: ~500 eu</p></li>
         </ul></td>
-        <td><%= hotel.getDescription() %></td>
+        <td><table id="apartment-rooms-list">
+              <tr>
+                  <td><%= hotel.getDescription() %></td>
+              </tr>
+            <tr>
+                <td><a  href="rooms.jsp?id=<%= hotel.getId()%>" >
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modalRooms" >View rooms</button>
+                    </a>
+                </td>
+            </tr>
+            </table>
+        </td>
       </tr>
       <% } %>
       </tbody>
@@ -164,6 +175,29 @@
 
     </div>
   </div>
+
+    <div class="modal fade" id="modalRooms" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Rooms</h4>
+                </div>
+                <div class="modal-body">
+                       <ul>
+                           <li></li>
+                       </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
   <!-- Site footer -->
   <%-- <footer class="footer">
       <p>© Company 2014</p>

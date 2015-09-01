@@ -1,12 +1,16 @@
 package lv.javaguru.java2.servlet.mvc;
 
+import lv.javaguru.java2.core.database.frontend.ClientDAO;
+import lv.javaguru.java2.core.database.hibernate.frontend.ClientDAOImpl;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.Filter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -20,6 +24,10 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
+/*@ComponentScan(basePackages = {"lv.javaguru.java2"},
+        excludeFilters = {@Filter(value = Controller.class, type = FilterType.ANNOTATION)})*/
+/*@ComponentScan(basePackages = {"lv.javaguru.java2"},
+        excludeFilters = {@ComponentScan.Filter(value = ClientDAO.class, type = FilterType.ANNOTATION)})*/
 @ComponentScan(basePackages = {"lv.javaguru.java2"})
 @EnableTransactionManagement
 public class SpringConfig {

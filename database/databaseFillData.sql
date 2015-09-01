@@ -8,18 +8,21 @@ USE `bookingproject`;
   SET
     `label`     = "images/apartments/thumbs/drak150x100.png",
     `address`   = "Bullu street 45",
+    `rating`   =  5,
     `desc_text` = "Good pay good day";
 
   INSERT INTO `bookingproject`.`hotels`
   SET
     `label`     = "images/apartments/thumbs/vanap150x100.png",
     `address`   = "Stabu street 6",
+    `rating`   =  4,
     `desc_text` = "For average person";
 
   INSERT INTO `bookingproject`.`hotels`
   SET
     `label`     = "images/apartments/thumbs/stud150x100.png",
     `address`   = "Putina street 10",
+    `rating`   =  1,
     `desc_text` = "For poor person, .. students ant other";
 
 -- Extras data start
@@ -73,6 +76,71 @@ Following that pattern, a metal item found Sunday on Reunion -- described by aut
 
 
 -- Extras data end
+
+-- Room data start
+INSERT INTO `bookingproject`.`oomclasses`
+SET
+  `class_id`     =   1,
+  `class_name`    = "Brutal",
+  `desc_text`   =  "Good pay good day";
+
+
+
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 214,
+  `person_count`    = 4,
+  `price_per_day`   =  15.5,
+  `description_text` = "Good pay good day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 215,
+  `person_count`    = 3,
+  `price_per_day`   =  175.5,
+  `description_text` = "Good pay good day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 216,
+  `person_count`    = 4,
+  `price_per_day`   =  45.5,
+  `description_text` = "Good pay sfdfsdfgood day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 217,
+  `person_count`    = 2,
+  `price_per_day`   =  152.5,
+  `description_text` = "Good pay good day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 218,
+  `person_count`    = 4,
+  `price_per_day`   =  15,
+  `description_text` = "Good pay good day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+
+INSERT INTO `bookingproject`.`rooms`
+SET
+  `room_number`     = 219,
+  `person_count`    = 1,
+  `price_per_day`   =  5.5,
+  `description_text` = "Good pay good day",
+  `roomClass_id`     = 1173,
+  `hotel_id`         = 1174;
+-- Room data end
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

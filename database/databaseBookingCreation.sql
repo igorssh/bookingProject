@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `bookingproject`.`thumbs`;
 DROP TABLE IF EXISTS `bookingproject`.`permissions`;
 DROP TABLE IF EXISTS `bookingproject`.`reservations`;
 DROP TABLE IF EXISTS `bookingproject`.`rooms`;
-DROP TABLE IF EXISTS `bookingproject`.`hotelclasses`;
+DROP TABLE IF EXISTS `bookingproject`.`roomclasses`;
 DROP TABLE IF EXISTS `bookingproject`.`hotels`;
 DROP TABLE IF EXISTS `bookingproject`.`roles`;
 DROP TABLE IF EXISTS `bookingproject`.`payments`;
@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `hotels` (
   `id`        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `label`     VARCHAR(255)     NOT NULL,
   `address`   VARCHAR(255)     NOT NULL,
+  `rating` TINYINT(2) UNSIGNED NOT NULL DEFAULT '1',
   `desc_text` TEXT     NOT NULL,
   PRIMARY KEY (`id`)
 )
@@ -67,13 +68,12 @@ CREATE TABLE IF NOT EXISTS `hotels` (
 -- Table `hotelclasses`
 --
 
-CREATE TABLE IF NOT EXISTS `hotelclasses` (
+CREATE TABLE IF NOT EXISTS `roomclasses` (
   `id`          INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `classRating` INT(11)          NOT NULL DEFAULT '1',
+  `class_id` TINYINT(2) UNSIGNED NOT NULL DEFAULT '1',
+  `class_name` VARCHAR(100)  NOT NULL DEFAULT 'Brutal',
   `desc_text`   TEXT             NOT NULL,
-  `num_id`      INT(11)          NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `num_id` (`num_id`)
+  PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
@@ -233,17 +233,17 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `person_count`     INT(11)          NOT NULL,
   `price_per_day`    DOUBLE           NOT NULL,
   `description_text` TEXT             NOT NULL,
-  `hotel_class_id`   INT(11) UNSIGNED NOT NULL,
+  `roomClass_id`   INT(11) UNSIGNED NOT NULL,
   `hotel_id`         INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `hotel_class_id` (`hotel_class_id`),
+  KEY `roomClass_id` (`roomClass_id`),
   KEY `hotel_id` (`hotel_id`),
   CONSTRAINT `rooms_ibfk_1`
   FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT `rooms_ibfk_2`
-  FOREIGN KEY (`hotel_class_id`) REFERENCES `hotelclasses` (`id`)
+  FOREIGN KEY (`roomClass_id`) REFERENCES `roomclasses` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE
 )
@@ -259,9 +259,9 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id`         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `from_date`  DATETIME         NOT NULL,
-  `to_date`    DATETIME         NOT NULL,
-  `p_count`    INT(11)          NOT NULL,
+  `from_date`  DATE         NOT NULL,
+  `till_date`    DATE        NOT NULL,
+  `person_count`    INT(11)          NOT NULL,
   `time_stamp` TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status`     TINYINT(1)       NOT NULL DEFAULT '0',
   `room_id`    INT(11) UNSIGNED NOT NULL,

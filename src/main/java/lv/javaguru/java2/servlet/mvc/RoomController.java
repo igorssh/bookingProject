@@ -5,6 +5,8 @@ import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 import java.util.HashMap;
 import java.util.Map;
 //import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +14,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Component
-public class HotelController implements MVCController {
+@Controller
+public class RoomController implements MVCController{
 
     @Autowired
     HotelDAO hotelDAO;
@@ -23,15 +25,20 @@ public class HotelController implements MVCController {
     public MVCModel processRequest(HttpServletRequest req) {
         try {
             Map<String, Object> params = new HashMap<>();
-            List<Hotel> hotels = hotelDAO.getAll();
+            String idString = req.getParameter("id");
 
-            if (hotels.size() != 0) {
-                return new MVCModel(hotels, "/apartments.jsp");
-            } else {
+            if (idString != null) {
+                Hotel hotel = hotelDAO.getById(Long.parseLong(idString), new String[]{"getHotelRooms"});
+                params.put("currentHotel", hotel);
+                params.put("allRooms", hotel.getHotelRooms());
+               return new MVCModel(params, "/rooms.jsp");
+            }else{
                 return new MVCModel(null, "/home.jsp");
             }
+
         } catch (DBException e) {
             return new MVCModel(null, "/home.jsp");
         }
+
     }
 }
