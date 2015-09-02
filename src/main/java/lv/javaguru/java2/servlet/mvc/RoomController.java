@@ -1,5 +1,6 @@
 package lv.javaguru.java2.servlet.mvc;
 
+import lv.javaguru.java2.core.Services.CollectHotelAdditionalData;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
@@ -12,13 +13,17 @@ import java.util.Map;
 //import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
 public class RoomController implements MVCController{
 
+  /*  @Autowired
+    HotelDAO hotelDAO;*/
+
     @Autowired
-    HotelDAO hotelDAO;
+    CollectHotelAdditionalData adata;
 
 
     @Override
@@ -28,10 +33,7 @@ public class RoomController implements MVCController{
             String idString = req.getParameter("id");
 
             if (idString != null) {
-                Hotel hotel = hotelDAO.getById(Long.parseLong(idString), new String[]{"getHotelRooms"});
-                params.put("currentHotel", hotel);
-                params.put("allRooms", hotel.getHotelRooms());
-               return new MVCModel(params, "/rooms.jsp");
+               return new MVCModel(adata.processService(idString), "/rooms.jsp");
             }else{
                 return new MVCModel(null, "/home.jsp");
             }

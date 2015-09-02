@@ -4,7 +4,6 @@ import lv.javaguru.java2.core.Services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,11 +23,9 @@ public class HotelDAOImpl implements HotelDAO {
 
     @Override
     public Hotel getById(Long id, String[] args) throws DBException {
+        Object obj = null;
         Hotel hotel = (Hotel) sessionFactory.getCurrentSession().get(Hotel.class, id);
-        if (args != null)
-            for (String str : args){
-                Hibernate.initialize(dbBehavior.ignoreLazy(hotel, str));
-            }
+                dbBehavior.ignoreLazy(hotel, args);
         return hotel;
     }
 

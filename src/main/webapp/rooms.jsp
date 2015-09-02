@@ -14,7 +14,7 @@
 <%
     Map<String, Object> params = (Map) request.getAttribute("model");
     Hotel currentHotel = (Hotel)params.get("currentHotel");
-    List<Room> roomsList = (List)params.get("allRooms");
+    List<Room> roomsList =  currentHotel.getHotelRooms();
 %>
 
 <html>
@@ -27,10 +27,11 @@
         <% if (roomsList != null)
             for (Room room : roomsList){
         %>
-      <li><p><%= room.getRoomNumber()%></p>
-          <p><%= room.getDescription()%></p>
-          <p><%= room.getPersonCount()%></p>
-          <p><%= room.getPricePerDay()%></p>
+      <li><p>Room number: <%= room.getRoomNumber()%></p>
+          <p>Description: <%= room.getDescription()%></p>
+          <p>Persons maximum number: <%= room.getPersonCount()%></p>
+          <p>Price per day: <%=room.getPricePerDay()%></p>
+          <p>Room class: <%= room.getRoomClass().getClassName()%></p>
       </li>
         <%
             }

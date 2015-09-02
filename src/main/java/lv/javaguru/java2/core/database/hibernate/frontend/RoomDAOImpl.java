@@ -3,13 +3,11 @@ package lv.javaguru.java2.core.database.hibernate.frontend;
 import lv.javaguru.java2.core.Services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.RoomDAO;
-import lv.javaguru.java2.core.domain.frontend.Hotel;
 import lv.javaguru.java2.core.domain.frontend.Room;
-import lv.javaguru.java2.core.domain.frontend.RoomClass;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,10 +30,7 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public Room getById(long id, String[] args) throws DBException {
         Room room = (Room)sessionFactory.getCurrentSession().get(Room.class, id);
-        if (args != null)
-            for (String str : args){
-                Hibernate.initialize(dbBehavior.ignoreLazy(room, str));
-            }
+                dbBehavior.ignoreLazy(room, args);
         return room;
     }
 

@@ -9,6 +9,6 @@ import lv.javaguru.java2.core.database.DBException;
  */
 public interface DBBehavior {
 
-    Object ignoreLazy(Object obj, String arg) throws DBException;
+    void ignoreLazy(Object obj, String[] args) throws DBException;
 
 }

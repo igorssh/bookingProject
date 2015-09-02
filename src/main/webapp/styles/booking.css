@@ -26,8 +26,13 @@ table#apartment-list {
     font-family: 'America XIX' !important;
 }
 
-table#apartment-rooms-list:first-child{
+/*table#apartment-rooms-list:first-child{
     height: 80%;
+}*/
+
+a#btn-rooms {
+    float: right;
+    margin: 2%;
 }
 
 

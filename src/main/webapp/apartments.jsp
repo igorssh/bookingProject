@@ -46,6 +46,7 @@
       <tbody>
       <%
         for (Hotel hotel : hotels) {
+
       %>
        <input id="hld" type="hidden" value="<%= hotel.getLabel() %>">
       <tr>
@@ -60,17 +61,13 @@
           </ul>
           <li><p>Average room price: ~500 eu</p></li>
         </ul></td>
-        <td><table id="apartment-rooms-list">
-              <tr>
-                  <td><%= hotel.getDescription() %></td>
-              </tr>
-            <tr>
-                <td><a  href="rooms.jsp?id=<%= hotel.getId()%>" >
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modalRooms" >View rooms</button>
-                    </a>
-                </td>
-            </tr>
-            </table>
+        <td>
+            <p><%= hotel.getDescription() %></p>
+            <a id="btn-rooms" href="rooms.jsp?id=<%= hotel.getId()%>" >
+                <button class="btn btn-success" type="button">View rooms</button>
+            </a>
+
+
         </td>
       </tr>
       <% } %>

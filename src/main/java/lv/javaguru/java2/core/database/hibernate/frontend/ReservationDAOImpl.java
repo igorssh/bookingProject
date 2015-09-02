@@ -7,10 +7,10 @@ import lv.javaguru.java2.core.Services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.ReservationDAO;
 import lv.javaguru.java2.core.domain.frontend.Reservation;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,10 +29,7 @@ public class ReservationDAOImpl implements ReservationDAO{
     @Override
     public Reservation getById(long id, String[] args) throws DBException {
         Reservation reservation = (Reservation) sessionFactory.getCurrentSession().get(Reservation.class, id);
-        if (args != null)
-        for (String str : args){
-            Hibernate.initialize(dbBehavior.ignoreLazy(reservation, str));
-        }
+           dbBehavior.ignoreLazy(reservation, args);
         return reservation;
     }
 

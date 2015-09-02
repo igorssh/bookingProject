@@ -78,7 +78,7 @@ Following that pattern, a metal item found Sunday on Reunion -- described by aut
 -- Extras data end
 
 -- Room data start
-INSERT INTO `bookingproject`.`oomclasses`
+INSERT INTO `bookingproject`.`roomclasses`
 SET
   `class_id`     =   1,
   `class_name`    = "Brutal",
