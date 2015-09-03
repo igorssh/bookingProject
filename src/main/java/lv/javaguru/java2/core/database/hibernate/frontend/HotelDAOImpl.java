@@ -4,6 +4,7 @@ import lv.javaguru.java2.core.Services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,8 @@ public class HotelDAOImpl implements HotelDAO {
 
     @Override
     public List<Hotel> getAll() throws DBException {
-        return (List<Hotel>) sessionFactory.getCurrentSession().createCriteria(Hotel.class).list();
+        return (List<Hotel>) sessionFactory.getCurrentSession().createCriteria(Hotel.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 }
