@@ -12,10 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.08.30..
- */
-
 @Component
 @Transactional
 public class RoomDAOImpl implements RoomDAO {
@@ -25,14 +21,6 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Autowired
     DBBehavior dbBehavior;
-
-
-    @Override
-    public Room getById(long id, String[] args) throws DBException {
-        Room room = (Room)sessionFactory.getCurrentSession().get(Room.class, id);
-                dbBehavior.ignoreLazy(room, args);
-        return room;
-    }
 
     @Override
     public void create(Room room) throws DBException {

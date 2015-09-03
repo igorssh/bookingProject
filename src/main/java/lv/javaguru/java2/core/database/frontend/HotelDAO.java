@@ -11,8 +11,6 @@ public interface HotelDAO {
 
     Hotel getById(Long id) throws DBException;
 
-    Hotel getById(Long id, String[] args) throws DBException;
-
     void delete(Long id) throws DBException;
 
     void update(Hotel hotel) throws DBException;

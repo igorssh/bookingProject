@@ -25,8 +25,7 @@ public class Client extends Person {
     
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "client")
     private List<Comment> comments;
-
-   // @Transient
+    
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "client")
     private List<Reservation> reservations;
 

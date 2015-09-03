@@ -5,22 +5,22 @@ import lv.javaguru.java2.core.database.frontend.*;
 import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.domain.frontend.*;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.joda.time.DateTime;
-//import org.joda.time.format
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 
+@Transactional
 public class ReservationDAOImplTest {
 
     @Autowired
@@ -46,16 +46,8 @@ public class ReservationDAOImplTest {
     private Room room = new Room(1, 2, 30.00, "Standard room", roomClass, hotel);
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-14578", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
-    //DateTime dt1 = new DateTime();
-   // DateTime dt1 = new DateTime(2015, 8, 10, 12, 0, 0);
-   // Date date1 = new Timestamp(dt1.getMillis());
-    //Date date1 = new Date(dt1.getMillis());
-    //Date
-    //Date date1 = new Date();
-    DateTime dt1 = new DateTime(2015, 8, 11, 0, 0, 0);
-    Date date1 = new Date(dt1.getMillis());
-    DateTime dt2 = new DateTime(2015, 8, 11, 0, 0, 0);
-    Date date2 = new Date(dt2.getMillis());
+    LocalDate date1 = LocalDate.of(2015, 8, 11);
+    LocalDate date2 = LocalDate.of(2015, 8, 12);
 
     @Before
     public void setUp() throws DBException {
@@ -72,7 +64,7 @@ public class ReservationDAOImplTest {
         Reservation reservation = createReservation(date1, date2, 2, true, room, client);
         reservationDAO.create(reservation);
 
-        Reservation reservationFromDb = reservationDAO.getById(reservation.getId(), new String[]{"getRoom","getClient"});
+        Reservation reservationFromDb = reservationDAO.getById(reservation.getId());
 
         assertEquals(reservation.getFrom(), reservationFromDb.getFrom());
         assertEquals(reservation.getTill(), reservationFromDb.getTill());
@@ -96,16 +88,12 @@ public class ReservationDAOImplTest {
     public void testUpdate() throws DBException {
         Reservation reservation = createReservation(date1, date2, 2, true, room, client);
         reservationDAO.create(reservation);
-
-        DateTime dt3 = new DateTime(2015, 8, 12, 0, 0, 0);
-        Date timestamp3 = new Date(dt3.getMillis());
-
-        reservation.setTill(timestamp3);
+        
         reservation.setPersonsCount(3);
         reservation.setClient(secondClient);
         reservationDAO.update(reservation);
 
-        Reservation reservationFromDb = reservationDAO.getById(reservation.getId(), new String[]{"getClient"});
+        Reservation reservationFromDb = reservationDAO.getById(reservation.getId());
 
         assertEquals(reservation.getTill(), reservationFromDb.getTill());
         assertEquals(reservation.getPersonsCount(), reservationFromDb.getPersonsCount());
@@ -137,7 +125,7 @@ public class ReservationDAOImplTest {
         return client;
     }
 
-    private Reservation createReservation(Date from, Date till, int personsCount, boolean status, Room room, Client client) {
+    private Reservation createReservation(LocalDate from, LocalDate till, int personsCount, boolean status, Room room, Client client) {
         Reservation reservation = new Reservation();
         reservation.setFrom(from);
         reservation.setTill(till);

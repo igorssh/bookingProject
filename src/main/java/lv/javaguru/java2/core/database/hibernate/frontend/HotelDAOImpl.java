@@ -22,14 +22,6 @@ public class HotelDAOImpl implements HotelDAO {
     DBBehavior dbBehavior;
 
     @Override
-    public Hotel getById(Long id, String[] args) throws DBException {
-        Object obj = null;
-        Hotel hotel = (Hotel) sessionFactory.getCurrentSession().get(Hotel.class, id);
-                dbBehavior.ignoreLazy(hotel, args);
-        return hotel;
-    }
-
-    @Override
     public void create(Hotel hotel) throws DBException {
         sessionFactory.getCurrentSession().save(hotel);    
     }

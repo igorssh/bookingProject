@@ -12,8 +12,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Map<String, Object> params = (Map) request.getAttribute("model");
-    Hotel currentHotel = (Hotel)params.get("currentHotel");
+    Hotel currentHotel = (Hotel)request.getAttribute("model");
     List<Room> roomsList =  currentHotel.getHotelRooms();
 %>
 

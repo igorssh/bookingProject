@@ -21,23 +21,18 @@ public class ExtraController implements MVCController {
     @Override
     public MVCModel processRequest(HttpServletRequest req) {
         try {
-            Map<String, Object> params = new HashMap<>();
             List<Extra> allExtras = extraDAO.getAll();
-           // ExtrasObject extrasObject = new ExtrasObject();
-            //extrasObject.setExtras(allExtras);
-
-            params.put("allExtras", allExtras);
+            ExtrasObject extrasObject = new ExtrasObject();
+            extrasObject.setExtras(allExtras);
 
             String idString = req.getParameter("id");
 
             if (idString != null) {
-                //extrasObject.setExtra(extraDAO.getById(Long.parseLong(idString)));
-                params.put("extra", extraDAO.getById(Long.parseLong(idString)) );
-                return new MVCModel(params, "/extras.jsp");
+                extrasObject.setExtra(extraDAO.getById(Long.parseLong(idString)));
+                return new MVCModel(extrasObject, "/extras.jsp");
             } else if (allExtras.size() != 0) {
-               // extrasObject.setExtra(allExtras.get(0));
-                params.put("extra", allExtras.get(0));
-                return new MVCModel(params, "/extras.jsp");
+                extrasObject.setExtra(allExtras.get(0));
+                return new MVCModel(extrasObject, "/extras.jsp");
             } else {
                 return new MVCModel(null, "/home.jsp");
             }

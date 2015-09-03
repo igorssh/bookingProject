@@ -24,14 +24,6 @@ public class ReservationDAOImpl implements ReservationDAO{
 
     @Autowired
     DBBehavior dbBehavior;
-    
-
-    @Override
-    public Reservation getById(long id, String[] args) throws DBException {
-        Reservation reservation = (Reservation) sessionFactory.getCurrentSession().get(Reservation.class, id);
-           dbBehavior.ignoreLazy(reservation, args);
-        return reservation;
-    }
 
     @Override
     public void create(Reservation reservation) throws DBException {

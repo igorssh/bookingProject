@@ -20,16 +20,11 @@ public class Thumb {
 
     @Column(name = "orig")
     private String orig;
-
-    //@Transient
+    
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Room room;
 
     public Thumb() {
-        this.label = "";
-        this.desc = "";
-        this.orig = "";
-        this.room = new Room();
     }
 
     public Thumb(String label, String desc, String orig, Room room) {

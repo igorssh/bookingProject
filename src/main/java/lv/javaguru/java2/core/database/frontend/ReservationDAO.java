@@ -9,8 +9,6 @@ public interface ReservationDAO {
 
     void create(Reservation reservation) throws DBException;
 
-    Reservation getById(long id, String[] args) throws DBException;
-
     Reservation getById(long id) throws DBException;
 
     void delete(long id) throws DBException;

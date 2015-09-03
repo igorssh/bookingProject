@@ -26,20 +26,17 @@ public class Room {
 
     @Column(name = "description_text", columnDefinition = "TEXT")
     private String description;
-
-   // @Transient
+    
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "room")
     private List<Thumb> thumbs;
-
-    //@Transient
+    
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "room")
     private List<Reservation> reservations;
-
-    //@Transient
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    
+    @ManyToOne(optional = false)
     private RoomClass roomClass;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Hotel hotel;
 
     public Room() {

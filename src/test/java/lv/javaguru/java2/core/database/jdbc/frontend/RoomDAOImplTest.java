@@ -15,12 +15,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 
+@Transactional
 public class RoomDAOImplTest {
 
     @Autowired
@@ -49,21 +51,10 @@ public class RoomDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        String[] args = new String[2];
-
-        args[0] = "getHotel";
-        args[1] = "getRoomClass";
-        //session.update(entity);
         Room room = new Room(1, 2, 30.00, "Standard room", roomClass, hotel);
         roomDAO.create(room);
-
-       // Room roomFromDb = roomDAO.getById(room.getId());
-        Room roomFromDb = roomDAO.getById(room.getId(),args);
-       // Hibernate.initialize(roomFromDb.getRoomClass());
-       // Hibernate.initialize(roomFromDb.getHotel());
-
-
-       // System.out.println("Test proxyff: " + roomFromDb.getRoomClass());
+        
+        Room roomFromDb = roomDAO.getById(room.getId());
 
         assertEquals(room.getRoomNumber(), roomFromDb.getRoomNumber());
         assertEquals(room.getPersonCount(), roomFromDb.getPersonCount());

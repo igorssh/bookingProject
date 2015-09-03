@@ -10,8 +10,6 @@ public interface RoomDAO {
 
     Room getById(long id) throws DBException;
 
-    Room getById(long id, String[] args) throws DBException;
-
     void delete(long id) throws DBException;
 
     void update(Room room) throws DBException;

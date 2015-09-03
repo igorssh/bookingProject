@@ -1,10 +1,9 @@
 package lv.javaguru.java2.core.domain.frontend;
 
-import java.sql.Timestamp;
-import java.sql.Date;
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "reservations")
@@ -15,45 +14,34 @@ public class Reservation {
     @Column(name = "id", columnDefinition = "int")
     private long id;
 
-    @Column(name = "from_date")
+    @Column(name = "from_date", columnDefinition = "DATE")
     private Date from;
 
-    @Column(name = "till_date")
+    @Column(name = "till_date", columnDefinition = "DATE")
     private Date till;
 
     @Column(name = "person_count")
     private int personsCount;
 
-    @Column(name = "time_stamp")
-    private Timestamp timestamp;
-
     @Column(name = "status")
     private boolean status;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "reservations")
-    //@ManyToMany(fetch = FetchType.LAZY, mappedBy = "reservations")
     private List<Extra> extras;
+    
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Client client;
+    
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Room room;
 
     public Reservation() {
-        this.from = null;
-        this.till = null;
-        this.personsCount = 0;
-        this.timestamp = null;
-        this.status = false;
-        this.extras = new LinkedList<Extra>();
-        this.client = new Client();
-        this.room = new Room();
     }
 
-    public Reservation(Date from, Date till, int placesCount, Timestamp timestamp, boolean status, List<Extra> extras, Client client, Room room) {
-        this.from = from;
-        this.till = till;
+    public Reservation(LocalDate from, LocalDate till, int placesCount, boolean status, List<Extra> extras, Client client, Room room) {
+        this.from = Date.valueOf(from);
+        this.till = Date.valueOf(till);
         this.personsCount = placesCount;
-        this.timestamp = timestamp;
         this.status = status;
         this.extras = extras;
         this.client = client;
@@ -80,32 +68,24 @@ public class Reservation {
         this.id = id;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public Date getFrom() {
-        return from;
+    public LocalDate getFrom() {
+        return from.toLocalDate();
     }
 
-    public void setFrom(Date from) {
-        this.from = from;
+    public void setFrom(LocalDate from) {
+        this.from = Date.valueOf(from);
     }
 
-    public Date getTill() {
-        return till;
+    public LocalDate getTill() {
+        return till.toLocalDate();
     }
 
-    public void setTill(Date till) {
-        this.till = till;
+    public void setTill(LocalDate till) {
+        this.till = Date.valueOf(till);
     }
 
     public int getPersonsCount() {

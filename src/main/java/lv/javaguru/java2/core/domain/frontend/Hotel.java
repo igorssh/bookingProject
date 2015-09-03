@@ -24,8 +24,7 @@ public class Hotel {
     
     @Column(name = "desc_text", columnDefinition = "TEXT")
     private String description;
-
-    //@Transient
+    
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "hotel")
     private List<Room> hotelRooms;
 

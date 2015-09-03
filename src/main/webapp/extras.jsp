@@ -12,9 +12,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-  Map<String, Object> params = (Map) request.getAttribute("model");
-  Extra extra = (Extra)params.get("extra");
-  List<Extra> extrasList = (List)params.get("allExtras");
+  ExtrasObject extrasObject = (ExtrasObject)request.getAttribute("model");
+  Extra extra = extrasObject.getExtra();
+  List<Extra> extrasList = extrasObject.getExtras();
 %>
 
 <html>

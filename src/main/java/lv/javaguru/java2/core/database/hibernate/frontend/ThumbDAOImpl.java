@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by Aleksej_home on 2015.08.30..
- */
 @Component
 @Transactional
 public class ThumbDAOImpl implements ThumbDAO {
@@ -27,9 +24,7 @@ public class ThumbDAOImpl implements ThumbDAO {
 
     @Override
     public Thumb getById(long id, String[] args) throws DBException {
-        Thumb thumb = (Thumb) sessionFactory.getCurrentSession().get(Thumb.class, id);
-                dbBehavior.ignoreLazy(thumb, args);
-        return thumb;
+        return (Thumb) sessionFactory.getCurrentSession().get(Thumb.class, id);
     }
 
     @Override
