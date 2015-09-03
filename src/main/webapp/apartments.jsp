@@ -46,7 +46,6 @@
       <tbody>
       <%
         for (Hotel hotel : hotels) {
-
       %>
        <input id="hld" type="hidden" value="<%= hotel.getLabel() %>">
       <tr>
