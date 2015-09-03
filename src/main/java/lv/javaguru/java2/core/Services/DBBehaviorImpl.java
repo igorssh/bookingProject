@@ -3,6 +3,7 @@ package lv.javaguru.java2.core.Services;
 import lv.javaguru.java2.core.database.DBException;
 
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,7 +45,7 @@ public class DBBehaviorImpl implements DBBehavior {
         }
     }
 
-    private Object init(Object obj, String arg){
+    private <T> T init(T obj, String arg){
         try {
             Object tmp = null;
             Method met;
@@ -52,7 +53,11 @@ public class DBBehaviorImpl implements DBBehavior {
             met = obj.getClass().getMethod(arg);
             tmp = met.invoke(obj);
             Hibernate.initialize(tmp);
-            return tmp;
+          /*  if (obj instanceof HibernateProxy) {
+                obj = (T) ((HibernateProxy) obj).getHibernateLazyInitializer()
+                        .getImplementation();
+            }*/
+            return obj;
         }
         catch(NoSuchMethodException e) {
             System.out.println(e.toString());
@@ -63,6 +68,21 @@ public class DBBehaviorImpl implements DBBehavior {
         }
         return null;
     }
+
+
+   /* private static <T> T initializeAndUnproxy(T entity) {
+        if (entity == null) {
+            throw new
+                    NullPointerException("Entity passed for initialization is null");
+        }
+
+        Hibernate.initialize(entity);
+        if (entity instanceof HibernateProxy) {
+            entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer()
+                    .getImplementation();
+        }
+        return entity;
+    }*/
 
 
 }

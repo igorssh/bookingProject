@@ -14,6 +14,7 @@
 <%
     Hotel currentHotel = (Hotel)request.getAttribute("model");
     List<Room> roomsList =  currentHotel.getHotelRooms();
+    //List<Room> roomsList = null;
 %>
 
 <html>
