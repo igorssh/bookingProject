@@ -25,7 +25,7 @@ public class Hotel {
     @Column(name = "desc_text", columnDefinition = "TEXT")
     private String description;
     
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "hotel")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "hotel", fetch = FetchType.EAGER)
     private List<Room> hotelRooms;
 
     public Hotel() {

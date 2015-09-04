@@ -93,8 +93,8 @@ SET
   `person_count`    = 4,
   `price_per_day`   =  15.5,
   `description_text` = "Good pay good day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -102,8 +102,8 @@ SET
   `person_count`    = 3,
   `price_per_day`   =  175.5,
   `description_text` = "Good pay good day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -111,8 +111,8 @@ SET
   `person_count`    = 4,
   `price_per_day`   =  45.5,
   `description_text` = "Good pay sfdfsdfgood day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -120,8 +120,8 @@ SET
   `person_count`    = 2,
   `price_per_day`   =  152.5,
   `description_text` = "Good pay good day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -129,8 +129,8 @@ SET
   `person_count`    = 4,
   `price_per_day`   =  15,
   `description_text` = "Good pay good day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -138,8 +138,8 @@ SET
   `person_count`    = 1,
   `price_per_day`   =  5.5,
   `description_text` = "Good pay good day",
-  `roomClass_id`     = 1173,
-  `hotel_id`         = 1174;
+  `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 -- Room data end
 
 SET SQL_MODE = @OLD_SQL_MODE;
