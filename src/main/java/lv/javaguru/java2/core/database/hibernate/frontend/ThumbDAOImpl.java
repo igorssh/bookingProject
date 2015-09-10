@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @Transactional
 public class ThumbDAOImpl implements ThumbDAO {
-
+ 
     @Autowired
     SessionFactory sessionFactory;
 
