@@ -1,9 +1,8 @@
-package lv.javaguru.java2.core.Services;
+package lv.javaguru.java2.core.services;
 
 import lv.javaguru.java2.core.database.DBException;
 
 import org.hibernate.Hibernate;
-import org.hibernate.proxy.HibernateProxy;
 import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

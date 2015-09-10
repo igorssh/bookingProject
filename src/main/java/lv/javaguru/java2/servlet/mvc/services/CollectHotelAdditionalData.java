@@ -1,9 +1,7 @@
-package lv.javaguru.java2.servlet.mvc.Services;
+package lv.javaguru.java2.servlet.mvc.services;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
-
-import java.util.Map;
 
 /**
  * Created by Aleksej_home on 2015.09.02..

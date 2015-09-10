@@ -31,7 +31,7 @@
    <hr>
    <div class="row">
        <div class="col-md-offset-1 col-md-4">
-           <form  action="../sys/generator.jsp"  method="post" >
+           <form  action="../java2/generator"  method="post" >
            <div class="form-group">
                <label class="control-label col-sm-2" for="aps">Class:</label>
                <div class="col-sm-10">

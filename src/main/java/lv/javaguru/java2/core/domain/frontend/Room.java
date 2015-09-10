@@ -1,7 +1,7 @@
 package lv.javaguru.java2.core.domain.frontend;
 
 
-//import lv.javaguru.java2.core.Services.DBBehaviorImpl;
+//import lv.javaguru.java2.core.services.DBBehaviorImpl;
 
 import javax.persistence.*;
 import java.util.List;

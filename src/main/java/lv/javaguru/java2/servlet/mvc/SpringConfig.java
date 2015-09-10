@@ -21,10 +21,6 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
-/*@ComponentScan(basePackages = {"lv.javaguru.java2"},
-        excludeFilters = {@Filter(value = Controller.class, type = FilterType.ANNOTATION)})*/
-/*@ComponentScan(basePackages = {"lv.javaguru.java2"},
-        excludeFilters = {@ComponentScan.Filter(value = ClientDAO.class, type = FilterType.ANNOTATION)})*/
 @ComponentScan(basePackages = {"lv.javaguru.java2"})
 @EnableTransactionManagement
 public class SpringConfig {

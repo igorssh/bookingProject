@@ -1,4 +1,4 @@
-package lv.javaguru.java2.core.Services;
+package lv.javaguru.java2.core.services;
 
 import lv.javaguru.java2.core.database.DBException;
 

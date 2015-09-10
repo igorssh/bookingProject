@@ -1,49 +1,42 @@
 package lv.javaguru.java2.servlet.mvc.controllers.backend;
 
-import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 import lv.javaguru.java2.core.generators.patterns.BuilderGenerator;
-import lv.javaguru.java2.servlet.mvc.MVCController;
-import lv.javaguru.java2.servlet.mvc.MVCModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Aleksej_home on 2015.09.08..
- */
 @Controller
-public class GenarateController implements MVCController {
+public class GenarateController {
 
     @Autowired
     BuilderGenerator builderGenerator;
 
-    @Override
-    public MVCModel processRequest(HttpServletRequest req) {
-        try {
-            //  System.out.println("lv.javaguru.java2.core.domain.patterns.generated");
-            Map<String, Object> params = new HashMap<>();
-            if (req.getMethod().equalsIgnoreCase("POST")) {
-                String clazz = req.getParameter("clazz");
-                String pathc = req.getParameter("pathc");
+    @RequestMapping(value = "generator", method = {RequestMethod.GET})
+    public ModelAndView processRequestGet(HttpServletRequest request, HttpServletRequest response) {
+        ModelAndView modelAndView = new ModelAndView("backend/sys/generator", "model", null);
+        return modelAndView;
+    }
 
-                builderGenerator.writeCodeModel("generated", Hotel.class);
+    @RequestMapping(value = "generator", method = {RequestMethod.POST})
+    public ModelAndView processRequestPost(HttpServletRequest request, HttpServletRequest response) {
+        Map<String, Object> params = new HashMap<>();
 
-                params.put("clazz", clazz);
-                params.put("pathc", pathc);
+        String clazz = request.getParameter("clazz");
+        String pathc = request.getParameter("pathc");
 
-                return new MVCModel(params, "/backend/sys/generator.jsp");
-            } else {
-                return new MVCModel(null, "/backend/sys/generator.jsp");
-            }
-        }catch (Exception e){
-             e.printStackTrace();
-            return new MVCModel(null, "/backend/sys/generator.jsp");
-        }
+        builderGenerator.writeCodeModel("generated", Hotel.class);
 
-
+        params.put("clazz", clazz);
+        params.put("pathc", pathc);
+     
+        ModelAndView modelAndView = new ModelAndView("backend/sys/generator", "model", params);
+        return modelAndView;
     }
 }
