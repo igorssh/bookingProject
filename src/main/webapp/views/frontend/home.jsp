@@ -43,7 +43,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item">
-          <img class="first-slide" src="../images/sys/rentc2.png" alt="First slide">
+          <img class="first-slide" src="sys/rentc2.png" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Example headline.</h1>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="../images/sys/vintg_app2.png" alt="Second slide">
+          <img class="second-slide" src="sys/vintg_app2.png" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another example headline.</h1>
@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="item active">
-          <img class="third-slide" src="../images/sys/student_app.png" alt="Third slide">
+          <img class="third-slide" src="sys/student_app.png" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>One more for good measure.</h1>

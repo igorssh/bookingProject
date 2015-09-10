@@ -1,42 +1,32 @@
 package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
-import lv.javaguru.java2.servlet.mvc.MVCController;
-import lv.javaguru.java2.servlet.mvc.MVCModel;
-import lv.javaguru.java2.servlet.mvc.services.CollectHotelAdditionalData;
 import lv.javaguru.java2.core.database.DBException;
+import lv.javaguru.java2.servlet.mvc.services.CollectHotelAdditionalData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Controller
-public class RoomController implements MVCController {
+public class RoomController {
 
     @Autowired
     CollectHotelAdditionalData hotelData;
 
-    @Override
-    public MVCModel processRequest(HttpServletRequest req) {
+    @RequestMapping(value = "rooms", method = {RequestMethod.GET})
+    public ModelAndView processRequest(HttpServletRequest request) {
         try {
-            String idString = req.getParameter("id");
-            Map<String, Object> params = new HashMap<>();
-
+            String idString = request.getParameter("id");
             if (idString != null) {
-
-              //  Hotel hotel = hotelDAO.getById(Long.parseLong(idString));
-             //  params =  hotelData.processService(idString);
-               // return new MVCModel(hotelData.processService(idString), "/rooms.jsp");
-                return new MVCModel(hotelData.processService(idString), "/rooms.jsp");
+                return new ModelAndView("frontend/rooms", "model", hotelData.processService(idString));
             } else {
-                return new MVCModel(null, "/home.jsp");
+                return new ModelAndView("frontend/home", "model", null);
             }
-
         } catch (DBException e) {
-            return new MVCModel(null, "/home.jsp");
+            return new ModelAndView("frontend/home", "model", null);
         }
-
     }
 }

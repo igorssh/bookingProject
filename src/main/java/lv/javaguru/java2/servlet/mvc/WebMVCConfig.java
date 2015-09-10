@@ -24,10 +24,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/styles/**")
-                .addResourceLocations("/styles/");
-
-        registry.addResourceHandler("/staticRes/images/**")
-                .addResourceLocations("/staticRes/images/");
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("/images/");
     }
 }

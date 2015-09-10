@@ -1,17 +1,20 @@
 package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
-import lv.javaguru.java2.servlet.mvc.MVCController;
-import lv.javaguru.java2.servlet.mvc.MVCModel;
-import org.springframework.stereotype.Component;
+import lv.javaguru.java2.core.generators.patterns.BuilderGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ContactController implements MVCController {
+public class ContactController {
 
-    @Override
-    public MVCModel processRequest(HttpServletRequest req) {
-        return new MVCModel(null, "/contact.jsp");
+    @Autowired
+    BuilderGenerator builderGenerator;
+
+    @RequestMapping(value = "contact", method = {RequestMethod.GET})
+    public ModelAndView processRequest() {
+        return new ModelAndView("frontend/contact", "model", null);
     }
 }
