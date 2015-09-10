@@ -10,7 +10,9 @@
 <html>
 <head>
   <!-- Bootstrap -->
-  <jsp:include page="includes/header.jsp" />
+  <jsp:include page="../../includes/header.jsp" >
+    <jsp:param name="pathx" value="" />
+  </jsp:include>
 
   <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,7 +29,7 @@
   <!-- The justified navigation menu is meant for single line per list item.
        Multiple lines will require custom code not provided by Bootstrap. -->
   <div class="masthead">
-    <jsp:include page="includes/menu.jsp" />
+    <jsp:include page="../../includes/menu.jsp" />
   </div>
 
   <!-- Jumbotron -->
@@ -41,7 +43,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item">
-          <img class="first-slide" src="images/sys/rentc2.png" alt="First slide">
+          <img class="first-slide" src="../images/sys/rentc2.png" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Example headline.</h1>
@@ -51,7 +53,7 @@
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="images/sys/vintg_app2.png" alt="Second slide">
+          <img class="second-slide" src="../images/sys/vintg_app2.png" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another example headline.</h1>
@@ -61,7 +63,7 @@
           </div>
         </div>
         <div class="item active">
-          <img class="third-slide" src="images/sys/student_app.png" alt="Third slide">
+          <img class="third-slide" src="../images/sys/student_app.png" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>One more for good measure.</h1>
@@ -106,11 +108,13 @@
 <%-- <footer class="footer">
     <p>© Company 2014</p>
   </footer> --%>
-  <jsp:include page="includes/footer.jsp" />
+  <jsp:include page="../../includes/footer.jsp" />
 </div>
 
 
 
-<jsp:include page="includes/scripts.jsp" />
+<jsp:include page="../../includes/scripts.jsp" >
+  <jsp:param name="pathx" value="" />
+</jsp:include>
 </body>
 </html>

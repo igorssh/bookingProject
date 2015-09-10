@@ -5,7 +5,6 @@
   Time: 22:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="lv.javaguru.java2.core.domain.frontend.Extra" %>
 <%@ page import="java.util.*" %>
 <%@ page import="lv.javaguru.java2.core.domain.frontend.Room" %>
 <%@ page import="lv.javaguru.java2.core.domain.frontend.Hotel" %>

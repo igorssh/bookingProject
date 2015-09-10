@@ -8,10 +8,12 @@
 <html>
 <head>
   <!-- Bootstrap -->
-  <jsp:include page="includes/header.jsp" />
+  <jsp:include page="../../includes/header.jsp" >
+  <jsp:param name="pathx" value="" />
+  </jsp:include>
 
-  <link href="fonts/americantext.css" rel="stylesheet">
-  <link href="styles/bootstrap-slider.min.css" rel="stylesheet">
+  <link href="../fonts/americantext.css" rel="stylesheet">
+  <link href="../styles/bootstrap-slider.min.css" rel="stylesheet">
 
   <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -23,15 +25,15 @@
   <title>Booking home</title>
 </head>
 <body>
-<jsp:include page="includes/scripts.jsp" />
-<script src="js/bootstrap-slider.min.js"></script>
+<jsp:include page="../../includes/scripts.jsp" />
+<script src="../js/bootstrap-slider.min.js"></script>
 
 <div class="container">
 
   <!-- The justified navigation menu is meant for single line per list item.
        Multiple lines will require custom  id="apartment-list"  code not provided by Bootstrap. -->
   <div class="masthead">
-    <jsp:include page="includes/menu.jsp" />
+    <jsp:include page="../../includes/menu.jsp" />
   </div>
 <div class="row">
   <div class="col-lg-9">
@@ -198,7 +200,9 @@
   <%-- <footer class="footer">
       <p>© Company 2014</p>
     </footer> --%>
-  <jsp:include page="includes/footer.jsp" />
+  <jsp:include page="../../includes/footer.jsp" >
+  <jsp:param name="pathx" value="" />
+  </jsp:include>
 </div>
 
 

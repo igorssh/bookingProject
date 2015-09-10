@@ -3,14 +3,13 @@ package lv.javaguru.java2.core.database.hibernate.frontend;
 /**
  * Created by Aleksej_home on 2015.08.31..
  */
-import lv.javaguru.java2.core.Services.DBBehavior;
+import lv.javaguru.java2.core.services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.ReservationDAO;
 import lv.javaguru.java2.core.domain.frontend.Reservation;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

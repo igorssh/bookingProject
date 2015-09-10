@@ -1,6 +1,6 @@
 package lv.javaguru.java2.core.database.hibernate.frontend;
 
-import lv.javaguru.java2.core.Services.DBBehavior;
+import lv.javaguru.java2.core.services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;

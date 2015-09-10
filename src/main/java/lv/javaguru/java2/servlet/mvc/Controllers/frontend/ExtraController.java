@@ -1,9 +1,11 @@
-package lv.javaguru.java2.servlet.mvc;
+package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.ExtraDAO;
 import lv.javaguru.java2.core.domain.frontend.Extra;
 import lv.javaguru.java2.core.domain.frontend.ExtrasObject;
+import lv.javaguru.java2.servlet.mvc.MVCController;
+import lv.javaguru.java2.servlet.mvc.MVCModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

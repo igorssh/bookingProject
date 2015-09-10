@@ -1,4 +1,4 @@
-package lv.javaguru.java2.servlet.mvc.Controllers.frontend.backend;
+package lv.javaguru.java2.servlet.mvc.controllers.backend;
 
 import lv.javaguru.java2.servlet.mvc.MVCController;
 import lv.javaguru.java2.servlet.mvc.MVCModel;

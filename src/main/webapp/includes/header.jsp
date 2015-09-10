@@ -7,6 +7,6 @@
 --%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-<link href="styles/bootstrap.min.css" rel="stylesheet">
-<link href="styles/booking.css" rel="stylesheet">
+<link href="${param.pathx}../../styles/bootstrap.min.css" rel="stylesheet">
+<link href="${param.pathx}../../styles/booking.css" rel="stylesheet">
 <link href="http://getbootstrap.com/examples/justified-nav/justified-nav.css" rel="stylesheet">

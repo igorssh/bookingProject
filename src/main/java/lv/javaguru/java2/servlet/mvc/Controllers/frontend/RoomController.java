@@ -1,9 +1,9 @@
-package lv.javaguru.java2.servlet.mvc;
+package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
-import lv.javaguru.java2.core.Services.CollectHotelAdditionalData;
+import lv.javaguru.java2.servlet.mvc.MVCController;
+import lv.javaguru.java2.servlet.mvc.MVCModel;
+import lv.javaguru.java2.servlet.mvc.services.CollectHotelAdditionalData;
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.HotelDAO;
-import lv.javaguru.java2.core.domain.frontend.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -25,6 +25,7 @@ public class RoomController implements MVCController {
             Map<String, Object> params = new HashMap<>();
 
             if (idString != null) {
+
               //  Hotel hotel = hotelDAO.getById(Long.parseLong(idString));
              //  params =  hotelData.processService(idString);
                // return new MVCModel(hotelData.processService(idString), "/rooms.jsp");

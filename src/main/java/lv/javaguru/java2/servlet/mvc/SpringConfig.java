@@ -1,16 +1,13 @@
 package lv.javaguru.java2.servlet.mvc;
 
-import lv.javaguru.java2.core.database.frontend.ClientDAO;
-import lv.javaguru.java2.core.database.hibernate.frontend.ClientDAOImpl;
+import lv.javaguru.java2.core.generators.patterns.BuilderGeneratorImpl;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Filter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -56,6 +53,9 @@ public class SpringConfig {
         properties.put("hibernate.show_sql", showSql);
         properties.put("hibernate.format_sql", formatSql);
         properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
+
+        BuilderGeneratorImpl btl = new BuilderGeneratorImpl();
+        btl.build();
 
         return properties;
     }

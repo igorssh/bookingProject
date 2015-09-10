@@ -3,7 +3,9 @@
 <html>
 <head>
   <!-- Bootstrap -->
-  <jsp:include page="includes/header.jsp" />
+  <jsp:include page="../../includes/header.jsp" >
+    <jsp:param name="pathx" value="" />
+  </jsp:include>
   
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,7 +21,7 @@
   <!-- The justified navigation menu is meant for single line per list item.
        Multiple lines will require custom code not provided by Bootstrap. -->
   <div class="masthead">
-    <jsp:include page="includes/menu.jsp" />
+    <jsp:include page="../../includes/menu.jsp" />
   </div>
 
   <div class="row">
@@ -96,10 +98,12 @@
     </form>
   </div><!-- /row -->
   
-  <jsp:include page="includes/footer.jsp" />
+  <jsp:include page="../../includes/footer.jsp" />
 </div>
 
-  <jsp:include page="includes/scripts.jsp" />
+  <jsp:include page="../../includes/scripts.jsp" >
+    <jsp:param name="pathx" value="" />
+  </jsp:include>
 </body>
 </html>
 <style>

@@ -1,6 +1,11 @@
 package lv.javaguru.java2.servlet.mvc;
 
 
+import lv.javaguru.java2.servlet.mvc.controllers.backend.GenarateController;
+import lv.javaguru.java2.servlet.mvc.controllers.frontend.ContactController;
+import lv.javaguru.java2.servlet.mvc.controllers.frontend.ExtraController;
+import lv.javaguru.java2.servlet.mvc.controllers.frontend.HotelController;
+import lv.javaguru.java2.servlet.mvc.controllers.frontend.RoomController;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -33,10 +38,11 @@ public class MVCFilter implements Filter {
             logger.log(Level.INFO, "Spring context failed to start", e);
         }
         
-        controllers.put("/apartments.jsp", getBean(HotelController.class));
-        controllers.put("/contact.jsp", getBean(ContactController.class));
-        controllers.put("/extras.jsp", getBean(ExtraController.class));
-        controllers.put("/rooms.jsp", getBean(RoomController.class));
+        controllers.put("/views/frontend/apartments.jsp", getBean(HotelController.class));
+        controllers.put("/views/frontend/contact.jsp", getBean(ContactController.class));
+        controllers.put("/views/frontend/extras.jsp", getBean(ExtraController.class));
+        controllers.put("/views/frontend/rooms.jsp", getBean(RoomController.class));
+        controllers.put("/views/backend/sys/generator.jsp", getBean(GenarateController.class));
     }
 
     private MVCController getBean(Class clazz){

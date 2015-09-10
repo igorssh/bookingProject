@@ -10,9 +10,11 @@
 <html>
 <head>
   <!-- Bootstrap -->
-  <jsp:include page="includes/header.jsp" />
+  <jsp:include page="../../includes/header.jsp" >
+    <jsp:param name="pathx" value="" />
+  </jsp:include>
 
-  <link href="styles/bootstrap-datepicker3.min.css" rel="stylesheet">
+  <link href="../styles/bootstrap-datepicker3.min.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +30,7 @@
   <!-- The justified navigation menu is meant for single line per list item.
        Multiple lines will require custom code not provided by Bootstrap. -->
   <div class="masthead">
-    <jsp:include page="includes/menu.jsp" />
+    <jsp:include page="../../includes/menu.jsp" />
   </div>
 
   <!-- Jumbotron -->
@@ -91,12 +93,14 @@
   <%-- <footer class="footer">
       <p>© Company 2014</p>
     </footer> --%>
-  <jsp:include page="includes/footer.jsp" />
+  <jsp:include page="../../includes/footer.jsp" />
 </div>
 
 
 
-<jsp:include page="includes/scripts.jsp" />
-<script src="js/bootstrap-datepicker.min.js"></script>
+<jsp:include page="../../includes/scripts.jsp" >
+  <jsp:param name="pathx" value="" />
+</jsp:include>
+<script src="../js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>

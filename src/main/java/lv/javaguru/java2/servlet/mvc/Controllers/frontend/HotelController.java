@@ -1,8 +1,10 @@
-package lv.javaguru.java2.servlet.mvc;
+package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
+import lv.javaguru.java2.servlet.mvc.MVCController;
+import lv.javaguru.java2.servlet.mvc.MVCModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
