@@ -1,17 +1,15 @@
-package lv.javaguru.java2.core.Services;
+package lv.javaguru.java2.servlet.mvc.Services;
 
+import lv.javaguru.java2.core.Services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 
-import lv.javaguru.java2.core.domain.frontend.Room;
 import org.hibernate.Hibernate;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;

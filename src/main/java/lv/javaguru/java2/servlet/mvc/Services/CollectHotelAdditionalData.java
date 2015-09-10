@@ -1,4 +1,4 @@
-package lv.javaguru.java2.core.Services;
+package lv.javaguru.java2.servlet.mvc.Services;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
