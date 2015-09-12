@@ -11,22 +11,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 @Transactional
 public class PaymentDAOImplTest {
-    
+
     @Autowired
     private ClientDAO clientDAO;
-    
+
     @Autowired
     private PaymentDAO paymentDAO;
-    
+
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
     private static final double DELTA = 1e-3;
@@ -41,9 +43,9 @@ public class PaymentDAOImplTest {
     public void testCreate() throws Exception {
         Payment payment = new Payment(120.00, "Description", 1, "referent", client);
         paymentDAO.create(payment);
-        
+
         Payment paymentFromDb = paymentDAO.getById(payment.getId());
-        
+
         assertEquals(payment.getAmount(), paymentFromDb.getAmount(), DELTA);
         assertEquals(payment.getDescription(), paymentFromDb.getDescription());
         assertEquals(payment.getPaymentType(), paymentFromDb.getPaymentType());
@@ -55,11 +57,11 @@ public class PaymentDAOImplTest {
     public void testDelete() throws Exception {
         Payment payment = new Payment(120.00, "Description", 1, "referent", client);
         paymentDAO.create(payment);
-        
+
         assertNotNull(paymentDAO.getById(payment.getId()));
-        
+
         paymentDAO.delete(payment.getId());
-        
+
         assertNull(paymentDAO.getById(payment.getId()));
     }
 
@@ -67,15 +69,15 @@ public class PaymentDAOImplTest {
     public void testUpdate() throws Exception {
         Payment payment = new Payment(120.00, "Description", 1, "referent", client);
         paymentDAO.create(payment);
-        
+
         payment.setAmount(125.00);
         payment.setDescription("Description2");
         payment.setPaymentType(2);
         payment.setReferent("referent2");
         payment.setClient(secondClient);
-        
+
         paymentDAO.update(payment);
-        
+
         Payment paymentFromDb = paymentDAO.getById(payment.getId());
 
         assertEquals(125.00, paymentFromDb.getAmount(), DELTA);
@@ -84,15 +86,15 @@ public class PaymentDAOImplTest {
         assertEquals("referent2", paymentFromDb.getReferent());
         assertEquals(secondClient.getId(), paymentFromDb.getClient().getId());
     }
-    
+
     @Test
     public void testMultipleCreate() throws Exception {
-        Payment payment = new Payment(120.00, "Description", 1, "referent", client);    
+        Payment payment = new Payment(120.00, "Description", 1, "referent", client);
         Payment secondPayment = new Payment(125.00, "Description 2", 2, "referent2", secondClient);
-        
+
         paymentDAO.create(payment);
         paymentDAO.create(secondPayment);
-        
+
         assertNotNull(paymentDAO.getById(payment.getId()));
         assertNotNull(paymentDAO.getById(secondPayment.getId()));
     }

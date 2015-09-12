@@ -8,16 +8,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 @Transactional
 public class ExtraDAOImplTest {
-    
+
     @Autowired
     private ExtraDAO extraDAO;
 
@@ -39,13 +44,12 @@ public class ExtraDAOImplTest {
     @Test
     public void testDelete() throws Exception {
         Extra extra = new Extra("Limousine", "Rent a limousine", 150.00, "/image");
-        extraDAO.create(extra);
 
-        assertEquals(extraDAO.getAll().size(), 1);
+        extraDAO.create(extra);
+        assertNotNull(extraDAO.getById(extra.getId()));
 
         extraDAO.delete(extra.getId());
-
-        assertEquals(extraDAO.getAll().size(), 0);
+        assertNull(extraDAO.getById(extra.getId()));
     }
 
     @Test
@@ -75,6 +79,10 @@ public class ExtraDAOImplTest {
         extraDAO.create(extra);
         extraDAO.create(extra2);
 
-        assertEquals(extraDAO.getAll().size(), 2);
+        List<Extra> extras = extraDAO.getAll().stream()
+                .filter(e -> e.getId() == extra.getId() || e.getId() == extra2.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(2, extras.size());
     }
 }

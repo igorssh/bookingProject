@@ -1,14 +1,13 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
+import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
 import lv.javaguru.java2.core.database.frontend.RoomDAO;
 import lv.javaguru.java2.core.database.frontend.ThumbDAO;
-import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
-import lv.javaguru.java2.core.domain.frontend.RoomClass;
 import lv.javaguru.java2.core.domain.frontend.Room;
+import lv.javaguru.java2.core.domain.frontend.RoomClass;
 import lv.javaguru.java2.core.domain.frontend.Thumb;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
@@ -17,18 +16,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 @Transactional
 public class ThumbDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private ThumbDAO thumbDAO;
@@ -49,7 +50,6 @@ public class ThumbDAOImplTest {
 
     @Before
     public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
         hotelDAO.create(hotel);
         roomClassDAO.create(roomClass);
         roomDAO.create(room);
@@ -90,10 +90,11 @@ public class ThumbDAOImplTest {
         Thumb thumb = new Thumb("Thumb 1", "Thumb for room", "Original", room);
 
         thumbDAO.create(thumb);
-        assertEquals(1, thumbDAO.getAll().size());
+        Long thumbId = thumb.getId();
+        assertNotNull(thumbDAO.getById(thumbId));
 
         thumbDAO.delete(thumb.getId());
-        assertEquals(0, thumbDAO.getAll().size());
+        assertNull(thumbDAO.getById(thumbId));
     }
 
     @Test
@@ -104,6 +105,10 @@ public class ThumbDAOImplTest {
         thumbDAO.create(thumb1);
         thumbDAO.create(thumb2);
 
-        assertEquals(2, thumbDAO.getAll().size());
+        List<Thumb> thumbs = thumbDAO.getAll().stream()
+                .filter(t -> t.getId() == thumb1.getId() || t.getId() == thumb2.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(2, thumbs.size());
     }
 }

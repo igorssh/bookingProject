@@ -1,32 +1,27 @@
 package lv.javaguru.java2.core.database.jdbc.backend;
 
-import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.domain.backend.Role;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 public class RoleDAOImplTest {
 
     @Autowired
-    private DatabaseCleaner databaseCleaner;
-
-    @Autowired
     private RoleDAOImpl roleDAO;
-
-    @Before
-    public void setUp() throws Exception {
-        databaseCleaner.cleanDatabase();
-    }
 
     @Test
     public void testCreate() throws Exception {
@@ -42,13 +37,13 @@ public class RoleDAOImplTest {
     @Test
     public void testDelete() throws Exception {
         Role role = new Role("ADMIN", "Administrator role");
+
         roleDAO.create(role);
+        Long roleId = role.getId();
+        assertNotNull(roleDAO.getById(roleId));
 
-        assertEquals(roleDAO.getAll().size(), 1);
-
-        roleDAO.delete(role.getId());
-
-        assertEquals(roleDAO.getAll().size(), 0);
+        roleDAO.delete(roleId);
+        assertNull(roleDAO.getById(roleId));
     }
 
     @Test
@@ -74,6 +69,10 @@ public class RoleDAOImplTest {
         roleDAO.create(adminRole);
         roleDAO.create(operatorRole);
 
-        assertEquals(roleDAO.getAll().size(), 2);
+        List<Role> roles = roleDAO.getAll().stream()
+                .filter(t -> t.getId() == adminRole.getId() || t.getId() == operatorRole.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(2, roles.size());
     }
 }
