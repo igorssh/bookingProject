@@ -26,5 +26,15 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter{
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("/images/");
+        registry.addResourceHandler("/styles/**")
+                .addResourceLocations("/styles/");
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations("/js/");
+        registry.addResourceHandler("/locales/**")
+                .addResourceLocations("/locales/");
+        registry.addResourceHandler("/fonts/**")
+                .addResourceLocations("/fonts/");
+        registry.addResourceHandler("/includes/**")
+                .addResourceLocations("/includes/");
     }
 }

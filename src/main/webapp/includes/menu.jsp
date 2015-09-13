@@ -7,18 +7,18 @@
 --%>
 <!--  <h3 class="text-muted">Project name</h3> -->
 <div id="logo" class="text-center">
-  <img src="../images/sys/mord2_og.png" alt="Mordor logo">
+  <img src="../java2/images/sys/mord2_og.png" alt="Mordor logo">
 </div>
 
 
 <nav>
   <ul class="nav nav-justified">
-    <li class="active"><a href="../frontend/home.jsp">Home</a></li>
-    <li><a href="../frontend/apartments.jsp">Hotels</a></li>
-    <li><a href="../frontend/reservation.jsp">Reservation</a></li>
-    <li><a href="../frontend/extras.jsp">Extras</a></li>
-    <li><a href="../frontend/reviews.jsp">reviews</a></li>
-    <li><a href="../frontend/contact.jsp">Contact</a></li>
+    <li class="active"><a href="../java2/home">Home</a></li>
+    <li><a href="../java2/apartments">Hotels</a></li>
+    <li><a href="../java2/reservation">Reservation</a></li>
+    <li><a href="../java2/extras">Extras</a></li>
+    <li><a href="../java2/reviews">reviews</a></li>
+    <li><a href="../java2/contact">Contact</a></li>
   </ul>
 </nav>
 

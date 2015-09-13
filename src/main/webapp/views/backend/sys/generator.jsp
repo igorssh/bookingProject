@@ -12,7 +12,7 @@
 <html>
 <head>
     <jsp:include page="../../../includes/header.jsp" >
-    <jsp:param name="pathx" value="../" />
+    <jsp:param name="pathx" value="" />
     </jsp:include>
     <title>Generators</title>
 </head>
@@ -68,7 +68,8 @@
    </div>
 
 <jsp:include page="../../../includes/scripts.jsp" >
-  <jsp:param name="pathx" value="../" />
+  <jsp:param name="pathx" value="" />
 </jsp:include>
+
 </body>
 </html>

@@ -64,7 +64,7 @@
         </ul></td>
         <td>
             <p><%= hotel.getDescription() %></p>
-            <a id="btn-rooms" href="rooms.jsp?id=<%= hotel.getId()%>" >
+            <a id="btn-rooms" href="rooms?id=<%= hotel.getId()%>" >
                 <button class="btn btn-success" type="button">View rooms</button>
             </a>
 
