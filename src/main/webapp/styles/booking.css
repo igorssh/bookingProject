@@ -23,11 +23,12 @@ table#apartment-list th, td {
 
 }
 table#apartment-list {
-    font-family: 'America XIX' !important;
+    font-family: 'American TextC';
 }
 
 /*table#apartment-rooms-list:first-child{
     height: 80%;
+    font-family: 'America XIX';
 }*/
 
 a#btn-rooms {

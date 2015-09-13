@@ -14,7 +14,7 @@
     <jsp:param name="pathx" value="" />
   </jsp:include>
 
-  <link href="../styles/bootstrap-datepicker3.min.css" rel="stylesheet">
+  <link href="../java2/styles/bootstrap-datepicker3.min.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -101,6 +101,6 @@
 <jsp:include page="../../includes/scripts.jsp" >
   <jsp:param name="pathx" value="" />
 </jsp:include>
-<script src="../js/bootstrap-datepicker.min.js"></script>
+<script src="../java2/js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>

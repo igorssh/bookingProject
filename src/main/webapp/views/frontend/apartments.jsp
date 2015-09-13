@@ -12,8 +12,8 @@
   <jsp:param name="pathx" value="" />
   </jsp:include>
 
-  <link href="../fonts/americantext.css" rel="stylesheet">
-  <link href="../styles/bootstrap-slider.min.css" rel="stylesheet">
+  <link href="../java2/fonts/americantext.css" rel="stylesheet">
+  <link href="../java2/styles/bootstrap-slider.min.css" rel="stylesheet">
 
   <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,7 +26,7 @@
 </head>
 <body>
 <jsp:include page="../../includes/scripts.jsp" />
-<script src="../js/bootstrap-slider.min.js"></script>
+<script src="../java2/js/bootstrap-slider.min.js"></script>
 
 <div class="container">
 
