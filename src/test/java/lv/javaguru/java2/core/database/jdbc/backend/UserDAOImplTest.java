@@ -3,7 +3,7 @@ package lv.javaguru.java2.core.database.jdbc.backend;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.backend.RoleDAO;
 import lv.javaguru.java2.core.database.backend.UserDAO;
-import lv.javaguru.java2.core.database.jdbc.*;
+import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.domain.backend.Role;
 import lv.javaguru.java2.core.domain.backend.User;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
@@ -13,16 +13,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 public class UserDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private UserDAO userDAO;
@@ -32,7 +34,6 @@ public class UserDAOImplTest {
 
     @Before
     public void init() throws DBException {
-        databaseCleaner.cleanDatabase();
         roleDAO.create(new Role("ADMIN", "Administrator role"));
     }
 
@@ -57,12 +58,13 @@ public class UserDAOImplTest {
     @Test
     public void testDelete() throws DBException {
         User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
+
         userDAO.create(user);
-        
-        assertEquals(1, userDAO.getAll().size());
+        Long userID = user.getId();
+        assertNotNull(userDAO.getById(userID));
         
         userDAO.delete(user.getId());
-        assertEquals(0, userDAO.getAll().size());
+        assertNull(userDAO.getById(userID));
     }
 
     @Test
@@ -87,7 +89,12 @@ public class UserDAOImplTest {
         
         userDAO.create(user);
         userDAO.create(anotherUser);
-        assertEquals(userDAO.getAll().size(), 2);
+
+        List<User> users = userDAO.getAll().stream()
+                .filter(t -> t.getId() == user.getId() || t.getId() == anotherUser.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(2, users.size());
     }
     
     private User createUser (String name, String surname, String phone, String email, String username, String password, Role role) {

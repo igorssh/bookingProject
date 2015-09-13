@@ -10,16 +10,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 @Transactional
 public class ClientDAOImplTest {
-    
+
     @Autowired
     private ClientDAO clientDAO;
 
@@ -60,10 +62,11 @@ public class ClientDAOImplTest {
         Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-15678", "400004534");
 
         clientDAO.create(client);
-        assertNotNull(clientDAO.getById(client.getId()));
+        Long clientId = client.getId();
+        assertNotNull(clientDAO.getById(clientId));
 
         clientDAO.delete(client.getId());
-        assertNull(clientDAO.getById(client.getId()));
+        assertNull(clientDAO.getById(clientId));
     }
 
     @Test

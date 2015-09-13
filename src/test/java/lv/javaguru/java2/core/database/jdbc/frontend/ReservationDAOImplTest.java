@@ -2,7 +2,6 @@ package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.*;
-import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.domain.frontend.*;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
@@ -11,20 +10,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 @Transactional
 public class ReservationDAOImplTest {
-
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private ReservationDAO reservationDAO;
@@ -41,8 +41,8 @@ public class ReservationDAOImplTest {
     @Autowired
     private ClientDAO clientDAO;
 
-    private Hotel hotel = new Hotel("label1", "Address 1", "Description about", (byte)3);
-    private RoomClass roomClass = new RoomClass((byte)1, "Description about", "Brutal");
+    private Hotel hotel = new Hotel("label1", "Address 1", "Description about", (byte) 3);
+    private RoomClass roomClass = new RoomClass((byte) 1, "Description about", "Brutal");
     private Room room = new Room(1, 2, 30.00, "Standard room", roomClass, hotel);
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-14578", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");
@@ -51,7 +51,6 @@ public class ReservationDAOImplTest {
 
     @Before
     public void setUp() throws DBException {
-        databaseCleaner.cleanDatabase();
         hotelDAO.create(hotel);
         roomClassDAO.create(roomClass);
         roomDAO.create(room);
@@ -78,17 +77,18 @@ public class ReservationDAOImplTest {
         Reservation reservation = createReservation(date1, date2, 2, true, room, client);
 
         reservationDAO.create(reservation);
-        assertEquals(1, reservationDAO.getAll().size());
+        Long reservationId = reservation.getId();
+        assertNotNull(reservationDAO.getById(reservationId));
 
-        reservationDAO.delete(reservation.getId());
-        assertEquals(0, reservationDAO.getAll().size());
+        reservationDAO.delete(reservationId);
+        assertNull(reservationDAO.getById(reservationId));
     }
 
     @Test
     public void testUpdate() throws DBException {
         Reservation reservation = createReservation(date1, date2, 2, true, room, client);
         reservationDAO.create(reservation);
-        
+
         reservation.setPersonsCount(3);
         reservation.setClient(secondClient);
         reservationDAO.update(reservation);
@@ -108,7 +108,11 @@ public class ReservationDAOImplTest {
         reservationDAO.create(reservation1);
         reservationDAO.create(reservation2);
 
-        assertEquals(2, reservationDAO.getAll().size());
+        List<Reservation> reservations = reservationDAO.getAll().stream()
+                .filter(r -> r.getId() == reservation1.getId() || r.getId() == reservation2.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(2, reservations.size());
     }
 
     private Client createClient(String name, String surname, String email, String phone, String corp,

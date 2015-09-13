@@ -1,45 +1,33 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
-import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
-import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
 import lv.javaguru.java2.core.database.DBException;
+import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
 import lv.javaguru.java2.core.domain.frontend.RoomClass;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 
 public class RoomClassDAOImplTest {
-    
-    @Autowired
-    private DatabaseCleaner databaseCleaner;
-    
-  /*  @Autowired
-    private RoomClassDAOImpl roomClassDAO;*/
 
     @Autowired
     private RoomClassDAO roomClassDAO;
 
-
-    @Before
-    public void init() throws DBException {
-        databaseCleaner.cleanDatabase();
-    }
-
     @Test
     public void testCreate() throws DBException {
-        RoomClass roomClass = new RoomClass((byte)1, "Description about", "Brutal");
+        RoomClass roomClass = new RoomClass((byte) 1, "Description about", "Brutal");
 
         roomClassDAO.create(roomClass);
 
@@ -53,7 +41,7 @@ public class RoomClassDAOImplTest {
 
     @Test
     public void testUpdate() throws DBException {
-        RoomClass roomClass = new RoomClass((byte)2, "Tourist village", "Standart");
+        RoomClass roomClass = new RoomClass((byte) 2, "Tourist village", "Standart");
 
         roomClassDAO.create(roomClass);
 
@@ -71,22 +59,26 @@ public class RoomClassDAOImplTest {
 
     @Test
     public void testDelete() throws DBException {
-        RoomClass roomClass = new RoomClass((byte)1, "Description about", "Brutal");
+        RoomClass roomClass = new RoomClass((byte) 1, "Description about", "Brutal");
 
         roomClassDAO.create(roomClass);
-        assertEquals(1, roomClassDAO.getAll().size());
+        Long roomClassId = roomClass.getId();
+        assertNotNull(roomClassDAO.getById(roomClassId));
 
         roomClassDAO.delete(roomClass.getId());
-        assertEquals(0, roomClassDAO.getAll().size());
+        assertNull(roomClassDAO.getById(roomClassId));
     }
 
     @Test
     public void testMultipleHotelCreation() throws DBException {
-        RoomClass ap1 = new RoomClass((byte)1, "Description about", "Brutal");
-        RoomClass ap2 = new RoomClass((byte)2, "Tourist village", "Standart");
-        roomClassDAO.create(ap1);
-        roomClassDAO.create(ap2);
-        List<RoomClass> users = roomClassDAO.getAll();
+        RoomClass roomClassBrutal = new RoomClass((byte) 1, "Description about", "Brutal");
+        RoomClass roomClassStandart = new RoomClass((byte) 2, "Tourist village", "Standart");
+        roomClassDAO.create(roomClassBrutal);
+        roomClassDAO.create(roomClassStandart);
+
+        List<RoomClass> users = roomClassDAO.getAll().stream()
+                .filter(r -> r.getId() == roomClassBrutal.getId() || r.getId() == roomClassStandart.getId())
+                .collect(Collectors.toList());
         assertEquals(2, users.size());
     }
 }
