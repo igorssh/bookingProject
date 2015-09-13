@@ -72,7 +72,7 @@
              <%
                for (Extra extras : extrasList) {
              %>
-             <a  href="extras.jsp?id=<%= extras.getId() %>"><li> <%= extras.getLabel() %> </li></a>
+             <a  href="extras?id=<%= extras.getId() %>"><li> <%= extras.getLabel() %> </li></a>
              <%
              } %>
            </ul>
