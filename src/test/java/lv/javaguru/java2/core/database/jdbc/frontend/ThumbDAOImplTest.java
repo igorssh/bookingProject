@@ -1,19 +1,17 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.HotelDAO;
-import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
-import lv.javaguru.java2.core.database.frontend.RoomDAO;
-import lv.javaguru.java2.core.database.frontend.ThumbDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 import lv.javaguru.java2.core.domain.frontend.Room;
 import lv.javaguru.java2.core.domain.frontend.RoomClass;
 import lv.javaguru.java2.core.domain.frontend.Thumb;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -32,16 +30,20 @@ import static org.junit.Assert.*;
 public class ThumbDAOImplTest {
 
     @Autowired
-    private ThumbDAO thumbDAO;
+    @Qualifier("Thumb_DAO")
+    private GenericDao<Thumb, Long> thumbDAO;
 
     @Autowired
-    private RoomClassDAO roomClassDAO;
+    @Qualifier("RoomClass_DAO")
+    private GenericDao<RoomClass, Long> roomClassDAO;
 
     @Autowired
-    private HotelDAO hotelDAO;
+    @Qualifier("Hotel_DAO")
+    private GenericDao<Hotel, Long> hotelDAO;
 
     @Autowired
-    private RoomDAO roomDAO;
+    @Qualifier("Room_DAO")
+    private GenericDao<Room, Long> roomDAO;
     
     private RoomClass roomClass = new RoomClass((byte)1, "Description about", "Brutal");
     private Hotel hotel = new Hotel("label1", "Address 1", "Description about", (byte)3);
@@ -60,7 +62,7 @@ public class ThumbDAOImplTest {
         Thumb thumb = new Thumb("Thumb 1", "Thumb for room", "Original", room);
         thumbDAO.create(thumb);
 
-        Thumb thumbFromDb = thumbDAO.getById(thumb.getId(), new String[]{"getRoom"});
+        Thumb thumbFromDb = thumbDAO.getById(thumb.getId());
 
         assertEquals(thumb.getLabel(), thumbFromDb.getLabel());
         assertEquals(thumb.getDesc(), thumbFromDb.getDesc());

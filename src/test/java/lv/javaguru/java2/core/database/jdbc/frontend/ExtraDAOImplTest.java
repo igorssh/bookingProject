@@ -1,11 +1,12 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
-import lv.javaguru.java2.core.database.frontend.ExtraDAO;
 import lv.javaguru.java2.core.domain.frontend.Extra;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,7 +25,8 @@ import static org.junit.Assert.*;
 public class ExtraDAOImplTest {
 
     @Autowired
-    private ExtraDAO extraDAO;
+    @Qualifier("Extra_DAO")
+    private GenericDao<Extra, Long> extraDAO;
 
     private static final double DELTA = 1e-3;
 

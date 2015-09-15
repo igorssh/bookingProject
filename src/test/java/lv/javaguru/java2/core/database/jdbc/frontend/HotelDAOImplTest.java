@@ -1,12 +1,13 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -25,7 +26,8 @@ import static org.junit.Assert.*;
 public class HotelDAOImplTest {
 
     @Autowired
-    private HotelDAO hotelDAO;
+    @Qualifier("Hotel_DAO")
+    private GenericDao<Hotel, Long> hotelDAO;
 
     @Test
     public void testCreate() throws DBException {

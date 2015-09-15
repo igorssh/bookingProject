@@ -3,7 +3,6 @@ package lv.javaguru.java2.servlet.mvc.services;
 import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.core.services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.HotelDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 
 import org.hibernate.Hibernate;

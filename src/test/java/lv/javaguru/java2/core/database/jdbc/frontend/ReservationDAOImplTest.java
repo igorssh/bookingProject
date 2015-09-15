@@ -3,11 +3,13 @@ package lv.javaguru.java2.core.database.jdbc.frontend;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.*;
 import lv.javaguru.java2.core.domain.frontend.*;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,19 +29,24 @@ import static org.junit.Assert.*;
 public class ReservationDAOImplTest {
 
     @Autowired
-    private ReservationDAO reservationDAO;
+    @Qualifier("Reservation_DAO")
+    private GenericDao<Reservation, Long> reservationDAO;
 
     @Autowired
-    private RoomClassDAO roomClassDAO;
+    @Qualifier("RoomClass_DAO")
+    private GenericDao<RoomClass, Long> roomClassDAO;
 
     @Autowired
-    private HotelDAO hotelDAO;
+    @Qualifier("Hotel_DAO")
+    private GenericDao<Hotel, Long> hotelDAO;
 
     @Autowired
-    private RoomDAO roomDAO;
+    @Qualifier("Room_DAO")
+    private GenericDao<Room, Long> roomDAO;
 
     @Autowired
-    private ClientDAO clientDAO;
+    @Qualifier("Client_DAO")
+    private GenericDao<Client, Long> clientDAO;
 
     private Hotel hotel = new Hotel("label1", "Address 1", "Description about", (byte) 3);
     private RoomClass roomClass = new RoomClass((byte) 1, "Description about", "Brutal");

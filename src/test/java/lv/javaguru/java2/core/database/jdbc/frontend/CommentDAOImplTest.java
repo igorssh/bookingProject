@@ -1,15 +1,15 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.ClientDAO;
-import lv.javaguru.java2.core.database.frontend.CommentDAO;
 import lv.javaguru.java2.core.domain.frontend.Client;
 import lv.javaguru.java2.core.domain.frontend.Comment;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,10 +28,12 @@ import static org.junit.Assert.*;
 public class CommentDAOImplTest {
 
     @Autowired
-    private CommentDAO commentDAO;
+    @Qualifier("Comment_DAO")
+    private GenericDao<Comment, Long> commentDAO;
 
     @Autowired
-    private ClientDAO clientDAO;
+    @Qualifier("Client_DAO")
+    private GenericDao<Client, Long> clientDAO;
 
     private Client client = createClient("Artur", "Ivanov", "artur.ivanov@gmail.com", "12345", "Maxima", "131085-14578", "400004534");
     private Client secondClient = createClient("Vadim", "Sidorov", "vadim.sidorov@gmail.com", "12345", "Maxima", "131085-15679", "500004534");

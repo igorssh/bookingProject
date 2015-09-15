@@ -1,16 +1,16 @@
 package lv.javaguru.java2.core.database.jdbc.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.HotelDAO;
-import lv.javaguru.java2.core.database.frontend.RoomClassDAO;
 import lv.javaguru.java2.core.database.frontend.SearchDAO;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 import lv.javaguru.java2.core.domain.frontend.RoomClass;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -31,10 +31,12 @@ public class SearchDAOImplTest {
     private SearchDAO searchDAO;
 
     @Autowired
-    private RoomClassDAO hotelClassDAO;
+    @Qualifier("RoomClass_DAO")
+    private GenericDao<RoomClass, Long> roomClassDAO;
 
     @Autowired
-    private HotelDAO hotelDAO;
+    @Qualifier("Hotel_DAO")
+    private GenericDao<Hotel, Long> hotelDAO;
 
     private RoomClass roomClass = new RoomClass((byte) 1, "Description about", "Brutal");
     private Hotel hotel = new Hotel("images/apartments/thumbs/stud150x100.png", "Putina street 10", "For poor person, .. students and other", (byte) 3);
@@ -42,7 +44,7 @@ public class SearchDAOImplTest {
 
     @Before
     public void setUp() throws DBException {
-        hotelClassDAO.create(roomClass);
+        roomClassDAO.create(roomClass);
         hotelDAO.create(hotel);
         hotelDAO.create(hotel2);
     }

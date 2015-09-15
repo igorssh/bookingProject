@@ -2,12 +2,13 @@ package lv.javaguru.java2.core.database.jdbc.frontend;
 
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.ClientDAO;
 import lv.javaguru.java2.core.domain.frontend.Client;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,7 +24,8 @@ import static org.junit.Assert.*;
 public class ClientDAOImplTest {
 
     @Autowired
-    private ClientDAO clientDAO;
+    @Qualifier("Client_DAO")
+    private GenericDao<Client, Long> clientDAO;
 
     @Test
     public void testCreate() throws DBException {

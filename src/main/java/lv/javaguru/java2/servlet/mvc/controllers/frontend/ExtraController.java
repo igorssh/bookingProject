@@ -1,7 +1,6 @@
 package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.frontend.ExtraDAO;
 import lv.javaguru.java2.core.domain.frontend.Extra;
 import lv.javaguru.java2.core.domain.frontend.ExtrasObject;
 import lv.javaguru.java2.core.generators.generics.GenericDao;
