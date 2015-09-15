@@ -112,7 +112,7 @@ SET
   `price_per_day`   =  45.5,
   `description_text` = "Good pay sfdfsdfgood day",
   `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
-  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Stabu street 6");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -121,7 +121,7 @@ SET
   `price_per_day`   =  152.5,
   `description_text` = "Good pay good day",
   `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
-  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Stabu street 6");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -130,7 +130,7 @@ SET
   `price_per_day`   =  15,
   `description_text` = "Good pay good day",
   `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
-  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Putina street 10");
 
 INSERT INTO `bookingproject`.`rooms`
 SET
@@ -139,7 +139,7 @@ SET
   `price_per_day`   =  5.5,
   `description_text` = "Good pay good day",
   `roomClass_id`     = (SELECT id from roomclasses where class_name = "Brutal"),
-  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
+  `hotel_id`         = (SELECT id FROM hotels WHERE address = "Putina street 10");
 -- Room data end
 
 -- Clients data
