@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class RoomClassDAOImpl implements RoomClassDAO{
 
-    @Autowired
+    //@Autowired
     SessionFactory sessionFactory;
 
     @Override

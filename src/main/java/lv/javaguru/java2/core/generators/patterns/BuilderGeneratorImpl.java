@@ -4,6 +4,7 @@ import com.google.common.reflect.TypeResolver;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import javassist.compiler.ast.Expr;
+import lv.javaguru.java2.core.domain.frontend.Room;
 import lv.javaguru.java2.core.generators.core.SpringLocalGenerator;
 
 import java.io.ByteArrayOutputStream;
@@ -11,6 +12,9 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.lang.reflect.Field;
 
@@ -137,21 +141,42 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
         return null;
     }
 
-    private Class<?> getParametrizedType2(Method method) {
+    private Class<?> getParametrizedType2(Field field) {
+            // Field fl = null;
+      //  Type[] genericParameterTypes = method.getGenericParameterTypes();
+        Type genericParameterType = field.getGenericType();
 
-        Type[] genericParameterTypes = method.getGenericParameterTypes();
-
-        for (Type genericParameterType : genericParameterTypes) {
+      //  for (Type genericParameterType : genericParameterTypes) {
             if (genericParameterType instanceof ParameterizedType) {
                 ParameterizedType aType = (ParameterizedType) genericParameterType;
                 Type[] parameterArgTypes = aType.getActualTypeArguments();
                 for (Type parameterArgType : parameterArgTypes) {
                     Class parameterArgClass = (Class) parameterArgType;
-                    System.out.println("parameterArgClass = " + parameterArgClass);
+                    System.out.println("parameterArgClass = " + parameterArgClass.getSimpleName());
                 }
             }
 
+      //  }
+        return null;
+    }
+
+    private Class<?> getParametrizedType4(Field field) {
+        // Field fl = null;
+        //  Type[] genericParameterTypes = method.getGenericParameterTypes();
+        Type genericParameterType = field.getGenericType();
+
+        //  for (Type genericParameterType : genericParameterTypes) {
+        if (genericParameterType instanceof ParameterizedType) {
+            ParameterizedType aType = (ParameterizedType) genericParameterType;
+            Type[] parameterArgTypes = aType.getActualTypeArguments();
+           /* for (Type parameterArgType : parameterArgTypes) {
+                Class parameterArgClass = (Class) parameterArgType;
+                System.out.println("parameterArgClass = " + parameterArgClass.getSimpleName());
+            }*/
+            return (Class<?>)aType.getActualTypeArguments()[0];
         }
+
+        //  }
         return null;
     }
   /*  private class<T> getClassOfT() {
@@ -171,12 +196,19 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
 */
     private  <T> Class getReflectionType(Class<T> clazz, int arg){
         Type type = clazz.getGenericSuperclass();
-        if (type instanceof ParameterizedType){
-            type = ((Class<?>) ((ParameterizedType) type).getRawType()).getGenericSuperclass();
+        Class<T> tm;
+       // if (type instanceof ParameterizedType){
+            if (clazz.isAssignableFrom(List.class)){
+          //  type = ((Class<?>) ((ParameterizedType) type).getRawType()).getGenericSuperclass();
+            System.out.println("--------------------------------------------------------------- \n");
+            tm = (Class<T>)((ParameterizedType) type).getActualTypeArguments()[arg];
+            System.out.println("parameterArgClass = " + tm);
         }else{
-            type = ((Class<?>) type).getGenericSuperclass();
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n");
+           tm = clazz;
+            System.out.println("parameterArgClass = " + tm);
         }
-        return (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[arg];
+        return tm;
     }
 
 
@@ -234,8 +266,13 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
             /* Adding packages here */
            // JPackage jp = jCodeModel._package(factroyPackage);
 
+
             /* Giving Class Name to Generate */
-            JDefinedClass jc = jCodeModel._class(clazz.getCanonicalName() + "Builder");
+            JDefinedClass jc = jCodeModel._class(clazz.getSimpleName() + "Builder");
+            //jc._package().getPackage();
+
+           // jc.getPackage();
+            JPackage jp = jc._package();
 
 
             jc.annotate(Component.class);
@@ -252,6 +289,7 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
             JFieldVar[] farr = new JFieldVar[fsize];
            // JFieldVar
             JType tp;
+           // JType jtypenr;
             byte it = 0;
           //  Type[] ints = clazz
            // Class<?> = fields[0].getGenericType()
@@ -281,7 +319,8 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
           //  }
            // jBlock3.directStatement("CL." + clazz.getDeclaredFields()[0].getName());
           //  JType tv = jCodeModel;
-
+            List<Room> rm;
+            Class<?> col;
          //   jBlock3._return(JExpr._new(df));
             for (Field fl : fields ){
               /*  if (!fl.getGenericType().getTypeName().startsWith("java") ) {
@@ -289,8 +328,28 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
                 }else {
                     farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
                 }*/
-                farr[it] = jc.field(JMod.PRIVATE, getReflectionType(fl.getType(), 0), fl.getName());
-                
+                if (fl.getType().isAssignableFrom(List.class)) {
+                   // farr[it] = jc.field(JMod.PRIVATE, getReflectionType(List<Room>.class, 0), fl.getName());
+                  //  ((ParameterizedType) type).getActualTypeArguments()[arg];
+
+
+                    System.out.println("=============================================================================== \n");
+                    System.out.println("AnnotedType: "+fl.getAnnotatedType().getType().getTypeName() +" \n");
+                  //  col =    (Class<?>)((ParameterizedType) fl.getAnnotatedType().getType().getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+                    getParametrizedType2(fl);
+                    tp = jCodeModel.ref(fl.getType().getName()).narrow(
+                            jCodeModel.ref(getParametrizedType4(fl).getName())
+                    );
+
+               // col =    (Class<?>)((ParameterizedType) fl.getAnnotatedType().getClass().getAnnotatedSuperclass()).getActualTypeArguments()[0];
+                    farr[it] = jc.field(JMod.PRIVATE, tp, fl.getName());
+                }else{
+                    //farr[it] = jc.field(JMod.PRIVATE, getReflectionType(fl.getType(), 0), fl.getName());
+                    farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
+                }
+               // farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
+
+              //  jc.direct("gc" + it + "." +  getReflectionType(fl.getType(), 0).toString());
                /*  tp = getTypeDetailsForCodeModel(jCodeModel, fl.getGenericType().getTypeName());
                 if (tp != null)
                  farr[it] =  jc.field(JMod.PRIVATE, tp, fl.getName());  getReflectionType(Class<T> clazz, int arg)
@@ -367,7 +426,20 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
 
            // jCodeModel.build(new File("lv/javaguru/java2/core/domain/patterns/generated"));
             //final File file=new File("./src/test/java");
-            jCodeModel.build(new File("G:\\projects\\alex_stat\\Idea_git_clone\\bookingProject\\src\\main\\java\\lv\\javaguru\\java2\\core\\domain\\patterns"));
+           // jCodeModel.build(new File("G:\\projects\\alex_stat\\Idea_git_clone\\bookingProject\\src\\main\\java\\lv\\javaguru\\java2\\core\\domain\\patterns"));
+           //\\main\\java\\lv\\javaguru\\java2\\core\\domain\\patterns"));
+
+            System.out.println("5555555555555555555555555555555555555555555555555555555555555555555555555555555555\n");
+            System.out.println("pack>>"+ jc.getPackage().name() +"\n");
+            System.out.println("_pack>>"+ jc._package().name() +"\n");
+            System.out.println("root_pack>>" + jCodeModel.rootPackage().name() + "\n");
+            URL url = getClass().getResource("Person.java");
+           // url.getPath();
+          //  System.out.println("URL>>" + url.getPath() + "\n");
+          //  File file = new File("src/main/java/lv/javaguru/java2/core/domain/patterns/generated");
+
+
+            jCodeModel.build(new File("src/main/java/lv/javaguru/java2/core/domain/patterns/generated"));
 
 
         }  catch (Exception ex) {

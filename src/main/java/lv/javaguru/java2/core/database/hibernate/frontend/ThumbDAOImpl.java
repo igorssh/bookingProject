@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class ThumbDAOImpl implements ThumbDAO {
  
-    @Autowired
+    //@Autowired
     SessionFactory sessionFactory;
 
-    @Autowired
+    //@Autowired
     DBBehavior dbBehavior;
 
     @Override

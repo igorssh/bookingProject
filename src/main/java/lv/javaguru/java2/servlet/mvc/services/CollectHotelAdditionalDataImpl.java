@@ -1,5 +1,6 @@
 package lv.javaguru.java2.servlet.mvc.services;
 
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import lv.javaguru.java2.core.services.DBBehavior;
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.HotelDAO;
@@ -8,6 +9,7 @@ import lv.javaguru.java2.core.domain.frontend.Hotel;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,7 +25,8 @@ public class CollectHotelAdditionalDataImpl implements CollectHotelAdditionalDat
     DBBehavior dbBehavior;
 
     @Autowired
-    HotelDAO hotelDAO;
+    @Qualifier("Hotel_DAO")
+    GenericDao<Hotel, Long> hotelDAO;
 
     @Override
     public Hotel processService(String id) throws DBException {

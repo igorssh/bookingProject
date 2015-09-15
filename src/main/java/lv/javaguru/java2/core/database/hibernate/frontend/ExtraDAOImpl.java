@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class ExtraDAOImpl implements ExtraDAO {
 
-    @Autowired
+    //@Autowired
     private SessionFactory sessionFactory;
     
     @Override

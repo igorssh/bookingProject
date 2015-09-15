@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class HotelDAOImpl implements HotelDAO {
     
-    @Autowired
+   // @Autowired
     private SessionFactory sessionFactory;
 
-    @Autowired
+    //@Autowired
     DBBehavior dbBehavior;
 
     @Override

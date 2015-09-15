@@ -4,7 +4,9 @@ import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.database.frontend.ExtraDAO;
 import lv.javaguru.java2.core.domain.frontend.Extra;
 import lv.javaguru.java2.core.domain.frontend.ExtrasObject;
+import lv.javaguru.java2.core.generators.generics.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +19,8 @@ import java.util.List;
 public class ExtraController {
 
     @Autowired
-    ExtraDAO extraDAO;
+    @Qualifier("Extra_DAO")
+    GenericDao<Extra, Long> extraDAO;
 
     @RequestMapping(value = "extras", method = {RequestMethod.GET})
     public ModelAndView processRequest(HttpServletRequest request) {
