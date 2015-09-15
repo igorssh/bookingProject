@@ -142,6 +142,64 @@ SET
   `hotel_id`         = (SELECT id FROM hotels WHERE address = "Bullu street 45");
 -- Room data end
 
+-- Clients data
+INSERT INTO clients
+    SET 
+      name = "Janis",
+      surname = "Berzins",
+      email = "janis.berzins@gmail.com",
+      tele = "23456789",
+      reg_num = "12121212",
+      pers_num = "250181-111111",
+      corp = "EvilCorp";
+
+INSERT INTO clients
+SET
+  name = "Janis",
+  surname = "Krumins",
+  email = "janis.krumins@gmail.com",
+  tele = "23456729",
+  reg_num = "12121212",
+  pers_num = "250181-111113",
+  corp = "EvilCorp";
+
+INSERT INTO clients
+SET
+  name = "Edgars",
+  surname = "Berzins",
+  email = "edgars.berzins@gmail.com",
+  tele = "23556789",
+  reg_num = "12121212",
+  pers_num = "150181-111111",
+  corp = "EvilCorp";
+-- clients data end
+
+-- reservations data
+INSERT INTO reservations
+    SET 
+      from_date = CURRENT_DATE,
+      till_date = (DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)),
+      person_count = 2,
+      room_id = (SELECT id FROM rooms WHERE room_number = 214),
+      client_id = (SELECT id FROM clients WHERE pers_num = "250181-111111");
+
+INSERT INTO reservations
+SET
+  from_date = CURRENT_DATE,
+  till_date = (DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)),
+  person_count = 1,
+  room_id = (SELECT id FROM rooms WHERE room_number = 215),
+  client_id = (SELECT id FROM clients WHERE pers_num = "250181-111113");
+
+INSERT INTO reservations
+SET
+  from_date = CURRENT_DATE,
+  till_date = (DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)),
+  person_count = 2,
+  room_id = (SELECT id FROM rooms WHERE room_number = 216),
+  client_id = (SELECT id FROM clients WHERE pers_num = "150181-111111");
+-- reservations data end
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
