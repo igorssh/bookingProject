@@ -24,14 +24,14 @@ public class HotelController {
 
   //  HotelDAO hotel
 
-    @RequestMapping(value = "apartments", method = {RequestMethod.GET})
+    @RequestMapping(value = "hotels", method = {RequestMethod.GET})
     public ModelAndView processRequest() {
         try {
            // List<Hotel> hotels = hotelDAO.getAll();
             List<Hotel> hotels = genericDao.getAll();
 
             if (hotels.size() != 0) {
-                return new ModelAndView("frontend/apartments", "model", hotels);
+                return new ModelAndView("frontend/hotels", "model", hotels);
             } else {
                 return new ModelAndView("frontend/home", "model", null);
             }

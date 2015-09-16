@@ -38,7 +38,7 @@ public class MVCFilter implements Filter {
             logger.log(Level.INFO, "Spring context failed to start", e);
         }
         
-        controllers.put("/views/frontend/apartments.jsp", getBean(HotelController.class));
+        controllers.put("/views/frontend/hotels.jsp", getBean(HotelController.class));
         controllers.put("/views/frontend/contact.jsp", getBean(ContactController.class));
         controllers.put("/views/frontend/extras.jsp", getBean(ExtraController.class));
         controllers.put("/views/frontend/rooms.jsp", getBean(RoomController.class));
