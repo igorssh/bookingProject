@@ -1,9 +1,9 @@
-package lv.javaguru.java2.core.database.jdbc.frontend;
+package lv.javaguru.java2.core.database.hibernate.frontend;
 
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Client;
-import lv.javaguru.java2.core.generators.generics.GenericDao;
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;

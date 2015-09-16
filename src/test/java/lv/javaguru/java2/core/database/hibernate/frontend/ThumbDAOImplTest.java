@@ -1,11 +1,11 @@
-package lv.javaguru.java2.core.database.jdbc.frontend;
+package lv.javaguru.java2.core.database.hibernate.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
 import lv.javaguru.java2.core.domain.frontend.Room;
 import lv.javaguru.java2.core.domain.frontend.RoomClass;
 import lv.javaguru.java2.core.domain.frontend.Thumb;
-import lv.javaguru.java2.core.generators.generics.GenericDao;
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Before;
 import org.junit.Test;

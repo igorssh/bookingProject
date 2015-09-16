@@ -5,7 +5,7 @@ import lv.javaguru.java2.core.domain.frontend.Hotel;
 
 import java.util.List;
 
-public interface SearchDAO {
+public interface SearchHotelDAO {
 
     List<Hotel> searchHotel(String searchSpec) throws DBException;
 

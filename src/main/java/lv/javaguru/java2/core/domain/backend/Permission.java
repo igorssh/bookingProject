@@ -1,14 +1,26 @@
 package lv.javaguru.java2.core.domain.backend;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "permissions")
 public class Permission {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+    
+    @Column(name = "label")
     private String label;
+    
+    @Column(name = "desc_text", columnDefinition = "TEXT")
     private String desc;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role role;
 
     public Permission() {
-
     }
 
     public Permission(String label, String desc, Role role) {

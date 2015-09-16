@@ -2,7 +2,7 @@ package lv.javaguru.java2.servlet.mvc.controllers.frontend;
 
 import lv.javaguru.java2.core.database.DBException;
 import lv.javaguru.java2.core.domain.frontend.Hotel;
-import lv.javaguru.java2.core.generators.generics.GenericDao;
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

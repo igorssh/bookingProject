@@ -1,4 +1,4 @@
-package lv.javaguru.java2.core.generators.generics;
+package lv.javaguru.java2.core.database.hibernate;
 
 import lv.javaguru.java2.core.database.DBException;
 
@@ -15,5 +15,6 @@ public interface GenericDao<T, PK extends Serializable> {
     void update(T t) throws DBException;
     void delete(PK id) throws DBException;
     List<T> getAll() throws DBException;
+    T getByFieldName(String field, String value) throws DBException;
 
 }

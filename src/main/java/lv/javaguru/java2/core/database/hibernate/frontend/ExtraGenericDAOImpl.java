@@ -1,7 +1,7 @@
 package lv.javaguru.java2.core.database.hibernate.frontend;
 
 import lv.javaguru.java2.core.domain.frontend.Extra;
-import lv.javaguru.java2.core.generators.generics.GenericDaoImpl;
+import lv.javaguru.java2.core.database.hibernate.GenericDaoImpl;
 import org.springframework.stereotype.Repository;
 
 /**

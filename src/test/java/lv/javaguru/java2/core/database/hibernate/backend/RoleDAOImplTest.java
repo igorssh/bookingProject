@@ -1,13 +1,16 @@
-package lv.javaguru.java2.core.database.jdbc.backend;
+package lv.javaguru.java2.core.database.hibernate.backend;
 
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
 import lv.javaguru.java2.core.domain.backend.Role;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,10 +21,12 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = SpringConfig.class)
 @WebAppConfiguration
 
+@Transactional
 public class RoleDAOImplTest {
 
     @Autowired
-    private RoleDAOImpl roleDAO;
+    @Qualifier("Role_DAO")
+    private GenericDao<Role, Long> roleDAO;
 
     @Test
     public void testCreate() throws Exception {

@@ -2,13 +2,20 @@ package lv.javaguru.java2.core.domain.backend;
 
 import lv.javaguru.java2.core.domain.Person;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "users")
 public class User extends Person {
+    
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
-    private Date lastModify;
-    private Date createDate;
+    
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role role;
 
     public String getPassword() {
@@ -17,22 +24,6 @@ public class User extends Person {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Date getLastModify() {
-        return lastModify;
-    }
-
-    public void setLastModify(Date lastModify) {
-        this.lastModify = lastModify;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public String getUsername() {

@@ -7,9 +7,10 @@ import java.io.Serializable;
 
 @MappedSuperclass
 abstract public class Person implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", columnDefinition = "int", nullable = false, updatable = false)
+    @Column(name = "id", columnDefinition = "int")
     protected long id;
 
     @Column(name = "name")
@@ -21,7 +22,7 @@ abstract public class Person implements Serializable{
     @Column(name = "email")
     protected String email;
 
-    @Column(name = "tele")
+    @Column(name = "phone")
     protected String phone;
 
     public long getId() {

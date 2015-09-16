@@ -1,13 +1,28 @@
 package lv.javaguru.java2.core.domain.backend;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "roles")
 public class Role {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", columnDefinition = "int")
     private long id;
+    
+    @Column(name = "label")
     private String label;
+    
+    @Column(name = "desc_text", columnDefinition = "TEXT")
     private String desc;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "role")
     private List<Permission> permissions;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    private List<User> users;
 
     public Role() {
     }

@@ -148,7 +148,7 @@ INSERT INTO clients
       name = "Janis",
       surname = "Berzins",
       email = "janis.berzins@gmail.com",
-      tele = "23456789",
+      phone = "23456789",
       reg_num = "12121212",
       pers_num = "250181-111111",
       corp = "EvilCorp";
@@ -158,7 +158,7 @@ SET
   name = "Janis",
   surname = "Krumins",
   email = "janis.krumins@gmail.com",
-  tele = "23456729",
+  phone = "23456729",
   reg_num = "12121212",
   pers_num = "250181-111113",
   corp = "EvilCorp";
@@ -168,7 +168,7 @@ SET
   name = "Edgars",
   surname = "Berzins",
   email = "edgars.berzins@gmail.com",
-  tele = "23556789",
+  phone = "23556789",
   reg_num = "12121212",
   pers_num = "150181-111111",
   corp = "EvilCorp";

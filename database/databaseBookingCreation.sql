@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `name`     VARCHAR(255)     NOT NULL,
   `surname`  VARCHAR(255)     NOT NULL,
   `email`    VARCHAR(255)     NOT NULL,
-  `tele`     VARCHAR(100)     NOT NULL,
+  `phone`     VARCHAR(100)     NOT NULL,
   `reg_num`  VARCHAR(100)     NOT NULL,
   `pers_num` VARCHAR(100)     NOT NULL,
   `corp`     VARCHAR(255)     NOT NULL,

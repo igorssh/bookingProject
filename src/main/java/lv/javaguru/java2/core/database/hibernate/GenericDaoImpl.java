@@ -1,8 +1,10 @@
-package lv.javaguru.java2.core.generators.generics;
+package lv.javaguru.java2.core.database.hibernate;
 
 import lv.javaguru.java2.core.database.DBException;
+import lv.javaguru.java2.core.domain.backend.Role;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +18,7 @@ import java.util.List;
 
 
 @Transactional
-public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
+public abstract class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
     @Autowired
     SessionFactory sessionFactory;
@@ -48,6 +50,12 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         return (List<T>) sessionFactory.getCurrentSession().createCriteria(typeParameterClass)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+    
+    @Override 
+    public T getByFieldName(String field, String value) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(typeParameterClass);
+        return (T) criteria.add(Restrictions.eq(field, value)).uniqueResult();
     }
 
     public GenericDaoImpl(Class<T> typeParameterClass) {

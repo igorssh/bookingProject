@@ -1,9 +1,7 @@
-package lv.javaguru.java2.core.database.jdbc.backend;
+package lv.javaguru.java2.core.database.hibernate.backend;
 
 import lv.javaguru.java2.core.database.DBException;
-import lv.javaguru.java2.core.database.backend.RoleDAO;
-import lv.javaguru.java2.core.database.backend.UserDAO;
-import lv.javaguru.java2.core.database.jdbc.DatabaseCleaner;
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
 import lv.javaguru.java2.core.domain.backend.Role;
 import lv.javaguru.java2.core.domain.backend.User;
 import lv.javaguru.java2.servlet.mvc.SpringConfig;
@@ -11,9 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,13 +24,16 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = SpringConfig.class)
 @WebAppConfiguration
 
+@Transactional
 public class UserDAOImplTest {
 
     @Autowired
-    private UserDAO userDAO;
+    @Qualifier("User_DAO")
+    private GenericDao<User, Long> userDAO;
     
     @Autowired
-    private RoleDAO roleDAO;
+    @Qualifier("Role_DAO")
+    private GenericDao<Role, Long> roleDAO;
 
     @Before
     public void init() throws DBException {
@@ -39,7 +42,7 @@ public class UserDAOImplTest {
 
     @Test
     public void testCreate() throws DBException {
-        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
+        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByFieldName("label", "ADMIN"));
         
         userDAO.create(user);
         
@@ -57,7 +60,7 @@ public class UserDAOImplTest {
 
     @Test
     public void testDelete() throws DBException {
-        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
+        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByFieldName("label", "ADMIN"));
 
         userDAO.create(user);
         Long userID = user.getId();
@@ -69,7 +72,7 @@ public class UserDAOImplTest {
 
     @Test
     public void testUpdate() throws DBException {
-        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
+        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByFieldName("label", "ADMIN"));
         userDAO.create(user);
         
         user.setName("F");
@@ -84,8 +87,8 @@ public class UserDAOImplTest {
 
     @Test
     public void testMultipleUserCreation() throws DBException {
-        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByRoleName("ADMIN"));
-        User anotherUser = createUser("F", "B", "25878961", "test@javaguru.com", "ad", "123", roleDAO.getByRoleName("ADMIN"));
+        User user = createUser("A", "B", "25878965", "test@test.com", "ac", "123", roleDAO.getByFieldName("label", "ADMIN"));
+        User anotherUser = createUser("F", "B", "25878961", "test@javaguru.com", "ad", "123", roleDAO.getByFieldName("label", "ADMIN"));
         
         userDAO.create(user);
         userDAO.create(anotherUser);
