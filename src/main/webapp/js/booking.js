@@ -20,6 +20,9 @@ $( document ).ready(function() {
             org = "glyphicon glyphicon-sort";
         }
         $("#optimizer  #sel_obj>span").attr("class", org);
+        $("#domains").change(function() {
+              $("#hparam").val($("#domains option:selected").text());
+        });
 
     });
 

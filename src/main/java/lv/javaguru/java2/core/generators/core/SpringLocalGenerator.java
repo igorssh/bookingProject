@@ -12,6 +12,7 @@ import java.util.Set;
  */
 public class SpringLocalGenerator {
    // JCodeModel
+    private final String domainPath = "lv.javaguru.java2.core.domain";
     protected String mapPath = "lv.javaguru.java2.core.domain.frontend";
    // protected String mapPath = "domain";
     protected String sourcePath;
@@ -37,6 +38,16 @@ public class SpringLocalGenerator {
                 reflections.getSubTypesOf(Object.class);
         return allClasses;*/
         return null;
+    }
+
+    protected Set<Class<? extends Object>> getDomains(){
+        Reflections reflections = new Reflections(domainPath, new SubTypesScanner(false));
+        return  reflections.getSubTypesOf(Object.class);
+    }
+
+    protected Set<Class<? extends Object>> getCustomClasses(String path){
+        Reflections reflections = new Reflections(path, new SubTypesScanner(false));
+        return  reflections.getSubTypesOf(Object.class);
     }
 
    /* public Set<?> getPackageFiles(){

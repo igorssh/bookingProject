@@ -1,42 +1,37 @@
 package lv.javaguru.java2.core.generators.patterns;
 
-import com.google.common.reflect.TypeResolver;
-import com.sun.codemodel.JCodeModel;
-import com.sun.codemodel.writer.SingleStreamCodeWriter;
-import javassist.compiler.ast.Expr;
-import lv.javaguru.java2.core.domain.frontend.Room;
-import lv.javaguru.java2.core.generators.core.SpringLocalGenerator;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.lang.reflect.Field;
-
-
-/*import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
 import com.sun.codemodel.JExpr;
+import com.sun.codemodel.JFieldVar;
+import com.sun.codemodel.JInvocation;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
-import com.sun.codemodel.JPackage;
+import com.sun.codemodel.JTryBlock;
 import com.sun.codemodel.JType;
-import com.sun.codemodel.JVar;*/
+import com.sun.codemodel.JVar;
+import lv.javaguru.java2.core.database.DBException;
+import lv.javaguru.java2.core.generators.core.SpringLocalGenerator;
 
-import com.sun.codemodel.*;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.*;
+import java.lang.reflect.Field;
+
+
+
+import lv.javaguru.java2.core.database.hibernate.GenericDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.xml.bind.JAXBException;
 
 /**
  * Created by Aleksej_home on 2015.09.05..
@@ -44,8 +39,27 @@ import javax.xml.bind.JAXBException;
 @Component
 public class BuilderGeneratorImpl extends SpringLocalGenerator implements BuilderGenerator{
 
+    //private final String GEN_PATH = "src/main/java/lv/javaguru/java2/core/domain/patterns/generated";
+    private final String GEN_PATH = "src/main/java";
+    private final String PACKAGE = "lv.javaguru.java2.core.domain.patterns.generated.";
+    private final String PACKAGE_HANDLE = "lv.javaguru.java2.servlet.mvc.helpers.";
+   // private final String PACKAGE_HANDLE = "lv.javaguru.java2.servlet.mvc.helpers.";
+    private int iterator;
+
+
+    public enum Status{
+        ONE, TWO;
+    }
 
     public void BuilderGenerator(){}
+
+    public Set<Class<? extends Object>> getDomainsObjects(){
+        return  getDomains();
+    }
+
+    public  Set<Class<? extends Object>> getCustomObjects(String path){
+         return getCustomClasses(path) ;
+    }
 
     public void build(){
         Set<Class<? extends Object>> allClasses;
@@ -71,376 +85,247 @@ public class BuilderGeneratorImpl extends SpringLocalGenerator implements Builde
        //  __GENERATOR
     }
 
-    // Method to get JType based on any String Value
-    public JType getTypeDetailsForCodeModel(JCodeModel jCodeModel, String type) {
-        if (type.equals("Unsigned32")) {
-            return jCodeModel.LONG;
-        } else if (type.equals("Unsigned64")) {
-            return jCodeModel.LONG;
-        } else if (type.equals("Integer32")) {
-            return jCodeModel.INT;
-        } else if (type.equals("Integer64")) {
-            return jCodeModel.LONG;
-        } else if (type.equals("Enumerated")) {
-            return jCodeModel.INT;
-        } else if (type.equals("Float32")) {
-            return jCodeModel.FLOAT;
-        } else if (type.equals("Float64")) {
 
-            return jCodeModel.DOUBLE;
-        } else {
-            return null;
-        }
-    }
 
-    private JType getInterpreter(JCodeModel jCodeModel, String type){
-        if (type.equals("long")) {
-            return jCodeModel.LONG;
-        } else if (type.equals("int")) {
-            return jCodeModel.INT;
-        } else if (type.equals("byte")) {
-            return jCodeModel.BYTE;
-        } else if (type.equals("boolean")) {
-            return jCodeModel.BOOLEAN;
-        } else if (type.equals("short")) {
-            return jCodeModel.SHORT;
-        } else if (type.equals("float")) {
-            return jCodeModel.FLOAT;
-        } else if (type.equals("double")) {
-            return jCodeModel.DOUBLE;
-        } else if (type.equals("char")) {
-            return jCodeModel.CHAR;
-        } else {
-            return null;
-        }
 
-       // return null;
-    }
 
-    private Class getClassInterpreter(Type type){
-       /* if (type.getTypeName().startsWith("java")) {
-            return jCodeModel.LONG;
-        } else if (type.equals("int")) {
-            return jCodeModel.INT;
-        } else if (type.equals("byte")) {
-            return jCodeModel.BYTE;
-        } else if (type.equals("boolean")) {
-            return jCodeModel.BOOLEAN;
-        } else if (type.equals("short")) {
-            return jCodeModel.SHORT;
-        } else if (type.equals("float")) {
-            return jCodeModel.FLOAT;
-        } else if (type.equals("double")) {
-            return jCodeModel.DOUBLE;
-        } else if (type.equals("char")) {
-            return jCodeModel.CHAR;
-        } else {
-            return null;
-        }*/
-       // type
-        return null;
-    }
 
-    private Class<?> getParametrizedType2(Field field) {
-            // Field fl = null;
-      //  Type[] genericParameterTypes = method.getGenericParameterTypes();
+    private JType getFullType(JCodeModel jCodeModel, Field field) {
         Type genericParameterType = field.getGenericType();
-
-      //  for (Type genericParameterType : genericParameterTypes) {
-            if (genericParameterType instanceof ParameterizedType) {
-                ParameterizedType aType = (ParameterizedType) genericParameterType;
-                Type[] parameterArgTypes = aType.getActualTypeArguments();
-                for (Type parameterArgType : parameterArgTypes) {
-                    Class parameterArgClass = (Class) parameterArgType;
-                    System.out.println("parameterArgClass = " + parameterArgClass.getSimpleName());
-                }
-            }
-
-      //  }
-        return null;
-    }
-
-    private Class<?> getParametrizedType4(Field field) {
-        // Field fl = null;
-        //  Type[] genericParameterTypes = method.getGenericParameterTypes();
-        Type genericParameterType = field.getGenericType();
-
-        //  for (Type genericParameterType : genericParameterTypes) {
         if (genericParameterType instanceof ParameterizedType) {
             ParameterizedType aType = (ParameterizedType) genericParameterType;
-            Type[] parameterArgTypes = aType.getActualTypeArguments();
-           /* for (Type parameterArgType : parameterArgTypes) {
-                Class parameterArgClass = (Class) parameterArgType;
-                System.out.println("parameterArgClass = " + parameterArgClass.getSimpleName());
-            }*/
-            return (Class<?>)aType.getActualTypeArguments()[0];
-        }
-
-        //  }
-        return null;
-    }
-  /*  private class<T> getClassOfT() {
-        final ParameterizedType type = (ParameterizedType) this.getClass()
-                .getGenericSuperclass();
-        Class<T> clazz = (Class<T>) type.getActualTypeArguments()[0];
-        return clazz;
-    }*/
-/*
-    protected Class<T> getClazz() {
-
-        final ParameterizedType type = (ParameterizedType) this.getClass()
-                .getGenericSuperclass();
-        Class<T> clazz = (Class<T>) type.getActualTypeArguments()[0];
-        return clazz;
-    }
-*/
-    private  <T> Class getReflectionType(Class<T> clazz, int arg){
-        Type type = clazz.getGenericSuperclass();
-        Class<T> tm;
-       // if (type instanceof ParameterizedType){
-            if (clazz.isAssignableFrom(List.class)){
-          //  type = ((Class<?>) ((ParameterizedType) type).getRawType()).getGenericSuperclass();
-            System.out.println("--------------------------------------------------------------- \n");
-            tm = (Class<T>)((ParameterizedType) type).getActualTypeArguments()[arg];
-            System.out.println("parameterArgClass = " + tm);
+            return jCodeModel.ref(field.getType().getName()).narrow(
+                    jCodeModel.ref(((Class<?>) aType.getActualTypeArguments()[0]).getName())
+            );
         }else{
-            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n");
-           tm = clazz;
-            System.out.println("parameterArgClass = " + tm);
+            return jCodeModel.ref(field.getType().getName());
         }
-        return tm;
     }
 
-
-    private Class<?> getParametrizedType3(Type type) {
-
-
-
-            if (type instanceof ParameterizedType) {
-                ParameterizedType aType = (ParameterizedType) type;
-                Type[] parameterArgTypes = aType.getActualTypeArguments();
-              /*  for (Type parameterArgType : parameterArgTypes) {
-                    Class parameterArgClass = (Class) parameterArgType;
-                    System.out.println("parameterArgClass = " + parameterArgClass);
-                }*/
-              /*  Class<T> persistentClass = (Class<T>)
-                        ((ParameterizedType)getClass().getGenericSuperclass())
-                                .getActualTypeArguments()[0];*/
-              //  Class<T> per = (Class<T>)((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                return type.getClass();
-            }
-
-        return type.getClass();
-    }
-/*
-    private Class<T> getParametrizedType(Class<T> cls){
-        //Class<T> tm;
-        T c = ((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0];
-       //  tm = (Class<T>)((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0];
-          // cls =   (T)((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0];
-        return (Collection<c>)((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0];
-       // return cls;
-    }
-*/
-    private Class<?> typeValidator(Field metr){
-       if (metr.getType().isAssignableFrom(List.class)){
-           return metr.getType();
-       }else{
-           return metr.getType();
-       }
-
-    }
 
     private String upperFirstLetter(String str){
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+
+    private Object getInvocations(Object obj, JVar[] par){
+        final String delim = "\n                         ";
+        for (int i = iterator; i < par.length; i++ ){
+            iterator++;
+            if (obj instanceof JFieldVar) {
+                obj = ((JFieldVar) obj).invoke(delim +"with" + upperFirstLetter(par[i].name())).arg(par[i]);
+                getInvocations(obj, par);
+            }else if (obj instanceof JInvocation){
+                obj = ((JInvocation) obj).invoke(delim +"with" + upperFirstLetter(par[i].name())).arg(par[i]);
+                getInvocations(obj, par);
+            }
+        }
+
+        return ((JInvocation) obj).invoke("build");
+    }
+
+    private <T> T getCollected( T type, JVar[] par){
+         for (JVar ob : par){
+            if (type instanceof JMethod){
+                ((JMethod) type).param(ob.type(), ob.name());
+            }else if (type instanceof JInvocation){
+                ((JInvocation) type).arg(ob);
+            }
+        }
+        return type;
     }
 
     // Function to generate CodeModel Class
     @Override
     public void writeCodeModel(String factroyPackage, Class clazz) {
         try {
-
-            /* Creating java code model classes */
+            /**
+             *  Interface doomy
+             */
             JCodeModel jCodeModel = new JCodeModel();
 
-            /* Adding packages here */
-           // JPackage jp = jCodeModel._package(factroyPackage);
+          JDefinedClass idef = jCodeModel._class(JMod.PUBLIC, PACKAGE + clazz.getSimpleName() + "Builder", ClassType.INTERFACE);
+
+            jCodeModel.build(new File(GEN_PATH));
 
 
-            /* Giving Class Name to Generate */
-            JDefinedClass jc = jCodeModel._class(clazz.getSimpleName() + "Builder");
-            //jc._package().getPackage();
-
-           // jc.getPackage();
-            JPackage jp = jc._package();
-
-
-            jc.annotate(Component.class);
-
+             jCodeModel = new JCodeModel();
+            JDefinedClass jc = jCodeModel._class(JMod.PUBLIC, PACKAGE + clazz.getSimpleName() + "Builder" + "Impl", ClassType.CLASS);
+            jc._implements(idef);
             JClass df = jc;
             JClass paramClazz = jCodeModel.ref(clazz);
-
-
             JDocComment jDocComment = jc.javadoc();
             jDocComment.add("Generated pattern class for *"+ clazz.getSimpleName() +"*");
-
             Field[] fields =  clazz.getDeclaredFields();
             int fsize = fields.length;
             JFieldVar[] farr = new JFieldVar[fsize];
-           // JFieldVar
-            JType tp;
-           // JType jtypenr;
             byte it = 0;
-          //  Type[] ints = clazz
-           // Class<?> = fields[0].getGenericType()
 
-          //  JMethod jmCreate3 = jc.method(JMod.PUBLIC | JMod.STATIC,  df, "create" + clazz.getSimpleName());
-          //  JBlock jBlock3 = jmCreate3.body();
-          //  jBlock3.directStatement("sasuk();");
-         //   for (Field fl : fields ){
-               // jBlock3.directStatement("FLGenericType." + fl.getGenericType().getTypeName());
-               // jBlock3.directStatement("FLGenericType." + fl.getGenericType().getTypeName());
-               // jBlock3.directStatement("FLname." + fl.getName());
-               /* if (fl.getGenericType() instanceof List<?>){
-                    jBlock3.directStatement("If.yes()");
 
-                }else{
-                    jBlock3.directStatement("If.no()");
-                }*/
-              //  fl.getGenericType().getClass();
-              /* if (fl.getGenericType().equals(List.class.)){
-                    jBlock3.directStatement("If.yes()");
-
-                }else{
-                    jBlock3.directStatement("If.no()");
-                }*/
-               // jBlock3.directStatement("Fsize." + fsize);  java.util.List
-             //   it++;
-          //  }
-           // jBlock3.directStatement("CL." + clazz.getDeclaredFields()[0].getName());
-          //  JType tv = jCodeModel;
-            List<Room> rm;
-            Class<?> col;
-         //   jBlock3._return(JExpr._new(df));
             for (Field fl : fields ){
-              /*  if (!fl.getGenericType().getTypeName().startsWith("java") ) {
-                    farr[it] = jc.field(JMod.PRIVATE,  getInterpreter(jCodeModel, fl.getGenericType().getTypeName()), fl.getName());
-                }else {
-                    farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
-                }*/
-                if (fl.getType().isAssignableFrom(List.class)) {
-                   // farr[it] = jc.field(JMod.PRIVATE, getReflectionType(List<Room>.class, 0), fl.getName());
-                  //  ((ParameterizedType) type).getActualTypeArguments()[arg];
-
-
-                    System.out.println("=============================================================================== \n");
-                    System.out.println("AnnotedType: "+fl.getAnnotatedType().getType().getTypeName() +" \n");
-                  //  col =    (Class<?>)((ParameterizedType) fl.getAnnotatedType().getType().getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-                    getParametrizedType2(fl);
-                    tp = jCodeModel.ref(fl.getType().getName()).narrow(
-                            jCodeModel.ref(getParametrizedType4(fl).getName())
-                    );
-
-               // col =    (Class<?>)((ParameterizedType) fl.getAnnotatedType().getClass().getAnnotatedSuperclass()).getActualTypeArguments()[0];
-                    farr[it] = jc.field(JMod.PRIVATE, tp, fl.getName());
-                }else{
-                    //farr[it] = jc.field(JMod.PRIVATE, getReflectionType(fl.getType(), 0), fl.getName());
-                    farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
-                }
-               // farr[it] = jc.field(JMod.PRIVATE, fl.getType(), fl.getName());
-
-              //  jc.direct("gc" + it + "." +  getReflectionType(fl.getType(), 0).toString());
-               /*  tp = getTypeDetailsForCodeModel(jCodeModel, fl.getGenericType().getTypeName());
-                if (tp != null)
-                 farr[it] =  jc.field(JMod.PRIVATE, tp, fl.getName());  getReflectionType(Class<T> clazz, int arg)
-                else
-                    farr[it] =  jc.field(JMod.PRIVATE, Class.forName( fl.getGenericType().getTypeName()), fl.getName());
-*/            //  jc.direct(fl.getGenericType().getTypeName());
-               // System.out.println("========================================================================\n");
-               // System.out.println(fl.getGenericType().getTypeName() + "\n");
-               // System.out.println("========================================================================\n");
+                farr[it] = jc.field(JMod.PRIVATE, getFullType(jCodeModel, fl), fl.getName());
                 it++;
             }
 
-          /*  jc.field(JMod.PRIVATE, jCodeModel.LONG, "id");
-            JFieldVar  vb = jc.field(JMod.PRIVATE, String.class, "label");
-            jc.field(JMod.PRIVATE, String.class, "address");
-            jc.field(JMod.PRIVATE, jCodeModel.BYTE, "rating");
-            jc.field(JMod.PRIVATE, String.class, "description");*/
-
-            //jc.method(JMod.PRIVATE, jCodeModel.VOID, clazz.getSimpleName() + "Builder").body();
             jc.method(JMod.PRIVATE, jCodeModel.VOID, df.name()).body();
 
-            JMethod jmCreate3 = jc.method(JMod.PUBLIC | JMod.STATIC,  df, "create" + clazz.getSimpleName());
+            JMethod jmCreate3 = jc.method(JMod.PUBLIC | JMod.STATIC, df, "create" + clazz.getSimpleName());
             JBlock jBlock3 = jmCreate3.body();
             jBlock3._return(JExpr._new(df));
 
 
             JMethod jmCreate4 = jc.method(JMod.PUBLIC, clazz, "build");
+            jmCreate4.annotate(Override.class);
             JBlock jBlock4 = jmCreate4.body();
 
             JVar curVarImpl = jBlock4.decl(paramClazz, clazz.getSimpleName().toLowerCase());
             curVarImpl.init(JExpr._new(paramClazz));
             String prefix = "set";
             Method[] met = clazz.getDeclaredMethods();
-           // String sga = clazz.getMethod("setLabel",String.class).getName();
-          //  JMethod[] jmet = new JMethod[met.length];
-          //  jBlock4.directStatement(curVarImpl.name() + "." + sga + "("+ vb.name() + ");"); farr[it].name()
-            it = 0;
-           // for (JFieldVar fl : farr){
+
             for (Method fl : met){
                 if (fl.getName().startsWith(prefix)) {
                     for (JFieldVar fa : farr){
                         if (fl.getName().regionMatches(true,prefix.length(),fa.name(),0, fa.name().length() ))
                     jBlock4.directStatement(curVarImpl.name() + "." + fl.getName() + "(" + fa.name() + ");");
-                }
-                    it++;
+                    }
+                  //  it++;
                 }
             }
 
             jBlock4._return(curVarImpl);
 
-            it = 0;
-           // char ch;
-
             JVar jv5;
-            for (JFieldVar fl : farr){
-                JMethod jmCreate5 = jc.method(JMod.PUBLIC, df, "with" +  upperFirstLetter(fields[it].getName()));
-                if (!fields[it].getGenericType().getTypeName().startsWith("java") ) {
-                    jv5 = jmCreate5.param(getInterpreter(jCodeModel, fields[it].getGenericType().getTypeName()),
-                            fields[it].getName());
-                }else {
-                    jv5 = jmCreate5.param(fields[it].getType(), fields[it].getName());
-                }
+            for (Field fl : fields){
+                JMethod jmCreate5 = jc.method(JMod.PUBLIC, df, "with" + upperFirstLetter(fl.getName()));
+                jmCreate5.annotate(Override.class);
+                jv5 = jmCreate5.param(getFullType(jCodeModel, fl), fl.getName());
+
                 JBlock jBlock5 = jmCreate5.body();
-                jBlock5.assign(JExpr._this().ref(fields[it].getName()), jv5);
-                // JExpr._this().ref(vb);
+                jBlock5.assign(JExpr._this().ref(fl.getName()), jv5);
+
                 jBlock5._return(JExpr._this());
+            }
+          //  File file = new File(GEN_PATH + "/"+  PACKAGE.replace('.','/') +"/"+ clazz.getSimpleName() + "Builder" + "Impl.java");
+
+
+                jCodeModel.build(new File(GEN_PATH));
+
+            /**
+             *  Init Builder interface
+             */
+            jCodeModel = new JCodeModel();
+
+            JDefinedClass intr = jCodeModel._class(JMod.PUBLIC, PACKAGE + clazz.getSimpleName() + "Builder", ClassType.INTERFACE);
+            Collection<JMethod> methods = jc.methods();
+            for (JMethod m : methods){
+                if (m.mods().getValue() == JMod.PUBLIC ){
+                   // intr.method(m.mods().getValue() ,m.type(), m.name() );
+                  JMethod inf =  intr.method(JMod.NONE, m.type(), m.name());
+                    for (JVar vr: m.params()){
+                         inf.param(vr.type(), vr.name());
+                    }
+                }
+
+            }
+            jCodeModel.build(new File(GEN_PATH));
+
+
+            /**
+             *  Interface doomy
+             */
+             jCodeModel = new JCodeModel();
+
+            JDefinedClass idef2 = jCodeModel._class(JMod.PUBLIC,  PACKAGE_HANDLE + clazz.getSimpleName() + "Factory", ClassType.INTERFACE);
+
+          //  jCodeModel.build(new File(GEN_PATH));
+
+
+            /**
+             *    Init new class Factory
+             */
+
+          jCodeModel = new JCodeModel();
+
+           JDefinedClass jc2 =  jCodeModel._class(JMod.PUBLIC, PACKAGE_HANDLE + clazz.getSimpleName() + "Factory"+ "Impl", ClassType.CLASS);
+            jc2._implements(idef2);
+            jc2.javadoc().add("Generated Factory pattern class for *" + clazz.getSimpleName() + "*");
+
+            jc2.annotate(Component.class);
+            JType dr = jCodeModel.ref(GenericDao.class)
+                    .narrow(clazz)
+                    .narrow(Long.class);
+            JFieldVar fld = jc2.field(JMod.PRIVATE, dr, "genericdao");
+            fld.annotate(Autowired.class);
+            fld.annotate(Qualifier.class).param("value", clazz.getSimpleName() + "_DAO");
+            JVar[] jvm = new JVar[farr.length];
+           // jc2.field(JMod.PRIVATE, df, "defBuilder", df.staticRef(Status.ONE.name()));
+            JFieldVar statv = jc2.field(JMod.PRIVATE, df, "defBuilder", df.staticRef(jmCreate3.name()+"()"));
+            it = 0;
+            JMethod met1 = jc2.method(JMod.PUBLIC, clazz, "create");
+            met1.annotate(Override.class);
+            for (Field fl : fields){
+                jvm[it] = met1.param(getFullType(jCodeModel, fl), fl.getName());
+                //getCollected( T type, JVar[] par)
                 it++;
             }
+            JBlock jb1 = met1.body();
+            JMethod met2 = jc2.method(JMod.PRIVATE, jCodeModel.VOID, "validate");
+
+            JClass fclass = jCodeModel.ref(clazz);
+           // jb1.invoke(met2)
+            getCollected( met2, jvm);
+            getCollected(jb1.invoke(met2), jvm);
+            // build
+            JMethod met3 = jc2.method(JMod.PRIVATE, clazz, "build");
+
+            getCollected(met3, jvm);
+            JVar st1 = jb1.decl(fclass, clazz.getSimpleName().toLowerCase())
+                    .init(getCollected(JExpr.invoke(met3), jvm));
+
+            JMethod met4 = jc2.method(JMod.PRIVATE, jCodeModel.VOID, "persist");
+
+            met4.param(clazz, clazz.getSimpleName().toLowerCase());
+           // JVar parg = fclass;
+            jb1.invoke(met4).arg(st1);
+
+            jb1._return(st1);
+
+            JBlock perb = met4.body();
+            JTryBlock tryi = perb._try();
+            tryi.body().invoke(fld, "create").arg(st1);
+            tryi._catch(jCodeModel.ref(DBException.class)).body().invoke(JExpr.direct("_x"),
+                    "printStackTrace");
+
+            JBlock bBlock = met3.body();
+
+            iterator = 0;
+             bBlock._return((JInvocation) getInvocations(statv, jvm));
+
+          //  File file2 = new File(GEN_PATH + "/"+  PACKAGE_HANDLE.replace('.','/') +"/"+ clazz.getSimpleName() + "Factory"+ "Impl.java");
 
 
-
-           // ByteArrayOutputStream out = new ByteArrayOutputStream();
-           // jCodeModel.build(new SingleStreamCodeWriter(out));
-
-           // jCodeModel.build(new File("lv/javaguru/java2/core/domain/patterns/generated"));
-            //final File file=new File("./src/test/java");
-           // jCodeModel.build(new File("G:\\projects\\alex_stat\\Idea_git_clone\\bookingProject\\src\\main\\java\\lv\\javaguru\\java2\\core\\domain\\patterns"));
-           //\\main\\java\\lv\\javaguru\\java2\\core\\domain\\patterns"));
-
-            System.out.println("5555555555555555555555555555555555555555555555555555555555555555555555555555555555\n");
-            System.out.println("pack>>"+ jc.getPackage().name() +"\n");
-            System.out.println("_pack>>"+ jc._package().name() +"\n");
-            System.out.println("root_pack>>" + jCodeModel.rootPackage().name() + "\n");
-            URL url = getClass().getResource("Person.java");
-           // url.getPath();
-          //  System.out.println("URL>>" + url.getPath() + "\n");
-          //  File file = new File("src/main/java/lv/javaguru/java2/core/domain/patterns/generated");
+                jCodeModel.build(new File(GEN_PATH));
 
 
-            jCodeModel.build(new File("src/main/java/lv/javaguru/java2/core/domain/patterns/generated"));
+            /**
+             *  Init Factory Interface
+             */
+            jCodeModel = new JCodeModel();
 
+            JDefinedClass intr2 = jCodeModel._class(JMod.PUBLIC,  PACKAGE_HANDLE + clazz.getSimpleName() + "Factory", ClassType.INTERFACE);
+            Collection<JMethod> methods2 = jc2.methods();
+            for (JMethod m : methods2){
+                if (m.mods().getValue() == JMod.PUBLIC ){
+                  //  intr2.method(m.mods().getValue() ,m.type(), m.name() );
+                    JMethod inf2 =  intr2.method(JMod.NONE, m.type(), m.name());
+                    for (JVar vr: m.params()){
+                        inf2.param(vr.type(), vr.name());
+                    }
+                }
+
+            }
+            jCodeModel.build(new File(GEN_PATH));
 
         }  catch (Exception ex) {
             ex.printStackTrace();
