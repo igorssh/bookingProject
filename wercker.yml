@@ -15,3 +15,4 @@ build:
         name: maven build
         code: |
           mvn -version
+          java --version
