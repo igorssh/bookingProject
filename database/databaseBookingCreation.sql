@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 -- Database: `BookingProject`
 --
 
+CREATE DATABASE `bookingproject`;
+
 -- --------------------------------------------------------
 
 CREATE SCHEMA IF NOT EXISTS `bookingproject`
