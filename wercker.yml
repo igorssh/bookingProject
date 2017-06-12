@@ -2,8 +2,9 @@ box: maven:3.5.0-jdk-8
 
 services:
     - id: mariadb
-      username: booking
-      password: booking
+      env:
+        MYSQL_ROOT_USERNAME: booking
+        MYSQL_ROOT_PASSWORD: booking
 
 build:
   steps:
