@@ -1,9 +1,7 @@
-box: java:8
+box: maven:3.5.0-jdk-8
 
 build:
   steps:
-    - install-packages:
-        packages: maven
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
