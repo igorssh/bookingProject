@@ -24,5 +24,6 @@ build:
     - script:
         name: provision db
         code: |
-          mysql --host=$MARIADB_PORT_3306_TCP_ADDR --port=$MARIADB_PORT_3306_TCP_PORT --user=root --password=booking
-          mysql < database/databaseBookingCreation.sql
+          env
+#          mysql --host=$MARIADB_PORT_3306_TCP_ADDR --port=$MARIADB_PORT_3306_TCP_PORT --user=root --password=booking
+#          mysql < database/databaseBookingCreation.sql
