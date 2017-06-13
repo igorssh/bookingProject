@@ -32,4 +32,4 @@ build:
     - script:
         name: maven build
         code: |
-          mvn clean install
+          mysql --host=$MARIADB_PORT_3306_TCP_ADDR --user=root --password=$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT -e 'select * from clients' bookingproject
