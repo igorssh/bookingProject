@@ -19,11 +19,6 @@ provision:
         code: |
           mysql --host=$MARIADB_PORT_3306_TCP_ADDR --user=root --password=$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT < database/databaseBookingCreation.sql
           mysql --host=$MARIADB_PORT_3306_TCP_ADDR --user=root --password=$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT < database/databaseFillData.sql
-
-build:
-  steps:
-    - install-packages:
-        packages: mysql-client
     - script:
         name: maven build
         code: |
