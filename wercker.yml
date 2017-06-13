@@ -5,10 +5,11 @@ services:
       env:
         MYSQL_ROOT_USERNAME: booking
         MYSQL_ROOT_PASSWORD: booking
-      cmd: mysql < /pipeline/source/database/databaseBookingCreation.sql
 
 build:
   steps:
+    - install-packages:
+        packages: mysql
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
@@ -17,8 +18,7 @@ build:
         type: rsa
         local: true
     - script:
-        name: maven build
+        name: provision db
         code: |
-          mvn -version
-          echo ""
-          java -version
+          mysql --port=$MARIADB_PORT_3306_TCP_PORT --host=MARIADB_PORT_3306_TCP_ADDR --user=booking --password=booking
+          mysql < database/databaseBookingCreation.sql
