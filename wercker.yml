@@ -6,10 +6,20 @@ services:
         MYSQL_ROOT_PASSWORD: booking
         MYSQL_DATABASE: bookingproject
 
-build:
+provision:
   steps:
     - install-packages:
         packages: mysql-client netcat
+    - script:
+        name: "Wait for MariaDB connection"
+        code: |
+          while ! nc -q 1 $MARIADB_PORT_3306_TCP_ADDR $MARIADB_PORT_3306_TCP_PORT </dev/null; do sleep 3; done
+    - script:
+        name: provision db
+        code: |
+          mysql -h $MARIADB_PORT_3306_TCP_ADDR -u root -p$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT --protocol=TCP < database/databaseBookingCreation.sql
+
+build:
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
@@ -18,11 +28,6 @@ build:
         type: rsa
         local: true
     - script:
-        name: "Wait for MariaDB connection"
+        name: maven build
         code: |
-          while ! nc -q 1 $MARIADB_PORT_3306_TCP_ADDR $MARIADB_PORT_3306_TCP_PORT </dev/null; do sleep 3; done
-    - script:
-        name: provision db
-        code: |
-          env
-          mysql -h $MARIADB_PORT_3306_TCP_ADDR -u root -p$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT --protocol=TCP < database/databaseBookingCreation.sql
+          mvn clean install
