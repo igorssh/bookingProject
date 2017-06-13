@@ -9,7 +9,7 @@ services:
 build:
   steps:
     - install-packages:
-        packages: mysql-client
+        packages: mysql-client netcat
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
