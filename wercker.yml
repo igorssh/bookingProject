@@ -25,5 +25,4 @@ build:
         name: provision db
         code: |
           env
-          mysql -h $MARIADB_PORT_3306_TCP_ADDR -u root -p$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT --protocol=TCP
-          mysql < database/databaseBookingCreation.sql
+          mysql -h $MARIADB_PORT_3306_TCP_ADDR -u root -p$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT --protocol=TCP < database/databaseBookingCreation.sql
