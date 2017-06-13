@@ -22,6 +22,8 @@ provision:
 
 build:
   steps:
+    - install-packages:
+        packages: mysql-client
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
