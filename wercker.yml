@@ -5,7 +5,7 @@ services:
       env:
         MYSQL_ROOT_USERNAME: booking
         MYSQL_ROOT_PASSWORD: booking
-      cmd: mysql < /pipeline/source/database/databaseBookingCreation.sql
+      #cmd: mysql < /pipeline/source/database/databaseBookingCreation.sql
 
 build:
   steps:
