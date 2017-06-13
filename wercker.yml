@@ -20,6 +20,7 @@ provision:
           mysql -h $MARIADB_PORT_3306_TCP_ADDR -u root -p$MARIADB_ENV_MYSQL_ROOT_PASSWORD --port=$MARIADB_PORT_3306_TCP_PORT --protocol=TCP < database/databaseBookingCreation.sql
 
 build:
+  steps:
     - add-ssh-key:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
